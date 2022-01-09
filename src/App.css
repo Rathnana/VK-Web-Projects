@@ -1,0 +1,35 @@
+.side-bar {
+    font-family: 'Siemreap';
+    font-weight: bold;
+    /* font-size: 12pt !important; */
+    color: white !important;
+}
+body, html {
+ font-family: 'Siemreap' !important;
+}
+.site-card-wrapper{
+    margin-top: 5px !important;
+}
+
+.ant-card-body{
+    padding: 10px !important;
+}
+.ant-page-header-heading-title{
+    font-family: Moul;
+    font-weight: normal !important;
+    color: #1983e6 !important;
+}
+.Info-table{
+    background: "#9cab18" !important
+}
+.create-request{
+    position: relative;
+}
+.create-request button{
+   position: absolute;
+   right: 50px;
+}
+
+.ant-drawer-wrapper-body{
+    background-color: #c8d556 !important;
+}
