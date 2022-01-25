@@ -6,7 +6,7 @@ import { Creat_Construction } from '../../getDatabase'
 
 const { Option } = Select;
 
-export default function CreateConstruction() {
+export default function CreateConstruction({ setSuccess }) {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [construction, setConstruction] = useState({
         constructionName: '',
@@ -27,24 +27,47 @@ export default function CreateConstruction() {
     };
     const handleOk = () => {
 
-        setIsModalVisible(false);
-        Creat_Construction(
-            construction.constructionName,
-            construction.customerId,
-            construction.customerName,
-            construction.customerNumber,
-            construction.c_address,
-            construction.constructingType,
-            construction.countFloor,
-            construction.startDate.format('YYYY-MM-DD'),
-            construction.endDate.format('YYYY-MM-DD'),
-            construction.c_remark,
-            construction.c_status
-        )
 
-        message.success('ស្នើសុំជោជ័យ!');
+        if (construction.constructionName === ""
+            && construction.startDate === ""
+            && construction.endDate === ""
+            && construction.customerName === ""
+        ) {
+            message.error('សូមទិន្នន័យសំខាន់ៗ');
+        } else {
 
-        // setTimeout(() => window.location.reload(), 300);
+            setIsModalVisible(false);
+            Creat_Construction(
+                construction.constructionName,
+                construction.customerId,
+                construction.customerName,
+                construction.customerNumber,
+                construction.c_address,
+                construction.constructingType,
+                construction.countFloor,
+                construction.startDate.format('YYYY-MM-DD'),
+                construction.endDate.format('YYYY-MM-DD'),
+                construction.c_remark,
+                construction.c_status
+            )
+
+            message.success('ស្នើសុំជោជ័យ!');
+            setConstruction({
+                constructionName: '',
+                customerId: '',
+                customerName: '',
+                customerNumber: '',
+                c_address: '',
+                constructingType: '',
+                countFloor: '',
+                startDate: '',
+                endDate: '',
+                c_remark: '',
+                c_status: ''
+
+            })
+            setSuccess(true)
+        }
 
     };
 
@@ -55,7 +78,7 @@ export default function CreateConstruction() {
     return (
         <div>
 
-            <Button onClick={showModal} type="primary">+ បន្ថែមថ្មី</Button>
+            <Button style={{ position: "absolute", right: 0 }} onClick={showModal} type="primary">+ បន្ថែមថ្មី</Button>
             <Modal
                 title="បន្ថែមការដ្ឋាន"
                 visible={isModalVisible}
@@ -72,7 +95,7 @@ export default function CreateConstruction() {
                                 placeholder="បញ្ជូល ID"
                                 style={{ width: '220px' }}
                                 size="large"
-                                defaultValue={construction.customerId}
+                                value={construction.customerId}
                                 onChange={(e) => setConstruction({ ...construction, customerId: e.target.value })}
                             />
                         </Col>
@@ -82,7 +105,7 @@ export default function CreateConstruction() {
                                 placeholder="ឈ្មោះការដ្ខាន"
                                 style={{ width: '220px' }}
                                 size="large"
-                                defaultValue={construction.constructionName}
+                                value={construction.constructionName}
                                 onChange={(e) => setConstruction({ ...construction, constructionName: e.target.value })}
                             />
                         </Col>
@@ -97,7 +120,7 @@ export default function CreateConstruction() {
                                 placeholder="ប្រភេទ"
                                 style={{ width: '220px' }}
                                 size="large"
-                                defaultValue={construction.constructingType}
+                                value={construction.constructingType}
                                 onChange={(e) => setConstruction({ ...construction, constructingType: e.target.value })}
                             />
                         </Col>
@@ -107,7 +130,7 @@ export default function CreateConstruction() {
                                 placeholder="ជាន់"
                                 style={{ width: '220px' }}
                                 size="large"
-                                defaultValue={construction.countFloor}
+                                value={construction.countFloor}
                                 onChange={(e) => setConstruction({ ...construction, countFloor: e.target.value })}
                             />
                         </Col>
@@ -118,7 +141,7 @@ export default function CreateConstruction() {
                 <Input
                     placeholder="ទីតាំង"
                     size="large"
-                    defaultValue={construction.c_address}
+                    value={construction.c_address}
                     onChange={(e) => setConstruction({ ...construction, c_address: e.target.value })}
                 />
                 < br />
@@ -130,7 +153,8 @@ export default function CreateConstruction() {
                             <DatePicker
                                 size="large"
                                 style={{ width: '220px' }}
-                                defaultValue={construction.startDate}
+                                value={construction.startDate}
+                                placeholder="ថ្ងៃចាប់ផ្ដើម"
                                 onChange={(e) => setConstruction({ ...construction, startDate: e })}
                             />
                         </Col>
@@ -139,7 +163,8 @@ export default function CreateConstruction() {
                             <DatePicker
                                 size="large"
                                 style={{ width: '220px' }}
-                                defaultValue={construction.endDate}
+                                value={construction.endDate}
+                                placeholder="ថ្ងៃបញ្ចប់"
                                 onChange={(e) => setConstruction({ ...construction, endDate: e })}
                             />
 
@@ -155,7 +180,7 @@ export default function CreateConstruction() {
                                 placeholder="ស្ថានភាព"
                                 style={{ width: '220px' }}
                                 size="large"
-                                defaultValue={construction.c_status}
+                                value={construction.c_status}
                                 onChange={(e) => setConstruction({ ...construction, c_status: e.target.value })}
                             />
                         </Col>
@@ -165,7 +190,7 @@ export default function CreateConstruction() {
                                 placeholder="ផ្សេងៗ"
                                 style={{ width: '220px' }}
                                 size="large"
-                                defaultValue={construction.c_remark}
+                                value={construction.c_remark}
                                 onChange={(e) => setConstruction({ ...construction, c_remark: e.target.value })}
                             />
                         </Col>

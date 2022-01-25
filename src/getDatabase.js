@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { openErrorNotification } from './own-comp'
+import { message } from 'antd';
 
 export const getUser = async () => {
     const params = new URLSearchParams();
@@ -22,31 +23,48 @@ export const getUser = async () => {
         });
 }
 
-export const Add_New_User = async (username, password, role) => {
+export const Add_New_User = async (user) => {
     const params = new URLSearchParams();
     params.append('db_user', process.env.React_App_DB_USER);
     params.append('db_password', process.env.React_App_DB_PASSWORD);
     params.append('db', process.env.React_App_DB);
 
-    params.append('data', JSON.stringify({ username, password, role }));
+    params.append('data', JSON.stringify({
+        username: user.username,
+        password: user.password,
+        role: user.role,
+        lastName: user.lastName,
+        firstName: user.firstName
+    }));
 
     return await axios.post(
         `${process.env.React_App_URL}/create/createUser.php`, params
     )
         .then(async function (response) {
             console.log(response?.data)
-
+            if (response?.data === "success") {
+                message.success('បង្កើតអ្នកប្រើប្រាស់ជោគជ័យ!!!')
+            } else {
+                message.error('បង្កើតអ្នកប្រើប្រាស់មានបញ្ហា!!')
+            }
         });
 }
 
 
-export const Update_User = async (username, role, u_id) => {
+export const Update_User = async (users, u_id) => {
     const params = new URLSearchParams();
     params.append('db_user', process.env.React_App_DB_USER);
     params.append('db_password', process.env.React_App_DB_PASSWORD);
     params.append('db', process.env.React_App_DB);
 
-    params.append('data', JSON.stringify({ username, role, status: true, u_id }));
+    params.append('data', JSON.stringify({
+        username: users.username,
+        role: users.role,
+        lastName: users.lastName,
+        firstName: users.firstName,
+        status: true,
+        u_id
+    }));
 
     return await axios.post(
         `${process.env.React_App_URL}/update/updateUserById.php`, params
@@ -54,22 +72,28 @@ export const Update_User = async (username, role, u_id) => {
         .then(async function (response) {
             console.log(response?.data)
 
+            if (response?.data === "success") {
+                message.success('ធ្វើបច្ចុប្បន្នភាពរួចរាល់!!')
+            } else {
+                message.error('ធ្វើបច្ចុប្បន្នភាពមានបញ្ហា!!')
+            }
         });
 }
 
-export const Create_Request = async (requestFor, constructionId, date, needDate, r_status) => {
+export const Create_Request = async (requests, createdBy) => {
     const params = new URLSearchParams();
     params.append('db_user', process.env.React_App_DB_USER);
     params.append('db_password', process.env.React_App_DB_PASSWORD);
     params.append('db', process.env.React_App_DB);
 
     params.append('data', JSON.stringify({
-        requestFor,
-        constructionId,
-        date,
-        needDate,
-        r_status,
-
+        constructionId: requests.constructionId,
+        date: requests.date.format('YYYY-MM-DD'),
+        needDate: requests.needDate.format('YYYY-MM-DD'),
+        requestTo: requests.requestTo,
+        purpose: requests.purpose,
+        requests: requests.requests,
+        createdBy
     }));
 
     return await axios.post(
@@ -77,7 +101,47 @@ export const Create_Request = async (requestFor, constructionId, date, needDate,
     )
         .then(async function (response) {
             console.log(response?.data)
+            // message.success('ស្នើសុំជោជ័យ!');
+            if (response?.data === "success") {
+                message.success('ស្នើសុំជោជ័យ!!')
+            } else {
+                message.error('ស្នើសុំមានបញ្ហា!!')
+            }
+        });
+}
 
+export const update_Request = async (
+    values, r_id
+
+) => {
+    // console.log(values, r_id);
+    // format('YYYY-MM-DD')
+    const params = new URLSearchParams();
+    params.append('db_user', process.env.React_App_DB_USER);
+    params.append('db_password', process.env.React_App_DB_PASSWORD);
+    params.append('db', process.env.React_App_DB);
+
+    params.append('data', JSON.stringify({
+        r_id,
+        constructionId: values?.constructionId,
+        date: values?.date?.format('YYYY-MM-DD'),
+        needDate: values?.needDate?.format('YYYY-MM-DD'),
+        // createdBy: values?.createdBy,
+        requestTo: values?.requestTo,
+        purpose: values?.purpose,
+        requests: values?.requests
+    }));
+
+    return await axios.post(
+        `${process.env.React_App_URL}/update/updateRequestById.php`, params
+    )
+        .then(async function (response) {
+            console.log(response?.data)
+            if (response?.data === "success") {
+                message.success('កែប្រែស្នើសុំជោជ័យ!!')
+            } else {
+                message.error('កែប្រែស្នើសុំមានបញ្ហា!!')
+            }
         });
 }
 
@@ -123,23 +187,8 @@ export const Creat_Construction = async (
 }
 
 export const Creat_Customer = async (
-    constructionName,
-    customerName,
-    tel,
-    gender,
-    maritalStatus,
-    partnerName,
-    partnerGender,
-    taskType,
-    constructionType,
-    constructionLocation,
-    countFloor,
-    mapLink,
-    priority,
-    showInDashboard,
-    startDate,
-    endDate,
-    remark,
+    customer
+
     // customerId
 ) => {
     const params = new URLSearchParams();
@@ -148,24 +197,26 @@ export const Creat_Customer = async (
     params.append('db', process.env.React_App_DB);
 
     params.append('data', JSON.stringify({
-        constructionName,
-        customerName,
-        tel,
-        gender,
-        maritalStatus,
-        partnerName,
-        partnerGender,
-        taskType,
-        constructionType,
-        constructionLocation,
-        countFloor,
-        mapLink,
-        priority,
-        showInDashboard,
-        startDate,
-        endDate,
-        remark,
-        // customerId
+        constructionName: customer?.constructionName,
+        customerName: customer?.customerName,
+        tel: customer?.tel,
+        gender: customer?.gender,
+        maritalStatus: customer?.maritalStatus,
+        partnerName: customer?.partnerName,
+        partnerGender: customer?.partnerGender,
+        taskType: customer?.taskType,
+        constructionType: customer?.constructionType,
+        constructionLocation: customer?.constructionLocation,
+        countFloor: customer?.countFloor,
+        mapLink: customer?.mapLink,
+        priority: customer?.priority,
+        showInDashboard: customer?.showInDashboard,
+        startDate: customer?.startDate?.format('YYYY-MM-DD'),
+        endDate: customer?.endDate?.format('YYYY-MM-DD'),
+        remark: customer?.remark,
+        landNumber: customer?.landNumber,
+        landOfficerName: customer?.landOfficerName,
+
     }));
 
     return await axios.post(
@@ -173,60 +224,122 @@ export const Creat_Customer = async (
     )
         .then(async function (response) {
             console.log(response?.data)
-
+            if (response?.data === "success") {
+                // message.success('បង្កើតជោជ័យ!!')
+                return true
+            } else {
+                // message.error('បង្កើតមានបញ្ហា!!')
+                return false
+            }
         });
 }
 
 export const Update_Customer = async (
-    id,
-    constructionName,
-    customerName,
-    tel,
-    gender,
-    maritalStatus,
-    partnerName,
-    partnerGender,
-    taskType,
-    constructionType,
-    constructionLocation,
-    countFloor,
-    mapLink,
-    priority,
-    showInDashboard,
-    startDate,
-    endDate,
-    remark,) => {
+    customer,
+    c_id,
+
+) => {
+    // console.log(customer);
     const params = new URLSearchParams();
     params.append('db_user', process.env.React_App_DB_USER);
     params.append('db_password', process.env.React_App_DB_PASSWORD);
     params.append('db', process.env.React_App_DB);
 
     params.append('data', JSON.stringify({
-        id,
-        constructionName,
-        customerName,
-        tel,
-        gender,
-        maritalStatus,
-        partnerName,
-        partnerGender,
-        taskType,
-        constructionType,
-        constructionLocation,
-        countFloor,
-        mapLink,
-        priority,
-        showInDashboard,
-        startDate,
-        endDate,
-        remark,
+        constructionName: customer?.constructionName,
+        customerName: customer?.customerName,
+        tel: customer?.tel,
+        gender: customer?.gender,
+        maritalStatus: customer?.maritalStatus,
+        partnerName: customer?.partnerName,
+        partnerGender: customer?.partnerGender,
+        taskType: customer?.taskType,
+        constructionType: customer?.constructionType,
+        constructionLocation: customer?.constructionLocation,
+        countFloor: customer?.countFloor,
+        mapLink: customer?.mapLink,
+        priority: customer?.priority,
+        showInDashboard: customer?.showInDashboard,
+        startDate: customer?.startDate?.format('YYYY-MM-DD'),
+        endDate: customer?.endDate?.format('YYYY-MM-DD'),
+        remark: customer?.remark,
+        landNumber: customer?.landNumber,
+        landOfficerName: customer?.landOfficerName,
+        c_id
     }));
+
+
 
     return await axios.post(
         `${process.env.React_App_URL}/update/updateCustomerById.php`, params
     )
         .then(async function (response) {
             console.log(response?.data)
+            if (response?.data === "success") {
+                return true
+            } else {
+                return false
+            }
+        });
+}
 
+export const Creat_PettyCash = async (
+    pettyCash,
+    lendedBy,
+) => {
+    const params = new URLSearchParams();
+    params.append('db_user', process.env.React_App_DB_USER);
+    params.append('db_password', process.env.React_App_DB_PASSWORD);
+    params.append('db', process.env.React_App_DB);
+
+    params.append('data', JSON.stringify({
+        date: pettyCash?.date.format('YYYY-MM-DD'),
+        borrowPerson: pettyCash?.borrowPerson,
+        remark: pettyCash?.remark,
+        lendedBy,
+        totalCash: pettyCash?.totalCash,
+    }));
+
+    return await axios.post(
+        `${process.env.React_App_URL}/create/createPrettyCash.php`, params
+    )
+        .then(async function (response) {
+            console.log(response?.data)
+            if (response?.data === "success") {
+                message.success('បង្កើត Petty Cash ជោជ័យ!!')
+            } else {
+                message.error('បង្កើត Petty Cash មានបញ្ហា!!')
+            }
+        });
+}
+
+export const Update_PettyCash = async (
+    pettyCash,
+    pc_id
+) => {
+    const params = new URLSearchParams();
+    params.append('db_user', process.env.React_App_DB_USER);
+    params.append('db_password', process.env.React_App_DB_PASSWORD);
+    params.append('db', process.env.React_App_DB);
+
+    params.append('data', JSON.stringify({
+        pc_id,
+        date: pettyCash?.date?.format('YYYY-MM-DD'),
+        borrowPerson: pettyCash?.borrowPerson,
+        remark: pettyCash?.remark,
+        totalCash: pettyCash?.totalCash,
+        status: pettyCash?.status,
+    }));
+
+    return await axios.post(
+        `${process.env.React_App_URL}/update/updatePrettyCashById.php`, params
+    )
+        .then(async function (response) {
+            console.log(response?.data)
+            if (response?.data === "success") {
+                message.success('Update Petty Cash សុំជោជ័យ!!')
+            } else {
+                message.error('Update Petty Cash សុំមានបញ្ហា!!')
+            }
         });
 }

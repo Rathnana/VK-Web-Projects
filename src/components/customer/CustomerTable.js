@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Table, Space } from 'antd';
-// import EditRequest from './EditRequest';
-// import DeleteRequest from './DeleteRequest';
 import axios from 'axios'
 import UpdateCustomer from './UpdateCustomer';
 import DelectCustomer from './DelectCustomer';
-// import DeleteContruction from './DeleteContruction';
 
 
 export default function CustomerTable({
@@ -15,8 +12,6 @@ export default function CustomerTable({
     success
 }) {
     const [customer, setCustomer] = useState();
-
-
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(20);
 
@@ -42,11 +37,10 @@ export default function CustomerTable({
                     // console.log(response?.data.data)
                     setLoading(false);
                     setSuccess(false);
-                    setCustomer(response?.data.data)
+                    setCustomer(response?.data)
                     return response?.data;
                 } else {
-                    // openErrorNotification({ title: 'Failed', message: response.data })
-                    console.log(response.data)
+
                     return [];
                 }
             });
@@ -54,21 +48,20 @@ export default function CustomerTable({
     const columns = [
         {
             title: 'លរ',
-            dataIndex: 'c_id',
-            key: 'c_id',
-            fixed: 'left',
+            dataIndex: 'no',
+            key: 'no',
         },
         {
             title: 'ID',
             dataIndex: 'customerId',
             key: 'customerId',
-            fixed: 'left'
+            
         },
         {
             title: 'ឈ្មោះអតិថិជន',
             dataIndex: 'customerName',
             key: 'customerName',
-            fixed: 'left'
+           
         },
         {
             title: 'ភេទ',
@@ -159,38 +152,40 @@ export default function CustomerTable({
                 <Space size="middle">
                     <UpdateCustomer
                         setSuccess={setSuccess}
-                        id={record.c_id}
-                        constructionName={record.constructionName}
-                        customerName={record.customerName}
-                        tel={record.tel}
-                        gender={record.gender}
-                        maritalStatus={record.maritalStatus}
-                        partnerName={record.partnerName}
-                        partnerGender={record.partnerGender}
-                        taskType={record.taskType}
-                        constructionType={record.constructionType}
-                        constructionLocation={record.constructionLocation}
-                        countFloor={record.countFloor}
-                        mapLink={record.mapLink}
-                        priority={record.priority}
-                        showInDashboard={record.showInDashboard}
-                        startDate={record.startDate}
-                        endDate={record.endDate}
-                        remark={record.remark}
+                        c_id={record.c_id}
+                        customer={record}
                     />
-                    <DelectCustomer id={record.c_id} />
+                    <DelectCustomer setSuccess={setSuccess} id={record.c_id} />
                 </Space>
             ),
         },
     ];
+    let tableDataWithNo = []
+
+    customer?.data?.map((record, index) => {
+
+        let pageAdd = page > 1 ? ((page * pageSize) - pageSize) + 1 : 1;
+
+        let data = { ...record, no: (customer?.totalDoc - (pageAdd + index)) + 1 }
+        tableDataWithNo.push(data)
+
+    })
 
     return (
         <Table
             columns={columns}
-            dataSource={customer}
+            dataSource={tableDataWithNo}
             scroll={{ x: 2200 }}
             loading={loading}
             style={{ marginTop: "20px" }}
+            pagination={{
+                position: ["bottomLeft"],
+                size: 'small',
+                total: customer?.totalDoc,
+                pageSizeOptions: false,
+                pageSize: pageSize,
+                onChange: ((page, pageSize) => { setPage(page); setPageSize(pageSize) })
+            }}
         />
     )
 }

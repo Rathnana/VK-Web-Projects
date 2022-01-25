@@ -3,56 +3,29 @@ import { Table, Space } from 'antd';
 import axios from 'axios'
 import DelectUser from './DelectUser';
 import EditUser from './EditUser';
-import { Spin, Alert } from 'antd';
 
-const columns = [
-    {
-        title: 'ឈ្មោះ',
-        dataIndex: 'username',
-        key: 'username',
 
-    },
-    {
-        title: 'លេខសម្ងាត',
-        dataIndex: 'password',
-        key: 'password',
-    },
-    {
-        title: 'ប្រភេទ',
-        dataIndex: 'role',
-        key: 'role',
-    },
-    {
-        key: 'action',
-        render: (text, record) => (
-            <Space size="middle">
-
-                <EditUser role={record.role} username={record.username} password={record.password} userid={record.u_id} />
-            </Space>
-        ),
-    },
-    {
-        key: 'delect',
-        render: (text, record) => (
-            <Space size="middle">
-                <DelectUser userid={record.u_id} />
-
-            </Space>
-        ),
-    },
-
-];
-export default function UsersTable() {
-    const [users, setUsers] = useState([])
+export default function UsersTable({
+    setLoading,
+    loading,
+    setSuccess,
+    success
+}) {
+    const [users, setUsers] = useState([]);
+    const [page, setPage] = useState(1);
+    const [pageSize, setPageSize] = useState(20);
     useEffect(() => {
-        getUser()
-    }, [])
+        getUsers();
+        setLoading(true);
+    }, [success])
 
-    const getUser = async () => {
+    const getUsers = async () => {
         const params = new URLSearchParams();
         params.append('db_user', process.env.React_App_DB_USER);
         params.append('db_password', process.env.React_App_DB_PASSWORD);
-        params.append('db', 'wwvka_vkms', process.env.React_App_DB);
+        params.append('db', process.env.React_App_DB);
+        params.append('page', page)
+        params.append('pageSize', pageSize)
 
         return await axios.post(
             `${process.env.React_App_URL}/get/getUser.php`, params
@@ -60,24 +33,82 @@ export default function UsersTable() {
             .then(async function (response) {
 
                 if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
-                    console.log(response?.data)
                     setUsers(response?.data)
+                    setLoading(false);
+                    setSuccess(false);
                     return response?.data;
                 } else {
-                    // openErrorNotification({ title: 'Failed', message: response.data })
+                    setLoading(true)
                     return [];
                 }
             });
     }
-    return users ? <Table
+
+    const columns = [
+        {
+            title: 'លរ',
+            dataIndex: 'no',
+            key: 'no',
+        },
+        {
+            title: 'ឈ្មោះ',
+            dataIndex: 'username',
+            key: 'username',
+
+        },
+        {
+            title: 'គោត្តនាម',
+            dataIndex: 'lastName',
+            key: 'lastName',
+
+        },
+        {
+            title: 'នាម',
+            dataIndex: 'firstName',
+            key: 'firstName',
+
+        },
+        {
+            title: 'ប្រភេទ',
+            dataIndex: 'role',
+            key: 'role',
+        },
+        {
+            key: 'action',
+            render: (text, record) => (
+                <Space size="large">
+                    <EditUser setSuccess={setSuccess} users={record} userId={record?.u_id} />
+                    <DelectUser setSuccess={setSuccess} userid={record?.u_id} />
+                </Space>
+            ),
+        }
+
+    ];
+
+    let tableDataWithNo = []
+
+    users?.data?.map((record, index) => {
+
+        let pageAdd = page > 1 ? ((page * pageSize) - pageSize) + 1 : 1;
+
+        let data = { ...record, no: (users?.totalDoc - (pageAdd + index)) + 1 }
+        tableDataWithNo.push(data)
+
+    })
+    return <Table
+        style={{ marginTop: "20px" }}
         columns={columns}
-        dataSource={users}
-        style={{ marginRight: 10 }}
-    /> : <Spin tip="Loading...">
-        <Alert
-            message="Alert message title"
-            description="Further details about the context of this alert."
-            type="info"
-        />
-    </Spin>
+        dataSource={tableDataWithNo}
+        loading={loading}
+        rowKey={record => record?.u_id}
+        pagination={{
+            position: ["bottomLeft"],
+            size: 'small',
+            total: users?.totalDoc,
+            pageSizeOptions: false,
+            pageSize: pageSize,
+            onChange: ((page, pageSize) => { setPage(page); setPageSize(pageSize) })
+        }}
+
+    />
 }

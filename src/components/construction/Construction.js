@@ -9,12 +9,16 @@ const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 const { Title } = Typography;
 
 export default function Construction() {
+    const [success, setSuccess] = React.useState(false);
+    const [loading, setLoading] = React.useState(true);
     return (
-        <Row
-            style={{ paddingLeft: "20px" }}
+        <div
+            style={{
+                padding: "20px",
+            }}
         >
             {/* Header ---------------------------------------------------- */}
-            <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+            <Row>
                 <Title
                     style={{
                         fontFamily: 'Moul',
@@ -25,30 +29,30 @@ export default function Construction() {
                 >
                     {`តារាងការដ្ឋាន`}
                 </Title>
-                <Row>
-                    <Col xs={12} sm={12} md={12} lg={12} xl={12}>
-                        <Title level={5}>
-                            <Space size='middle'>
-                                <Input placeholder="ឈ្មោះការដ្ឋាន" />
-                                <DatePicker placeholder="កាលបរិច្ឆេទ" defaultValue={moment()} format={dateFormatList} />
-                                <Button type="primary">OK</Button>
-                            </Space>
-                        </Title>
-                    </Col>
-                    <Col
-                        xs={12} sm={12} md={12} lg={12} xl={12}
-                        className="create-request"
-                    >
-                        <CreateConstruction />
-                    </Col>
-                </Row>
-            </Col>
+            </Row>
+            <Row>
+                <Col xs={20} sm={20} md={20} lg={20} xl={20}>
+                    <Space size='middle'>
+                        <Input placeholder="ឈ្មោះការដ្ឋាន" />
+                        <DatePicker placeholder="កាលបរិច្ឆេទ" defaultValue={moment()} format={dateFormatList} />
+                        <Button type="primary">OK</Button>
+                    </Space>
+                </Col>
+                <Col xs={4} sm={4} md={4} lg={4} xl={4} style={{ position: "relative" }} >
+                    <CreateConstruction setSuccess={setSuccess} />
+                </Col>
+            </Row>
+            <Row>
+                <Col xs={24} sm={24} md={24} lg={24} xl={24}>
 
-            <Col
-                xs={24} sm={24} md={24} lg={24} xl={24}
-            >
-                <ConstructionTable />
-            </Col>
-        </Row>
+                    <ConstructionTable
+                        setLoading={setLoading}
+                        loading={loading}
+                        setSuccess={setSuccess}
+                        success={success}
+                    />
+                </Col>
+            </Row>
+        </div >
     )
 }

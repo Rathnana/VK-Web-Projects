@@ -21,7 +21,7 @@ export default function Sidebar() {
 
         <Menu
             mode="inline"
-            style={{ height: height, background: "#c8d556" }}
+            style={{ height: 1000, background: "#c8d556" }}
             className="side-bar"
             onClick={(e) => handleClick(e)}
             selectedKeys={[current]}
@@ -47,14 +47,11 @@ export default function Sidebar() {
             <Menu.Item key="/customer">
                 <Link to="/customer">អតិថិជន</Link>
             </Menu.Item>
-            <Menu.Item key="/unlaw_work">
-                <Link to="/unlaw_work">ការងាររត់ច្បាប់</Link>
+            <Menu.Item key="/petty_cash">
+                <Link to="/petty_cash">តារាង Petty Cash</Link>
             </Menu.Item>
             <Menu.Item key="/requesting">
                 <Link to="/requesting">ស្នើរសុំសម្ភារៈ</Link>
-            </Menu.Item>
-            <Menu.Item key="/construction">
-                <Link to="/construction">តារាងការដ្ឋាន</Link>
             </Menu.Item>
             <Menu.Item key="/users">
                 <Link to="/users">អ្នកប្រើប្រាស់</Link>

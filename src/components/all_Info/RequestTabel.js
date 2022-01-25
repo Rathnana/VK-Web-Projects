@@ -1,82 +1,98 @@
-import React from 'react'
-import { Table, Tag, Space } from 'antd';
+import React, { useEffect, useState } from 'react'
+import { Table } from 'antd';
+import axios from 'axios'
+
 const columns = [
     {
-        title: 'អតិថិជន',
-        dataIndex: 'name',
-        key: 'name',
-        render: text => <a>{text}</a>,
+        title: 'លរ',
+        dataIndex: 'no',
+        key: 'no',
     },
     {
-        title: 'ការងារ',
-        dataIndex: 'age',
-        key: 'age',
+        title: 'ថ្ងៃស្នើសុំ',
+        dataIndex: 'date',
+        key: 'date',
     },
     {
-        title: 'ថ្ងៃចាប់ផ្ដើម',
-        dataIndex: 'address',
-        key: 'address',
+        title: 'ថ្ងៃត្រូវការ',
+        dataIndex: 'needDate',
+        key: 'needDate',
     },
     {
-        title: 'ស្ថានភាព',
-        key: 'tags',
-        dataIndex: 'tags',
-        render: tags => (
-            <>
-                {tags.map(tag => {
-                    let color = tag.length > 5 ? 'geekblue' : 'green';
-                    if (tag === 'loser') {
-                        color = 'volcano';
-                    }
-                    return (
-                        <Tag color={color} key={tag}>
-                            {tag.toUpperCase()}
-                        </Tag>
-                    );
-                })}
-            </>
-        ),
+        title: "ស្នើរទៅកាន់",
+        dataIndex: "requestTo",
+        key: "requestTo"
     },
     {
-        title: 'ផ្សេងៗ',
-        key: 'action',
-        render: (text, record) => (
-            <Space size="middle">
-                <a>Invite {record.name}</a>
-            </Space>
-        ),
+        title: 'សម្រាប់ការដ្ឋាន',
+        dataIndex: 'constructionName',
+        key: 'constructionName',
     },
+    {
+        title: 'គោលបំណង',
+        dataIndex: 'purpose',
+        key: 'purpose',
+    },
+    {
+        title: 'អ្នកស្នើរសុំ',
+        dataIndex: 'createdBy',
+        key: 'createdBy',
+    }
 ];
 
-const data = [
-    {
-        key: '1',
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-        tags: ['nice', 'developer'],
-    },
-    {
-        key: '2',
-        name: 'Jim Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-        tags: ['loser'],
-    },
-    {
-        key: '3',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sidney No. 1 Lake Park',
-        tags: ['cool', 'teacher'],
-    },
-];
+
 export default function RequestTabel() {
+    const [request, setRequest] = useState()
+    const [loading, setLoading] = React.useState(true);
+    const [page, setPage] = useState(1);
+    const [pageSize, setPageSize] = useState(4);
+    useEffect(() => {
+        getRequest();
+         setLoading(true);
+    }, [])
+    const getRequest = async () => {
+
+        const params = new URLSearchParams();
+        params.append('db_user', process.env.React_App_DB_USER);
+        params.append('db_password', process.env.React_App_DB_PASSWORD);
+        params.append('db', process.env.React_App_DB);
+        params.append('data', JSON.stringify({ page: page, pageSize: pageSize }))
+
+
+        return await axios.post(
+            `${process.env.React_App_URL}/get/getRequestWithPagination.php`, params
+        )
+            .then(async function (response) {
+
+                if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
+
+                    setRequest(response?.data);
+                    setLoading(false);
+                    // console.log(response?.data.data)
+                    return response?.data;
+                } else {
+                    console.log(response.data)
+                    return [];
+                }
+            });
+    }
+    let tableDataWithNo = []
+
+    request?.data?.map((record, index) => {
+
+        let pageAdd = page > 1 ? ((page * pageSize) - pageSize) + 1 : 1;
+
+        let data = { ...record, no: (request?.totalDoc - (pageAdd + index)) + 1 }
+        tableDataWithNo.push(data)
+
+    })
     return (
         <Table
             columns={columns}
-            dataSource={data}
             pagination={false}
+            scroll={{ x: 1000 }}
+            dataSource={tableDataWithNo}
+            loading={loading}
         />
     )
 }

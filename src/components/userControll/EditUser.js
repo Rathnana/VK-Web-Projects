@@ -1,75 +1,118 @@
-import React, { useState } from 'react'
-import { Modal, Select, Input, message } from 'antd';
-import { Update_User } from '../../getDatabase'
+import React, { useEffect, useState } from 'react'
+import { AiOutlineEdit } from "react-icons/ai";
+import { Modal, Button, Select, Input, Form, Row, Col } from 'antd';
+import { Update_User } from '../../getDatabase';
+
 const { Option } = Select;
-export default function EditUser({ role, password, username, userid }) {
+
+export default function EditUser({ setSuccess, users, userId }) {
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const [user, setUser] = useState({
-        username: username,
-        password: password,
-        role: role
-    })
+    const [form] = Form.useForm();
+
     const showModal = () => {
         setIsModalVisible(true);
     };
 
-    const handleOk = () => {
-
-        if (user.username && user.role) {
-            setIsModalVisible(false);
-            Update_User(user.username, user.role, userid)
-
-            message.success('បានកែប្រែជោគជ័យ!')
-            setTimeout(() => window.location.reload(), 100);
-        } else {
-            message.error('សូមបំពេញគ្រប់ Input Box ទាំងអស់!')
+    useEffect(() => {
+        if (users) {
+            form.setFieldsValue(users)
         }
+    }, [])
+
+
+    const onFinish = (values) => {
+        setIsModalVisible(false)
+        Update_User(values, userId)
+        setSuccess(true)
+       
     };
 
-    const handleCancel = () => {
-        setIsModalVisible(false);
-    };
-    function handleChange(value) {
-        setUser({ ...user, role: value })
-    }
 
     return (
         <div>
 
-            <a onClick={showModal}>កែប្រែ</a>
-            <Modal
-                title="បន្ថែមអ្នកប្រើប្រាស់"
-                visible={isModalVisible}
-                onOk={handleOk}
-                onCancel={handleCancel}
-                okText="Create"
-            >
-                <p>ឈ្មោះអ្នកប្រើប្រាស់</p>
-                <Input
-                    id="username"
-                    defaultValue={user.username}
-                    size="large"
-                    placeholder="ឈ្មោះអ្នកប្រើប្រាស់"
-                    allowClear
-                    style={{
-                        marginTop: '-20px'
-                    }}
-                    onChange={(e) => setUser({ ...user, username: e.target.value })}
-                />
+            <Button onClick={showModal} type="primary" shape="circle" icon={<AiOutlineEdit style={{ marginTop: '5px' }} />} size='middle' />
 
-                <br />
-                < br />
-                <p>ប្រភេទអ្នកប្រើប្រាស់</p>
-                <Select
-                    defaultValue={user.role}
-                    size="large"
-                    onChange={handleChange}
-                    style={{ width: '100%' }}
+            <Modal
+                title="ធ្វើបច្ចុប្បន្នភាពអ្នកប្រើប្រាស់"
+                visible={isModalVisible}
+                onCancel={() => setIsModalVisible(false)}
+                okText="កែប្រែ"
+                cancelText="បោះបង់"
+                okButtonProps={{ form: 'edit-User-form', key: 'submit', htmlType: 'submit' }}
+            >
+                <Form
+                    form={form}
+                    id='edit-User-form' layout="vertical" onFinish={onFinish}
                 >
-                    <Option value="Admin">Admin</Option>
-                    <Option value="Manangement">Manangement</Option>
-                    <Option value="User">User</Option>
-                </Select>
+
+                    <Row gutter={10}>
+                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                            <Form.Item
+                                name="lastName"
+                                label="គោត្តនាម"
+                                rules={[{ required: true, message: "សូមបញ្ជូលគោត្តនាម!!" }]}
+                            >
+                                <Input
+                                    placeholder='គោត្តនាម'
+                                    size='large'
+                                    allowClear
+
+                                />
+                            </Form.Item>
+                        </Col>
+                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                            <Form.Item
+                                name="firstName"
+                                label="នាម"
+                                rules={[{ required: true, message: "សូមបញ្ជូលនាម!!" }]}
+                            >
+                                <Input
+                                    placeholder='នាម'
+                                    size='large'
+                                    allowClear
+                                />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row gutter={10}>
+                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                            <Form.Item
+                                name="username"
+                                label="ឈ្មោះអ្នកប្រើប្រាស់"
+                                rules={[{ required: true, message: "សូមបញ្ជូលឈ្មោះអ្នកប្រើប្រាស់!!" }]}
+                            >
+                                <Input
+                                    placeholder='ឈ្មោះអ្នកប្រើប្រាស់'
+                                    size='large'
+                                    allowClear
+
+                                />
+                            </Form.Item>
+                        </Col>
+                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                            <Form.Item
+                                name="role"
+                                label="ជ្រើសរើសប្រភេទអ្នកប្រើប្រាស់"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "សូមជ្រើសរើសប្រភេទអ្នកប្រើប្រាស់!!"
+                                    },
+                                ]}
+                            >
+                                <Select
+                                    placeholder="ប្រភេទអ្នកប្រើប្រាស់"
+                                    size='large'
+                                >
+                                    <Option value="Admin">Admin</Option>
+                                    <Option value="Manangement">Manangement</Option>
+                                    <Option value="User">User</Option>
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                </Form>
             </Modal>
         </div>
     )

@@ -1,30 +1,42 @@
+
+
 import React, { useState, useEffect } from 'react'
 import { Select, Modal, Input, DatePicker, Row, Col, Space } from 'antd';
 import axios from 'axios'
-import { Create_Request } from '../../getDatabase'
+import { update_Request } from '../../getDatabase';
 import { Form, Button } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { AiOutlineEdit } from "react-icons/ai";
+import moment from 'moment';
+
 
 const { Option } = Select;
-export default function CreateRequest({ setSuccess }) {
+
+export default function UpdateRequestion({
+    setSuccess,
+    r_id,
+    requests
+}) {
     const [form] = Form.useForm();
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [construction, setConstruction] = useState()
-
+    const [data, setData] = useState()
     const showModal = () => {
         setIsModalVisible(true);
+
     };
     const onFinish = values => {
         setIsModalVisible(false);
-        Create_Request(values, sessionStorage.getItem("u_id"));
-        form.resetFields();
-
+        update_Request(values, r_id);
+        // message.success('ស្នើសុំជោជ័យ!');
         setSuccess(true)
 
     };
 
     useEffect(() => {
-        getConstruction();
+        getConstruction()
+        getRequestDescription(r_id)
+
     }, [])
     const getConstruction = async () => {
         const params = new URLSearchParams();
@@ -45,21 +57,46 @@ export default function CreateRequest({ setSuccess }) {
                 }
             });
     }
+    const getRequestDescription = async (r_id) => {
+        const params = new URLSearchParams();
+        params.append('db_user', process.env.React_App_DB_USER);
+        params.append('db_password', process.env.React_App_DB_PASSWORD);
+        params.append('db', process.env.React_App_DB);
 
+        params.append('data', JSON.stringify({ requestId: r_id }));
 
+        return await axios.post(
+            `${process.env.React_App_URL}/get/getRequestDescription.php`, params
+        )
+            .then(async function (response) {
+
+                if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
+                    if (response?.data.data) {
+                        form.setFieldsValue({
+                            constructionId: requests?.constructionId,
+                            date: moment(requests?.date),
+                            needDate: moment(requests?.needDate),
+                            requestTo: requests?.requestTo,
+                            purpose: requests?.purpose,
+                            requests: response?.data.data
+                        })
+                    }
+
+                    return response?.data;
+                } else {
+                    return [];
+                }
+            });
+    }
     return (
-        <div
-            style={{
-                position: "absolute",
-                right: 0,
-            }}
-        >
-            <Button onClick={showModal} type="primary">+ បន្ថែមថ្មី</Button>
+        <div>
+            <Button onClick={showModal} type="primary" shape="circle" icon={<AiOutlineEdit />} size='middle' />
+
             <Modal
                 title="ការស្នើរសុំសម្ភារៈ"
                 visible={isModalVisible}
                 onCancel={() => setIsModalVisible(false)}
-                okText="ស្នើរសុំ"
+                okText="កែប្រែ"
                 cancelText="បោះបង់"
                 okButtonProps={{ form: 'create-requestion-form', key: 'submit', htmlType: 'submit' }}
             >

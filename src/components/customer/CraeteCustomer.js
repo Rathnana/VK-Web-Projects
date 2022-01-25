@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Modal, Select, Input, DatePicker, message, Row, Col, Space } from 'antd';
+import { Modal, Select, Input, DatePicker, Row, Col, Form, message } from 'antd';
 import { Button } from 'antd';
 import { Creat_Customer } from '../../getDatabase'
 
@@ -8,322 +8,393 @@ const { TextArea } = Input;
 export default function CraeteCustomer({
     setSuccess
 }) {
+    const [form] = Form.useForm();
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [maritalStatus, setMaritalStatus] = useState(false)
+    const [loading, setLoading] = useState(false);
     const showModal = () => {
         setIsModalVisible(true);
     };
-    const [customer, setCustomer] = useState({
-        constructionName: "",
-        customerName: "",
-        tel: "",
-        gender: "",
-        maritalStatus: "",
-        partnerName: "",
-        partnerGender: "",
-        taskType: "",
-        constructionType: "",
-        constructionLocation: "",
-        countFloor: "",
-        mapLink: "",
-        priority: "",
-        showInDashboard: "",
-        startDate: "",
-        endDate: "",
-        remark: "",
-        customerId: ""
-    });
-    const handleCancel = () => {
-        setIsModalVisible(false);
+    const onFinish = async values => {
+
+        // setSuccess(true)
+        setLoading(true)
+        console.log(values);
+        let CreatCustomer = await Creat_Customer(values);
+
+        if (CreatCustomer) {
+            setIsModalVisible(false);
+            form.resetFields()
+            message.success('ជោជ័យ!');
+            setSuccess(true)
+            setLoading(false)
+        } else {
+            message.error('បង្កើតមានបញ្ហា!!')
+            setLoading(false)
+        }
+
     };
-    const handleOk = () => {
-        setIsModalVisible(false);
-        Creat_Customer(
-            customer.constructionName,
-            customer.customerName,
-            customer.tel,
-            customer.gender,
-            customer.maritalStatus,
-            customer.partnerName,
-            customer.partnerGender,
-            customer.taskType,
-            customer.constructionType,
-            customer.constructionLocation,
-            customer.countFloor,
-            customer.mapLink,
-            customer.priority,
-            customer.showInDashboard,
-            customer.startDate.format('YYYY-MM-DD'),
-            customer.endDate.format('YYYY-MM-DD'),
-            customer.remark,
-        )
-        message.success('បង្កើតជោជ័យ!');
-        setCustomer("")
-        setSuccess(true)
-    };
+
     return (
         <div
             style={{
                 position: "absolute",
                 right: 0,
-                marginRight: "20px"
             }}
         >
             <Button onClick={showModal} type="primary">+ បន្ថែមថ្មី</Button>
             <Modal
-                title="បន្ថែមអតិថិជន"
+                title="បង្កើតអតិថិជន"
                 visible={isModalVisible}
-                onOk={handleOk}
-                onCancel={handleCancel}
+                onCancel={() => setIsModalVisible(false)}
                 okText="បង្កើត"
+                cancelText="បោះបង់"
+                footer={null}
+            // okButtonProps={{ form: 'create-customer-form', key: 'submit', htmlType: 'submit' }}
             >
-
-                <Row>
-                    <Space size="large">
-                        <Col>
-                            ឈ្មោះអតិថិជន
-                            <Input
-                                placeholder="ឈ្មោះអតិថិជន"
-                                style={{ width: '220px' }}
-                                size="large"
-                                defaultValue={customer.customerName}
-                                onChange={(e) => setCustomer({ ...customer, customerName: e.target.value })}
-                            />
-                        </Col>
-                        <Col>
-                            ភេទ
-                            <Select placeholder="ភេទ" style={{ width: '220px' }} size="large"
-                                defaultValue={customer.gender}
-                                onChange={(e) => setCustomer({ ...customer, gender: e })}
-                            >
-                                <Option value="ប្រុស">ប្រុស</Option>
-                                <Option value="ស្រី">ស្រី</Option>
-                            </Select>
-                        </Col>
-                    </Space>
-                </Row>
-                < br />
-                <Row>
-                    <Space size="large">
-                        <Col>
-                            លេខទូរស័ព្ទ
-                            <Input
-                                placeholder="លេខទូរស័ព្ទ"
-                                style={{ width: '220px' }}
-                                size="large"
-                                type="number"
-                                defaultValue={customer.tel}
-                                onChange={(e) => setCustomer({ ...customer, tel: e.target.value })}
-                            />
-                        </Col>
-
-                        <Col>
-                            សម្ព័នភាព
-                            <Select placeholder="សម្ព័នភាព" style={{ width: '220px' }} size="large"
-                                defaultValue={customer.maritalStatus}
-                                onChange={(e) => {
-                                    if (e === "មានគ្រួសារ") {
-                                        setMaritalStatus(true)
-                                    } else {
-                                        setMaritalStatus(false)
-                                    }
-                                    setCustomer({ ...customer, maritalStatus: e })
-                                }}
-                            >
-                                <Option value="នៅលីវ">នៅលីវ</Option>
-                                <Option value="មានគ្រួសារ">មានគ្រួសារ</Option>
-                                <Option value="មេម៉ាយ">មេម៉ាយ</Option>
-                                <Option value="ពោះម៉ាយ">ពោះម៉ាយ</Option>
-                            </Select>
-                        </Col>
-                    </Space>
-                </Row>
-                < br />
-                <Row
-                    style={
-                        maritalStatus ? { display: "" } : { display: "none" }
-                    }
+                <Form
+                    form={form}
+                    id='create-customer-form' layout="vertical" onFinish={onFinish}
                 >
-                    <Space size="large">
-                        <Col>
-                            ឈ្មោះ
-                            <Input
-                                placeholder="ឈ្មោះ"
-                                style={{ width: '220px' }}
-                                size="large"
-                                defaultValue={customer.partnerName}
-                                onChange={(e) => setCustomer({ ...customer, partnerName: e.target.value })}
-                            />
-                        </Col>
-                        <Col>
-                            ភេទ
-                            <Select placeholder="ភេទ" style={{ width: '220px' }} size="large"
-                                defaultValue={customer.partnerGender}
-                                onChange={(e) => {
-                                    setCustomer({ ...customer, partnerGender: e })
-                                }}
+                    <Row gutter={10}>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24} >
+                            <Form.Item
+                                name="landNumber"
+                                label="លេខប័ណ្ណដី"
+                                rules={[{ required: true, message: "សូមបំពេញលេខប័ណ្ណដី!!" }]}
                             >
-                                <Option value="ប្រុស">ប្រុស</Option>
-                                <Option value="ស្រី">ស្រី</Option>
-                            </Select>
+                                <Input
+                                    placeholder='លេខប័ណ្ណដី'
+                                    size='large'
+                                    allowClear
+                                />
+                            </Form.Item>
                         </Col>
-                    </Space>
-                </Row>
-                < br
-                    style={
-                        maritalStatus ? { display: "" } : { display: "none" }
+                    </Row>
+                    <Row gutter={10}>
+                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                            <Form.Item
+                                name="customerName"
+                                label="ឈ្មោះអតិថិជន"
+                                rules={[{ required: true, message: "សូមបំពេញឈ្មោះអតិថិជន!!" }]}
+                            >
+                                <Input
+                                    placeholder='ឈ្មោះអតិថិជន'
+                                    size='large'
+                                    allowClear
+                                />
+                            </Form.Item>
+                        </Col>
+                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                            <Form.Item
+                                name="gender"
+                                label="ភេទ"
+                                rules={[{ required: true, message: "សូមជ្រើសរើសភេទ!!" }]}
+                            >
+                                <Select
+                                    placeholder="ភេទ"
+                                    size="large"
+                                    allowClear
+                                >
+                                    <Option value="ប្រុស">ប្រុស</Option>
+                                    <Option value="ស្រី">ស្រី</Option>
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row gutter={10}>
+                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                            <Form.Item
+                                name="tel"
+                                label="លេខទូរស័ព្ទ"
+                                rules={[{ required: true, message: "សូមបំពេញលេខទូរស័ព្ទ!!" }]}
+                            >
+                                <Input
+                                    placeholder='លេខទូរស័ព្ទ'
+                                    size='large'
+                                    allowClear
+                                />
+                            </Form.Item>
+                        </Col>
+                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                            <Form.Item
+                                name="maritalStatus"
+                                label="សម្ព័នភាព"
+                                rules={[{ required: true, message: "សូមជ្រើសរើសសម្ព័នភាព!!" }]}
+
+                            >
+                                <Select
+                                    placeholder="សម្ព័នភាព"
+                                    size="large"
+                                    allowClear
+                                    onChange={(e) => {
+                                        if (e === "មានគ្រួសារ") {
+                                            setMaritalStatus(true)
+                                        } else {
+                                            setMaritalStatus(false)
+                                        }
+                                    }}
+                                >
+                                    <Option value="នៅលីវ">នៅលីវ</Option>
+                                    <Option value="មានគ្រួសារ">មានគ្រួសារ</Option>
+                                    <Option value="មេម៉ាយ">មេម៉ាយ</Option>
+                                    <Option value="ពោះម៉ាយ">ពោះម៉ាយ</Option>
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    {
+                        maritalStatus ?
+                            <Row
+                                gutter={10}
+
+                            >
+                                <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                                    <Form.Item
+                                        name="partnerName"
+                                        label="ឈ្មោះ"
+                                        rules={[{ required: true, message: "សូមបំពេញឈ្មោះ!!" }]}
+                                    >
+                                        <Input
+                                            placeholder='ឈ្មោះ'
+                                            size='large'
+                                            allowClear
+                                        />
+                                    </Form.Item>
+                                </Col>
+                                <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                                    <Form.Item
+                                        name="partnerGender"
+                                        label="ភេទ"
+                                        rules={[{ required: true, message: "សូមជ្រើសរើសភេទ!!" }]}
+                                    >
+                                        <Select
+                                            placeholder="ភេទ"
+                                            size="large"
+                                            allowClear
+                                        >
+                                            <Option value="ប្រុស">ប្រុស</Option>
+                                            <Option value="ស្រី">ស្រី</Option>
+                                        </Select>
+                                    </Form.Item>
+                                </Col>
+                            </Row>
+                            : null
                     }
-                />
-                <Row>
-                    <Space size="large">
-                        <Col>
-                            ការងារ
-                            <Select placeholder="ការងារ" style={{ width: '220px' }} size="large"
-                                defaultValue={customer.taskType}
-                                onChange={(e) => {
-                                    setCustomer({ ...customer, taskType: e })
-                                }}
+
+                    <Row
+                        gutter={10}
+                    >
+                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                            <Form.Item
+                                name="taskType"
+                                label="ការងារ"
+                                rules={[{ required: true, message: "សូមជ្រើសរើសការងារ!!" }]}
                             >
-                                <Option value="សាងសង់">សាងសង់</Option>
-                                <Option value="រត់ច្បាប់">រត់ច្បាប់</Option>
-                                <Option value="រត់ច្បាប់ & សាងសង់">រត់ច្បាប់ & សាងសង់</Option>
-                            </Select>
+                                <Select
+                                    placeholder="ការងារ"
+                                    size="large"
+                                    allowClear
+                                >
+                                    <Option value="សាងសង់">សាងសង់</Option>
+                                    <Option value="រត់ច្បាប់">រត់ច្បាប់</Option>
+                                    <Option value="រត់ច្បាប់ & សាងសង់">រត់ច្បាប់ & សាងសង់</Option>
+                                </Select>
+                            </Form.Item>
                         </Col>
-
-                        <Col>
-                            ប្រភេទ
-                            <Select placeholder="ប្រភេទ" style={{ width: '220px' }} size="large"
-                                defaultValue={customer.constructionType}
-                                onChange={(e) => {
-                                    setCustomer({ ...customer, constructionType: e })
-                                }}
+                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                            <Form.Item
+                                name="constructionType"
+                                label="ប្រភេទ"
+                                rules={[{ required: true, message: "សូមជ្រើសរើសប្រភេទ!!" }]}
                             >
-                                <Option value="ផ្ទះល្វែង">ផ្ទះល្វែង</Option>
-                                <Option value="ភូមិគ្រិះ">ភូមិគ្រិះ</Option>
-                                <Option value="ឃ្លាំង">ឃ្លាំង</Option>
-                                <Option value="ស្ថានីយប្រេង">ស្ថានីយប្រេង</Option>
-                                <Option value="កាត់ប្លង់ផ្ទះល្វែង ដីឡូត៍">កាត់ប្លង់ផ្ទះល្វែង ដីឡូត៍</Option>
-                                <Option value="សាងសង់">សាងសង់</Option>
-                                <Option value="ផ្សេងៗ">ផ្សេងៗ</Option>
-                            </Select>
-                        </Col>
-                    </Space>
-                </Row>
-                < br />
-                <Row>
-                    <Space size="large">
-                        <Col>
-                            ឈ្មោះការដ្ឋាន
-                            <Input
-                                placeholder="ឈ្មោះការដ្ឋាន"
-                                style={{ width: '220px' }}
-                                size="large"
-                                defaultValue={customer.constructionName}
-                                onChange={(e) => setCustomer({ ...customer, constructionName: e.target.value })}
-                            />
-                        </Col>
-                        <Col>
-                            ចំនួនជាន់
-                            <Input
-                                placeholder="ចំនួនជាន់"
-                                style={{ width: '220px' }}
-                                size="large"
-                                type="number"
-                                defaultValue={customer.countFloor}
-                                onChange={(e) => setCustomer({ ...customer, countFloor: e.target.value })}
-                            />
-                        </Col>
-                    </Space>
-                </Row>
-                < br />
-                <Row>
-                    ទីតាំងគម្រោង
-                    <Input
-                        placeholder="ទីតាំងគម្រោង"
-                        size="large"
-                        defaultValue={customer.constructionLocation}
-                        onChange={(e) => setCustomer({ ...customer, constructionLocation: e.target.value })}
-                    />
-                </Row>
-                < br />
-                <Row>
-                    Google Mape
-                    <Input
-                        placeholder="URL"
-                        size="large"
-                        defaultValue={customer.mapLink}
-                        onChange={(e) => setCustomer({ ...customer, mapLink: e.target.value })}
-                    />
-                </Row>
-                < br />
-                <Row>
-                    <Space size="large">
+                                <Select
+                                    placeholder="ប្រភេទ"
+                                    size="large"
+                                    allowClear
+                                >
+                                    <Option value="ផ្ទះល្វែង">ផ្ទះល្វែង</Option>
+                                    <Option value="ភូមិគ្រិះ">ភូមិគ្រិះ</Option>
+                                    <Option value="ឃ្លាំង">ឃ្លាំង</Option>
+                                    <Option value="ស្ថានីយប្រេង">ស្ថានីយប្រេង</Option>
+                                    <Option value="កាត់ប្លង់ផ្ទះល្វែង ដីឡូត៍">កាត់ប្លង់ផ្ទះល្វែង ដីឡូត៍</Option>
+                                    <Option value="សាងសង់">សាងសង់</Option>
+                                    <Option value="ផ្សេងៗ">ផ្សេងៗ</Option>
+                                </Select>
 
-                        <Col>
-                            លក្ខខ័ណ
-                            <Select placeholder="លក្ខខ័ណ" style={{ width: '220px' }} size="large"
-                                defaultValue={customer.priority}
-                                onChange={(e) => {
-                                    setCustomer({ ...customer, priority: e })
-                                }}
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row gutter={10}>
+                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                            <Form.Item
+                                name="constructionName"
+                                label="ឈ្មោះការដ្ឋាន"
+                                rules={[{ required: true, message: "សូមបំពេញឈ្មោះការដ្ឋាន!!" }]}
                             >
-                                <Option value="បន្ទាន់">បន្ទាន់</Option>
-                                <Option value="មិនមានរួចរាល់">មិនមានរួចរាល់</Option>
-                                <Option value="មានបញ្ហា">មានបញ្ហា</Option>
-                                <Option value="រងចាំ">រងចាំ</Option>
-                                <Option value="រួចរាល់">រួចរាល់</Option>
-                                <Option value="បញ្ចប់">បញ្ចប់</Option>
-                            </Select>
+                                <Input
+                                    placeholder='ឈ្មោះការដ្ឋាន'
+                                    size='large'
+                                    allowClear
+                                />
+                            </Form.Item>
                         </Col>
-                        <Col>
-                            បង្ហាញ
-                            <Select placeholder="បង្ហាញ" style={{ width: '220px' }} size="large"
-                                defaultValue={customer.showInDashboard}
-                                onChange={(e) => {
-                                    setCustomer({ ...customer, showInDashboard: e })
-                                }}
+                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                            <Form.Item
+                                name="countFloor"
+                                label="ចំនួនជាន់"
+                                rules={[{ required: true, message: "សូមបំពេញចំនួនជាន់!!" }]}
                             >
-                                <Option value="1">Yes</Option>
-                                <Option value="0">No</Option>
-                            </Select>
+                                <Input
+                                    placeholder='ចំនួនជាន់'
+                                    size='large'
+                                    type="number"
+                                    allowClear
+                                />
+                            </Form.Item>
                         </Col>
-                    </Space>
-                </Row>
-                < br />
-                <Row>
-                    <Space size="large">
-                        <Col>
-                            ថ្ងៃចាប់ផ្ដើម
-                            <DatePicker
-                                size="large"
-                                style={{ width: '220px' }}
-                                defaultValue={customer.startDate}
-                                onChange={(e) => setCustomer({ ...customer, startDate: e })}
-
-                            />
+                    </Row>
+                    <Row gutter={10}>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24} >
+                            <Form.Item
+                                name="constructionLocation"
+                                label="ទីតាំងគម្រោង"
+                                rules={[{ required: true, message: "សូមបំពេញទីតាំងគម្រោង!!" }]}
+                            >
+                                <Input
+                                    placeholder='ទីតាំងគម្រោង'
+                                    size='large'
+                                    allowClear
+                                />
+                            </Form.Item>
                         </Col>
-                        <Col>
-                            ថ្ងៃបញ្ចប់
-                            <DatePicker
-                                size="large"
-                                style={{ width: '220px' }}
-                                defaultValue={customer.endDate}
-                                onChange={(e) => setCustomer({ ...customer, endDate: e })}
-                            />
-
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24} >
+                            <Form.Item
+                                name="mapLink"
+                                label="Google Mape"
+                            // rules={[{ required: true, message: "សូមបំពេញ URL!!" }]}
+                            >
+                                <Input
+                                    placeholder='URL'
+                                    size='large'
+                                    allowClear
+                                />
+                            </Form.Item>
                         </Col>
-                    </Space>
-                </Row>
-                < br />
-                <Row>
-                    ផ្សេងៗ
-                    <TextArea
-                        rows={4}
-                        defaultValue={customer.remark}
-                        onChange={(e) => setCustomer({ ...customer, remark: e.target.value })}
-                    />
-                </Row>
+                    </Row>
+                    <Row
+                        gutter={10}
+                    >
+                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                            <Form.Item
+                                name="priority"
+                                label="ស្ថានភាព"
+                                rules={[{ required: true, message: "សូមជ្រើសរើសស្ថានភាព!!" }]}
+                            >
+                                <Select
+                                    placeholder="ស្ថានភាព"
+                                    size="large"
+                                    allowClear
+                                >
+                                    <Option value="គូសប្លង់">គូសប្លង់</Option>
+                                    <Option value="ចៅសង្កាត់">ចៅសង្កាត់</Option>
+                                    <Option value="ពិនិត្យ&កែតម្រូវ">ពិនិត្យ&កែតម្រូវ</Option>
+                                    <Option value="ធ្វើសៀវភៅ">ធ្វើសៀវភៅ</Option>
+                                    <Option value="នៅក្រុង">នៅក្រុង</Option>
+                                    <Option value="រួចរាល់">រួចរាល់</Option>
+                                    <Option value="បញ្ចប់">បញ្ចប់</Option>
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                            <Form.Item
+                                name="showInDashboard"
+                                label="បង្ហាញ"
+                                rules={[{ required: true, message: "សូមជ្រើសរើសការបង្ហាញ!!" }]}
+                            >
+                                <Select
+                                    placeholder="បង្ហាញ"
+                                    size="large"
+                                    allowClear
+                                >
+                                    <Option value="1">Yes</Option>
+                                    <Option value="0">No</Option>
+                                </Select>
 
+                            </Form.Item>
+                        </Col>
+                    </Row>
+
+                    <Row
+                        gutter={10}
+                    >
+                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                            <Form.Item
+                                name="startDate"
+                                label="ថ្ងៃចាប់ផ្ដើម"
+                                rules={[{ required: true, message: "សូមជ្រើសរើសថ្ងៃចាប់ផ្ដើម!!" }]}
+                            >
+
+                                <DatePicker
+                                    placeholder="ថ្ងៃបញ្ចប់"
+                                    size="large"
+                                    style={{ width: '100%' }}
+
+                                />
+                            </Form.Item>
+                        </Col>
+                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                            <Form.Item
+                                name="endDate"
+                                label="ថ្ងៃបញ្ចប់"
+                                rules={[{ required: true, message: "សូមជ្រើសរើសថ្ងៃបញ្ចប់!!" }]}
+                            >
+
+                                <DatePicker
+                                    placeholder="ថ្ងៃបញ្ចប់"
+                                    size="large"
+                                    style={{ width: '100%' }}
+
+                                />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row gutter={10}>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24} >
+                            <Form.Item
+                                name="landOfficerName"
+                                label="ឈ្មោះមន្ត្រី"
+                                rules={[{ required: true, message: "សូមបំពេញឈ្មោះមន្ត្រី!!" }]}
+                            >
+                                <Input
+                                    placeholder='ឈ្មោះមន្ត្រី'
+                                    size='large'
+                                    allowClear
+                                />
+                            </Form.Item>
+                        </Col>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24} >
+                            <Form.Item
+                                name="remark"
+                                label="ផ្សេងៗ"
+                            >
+                                <TextArea
+                                    size='large'
+                                    allowClear
+                                />
+                            </Form.Item>
+                        </Col>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24} >
+                            <Form.Item
+
+                            >
+                                <Button type='primary' htmlType='submit' loading={loading}>
+                                    បង្កើត
+                                </Button>
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                </Form>
             </Modal>
         </div >
     )

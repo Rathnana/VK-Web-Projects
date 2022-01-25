@@ -1,8 +1,10 @@
 import React from 'react'
 import { Popconfirm, message } from 'antd';
+import { Button } from 'antd';
+import { AiOutlineDelete } from "react-icons/ai";
 import axios from 'axios'
 
-export default function DelectUser({ userid }) {
+export default function DelectUser({ setSuccess, userid }) {
     const confirm = async (e) => {
         const params = new URLSearchParams();
         params.append('db_user', process.env.React_App_DB_USER);
@@ -17,9 +19,9 @@ export default function DelectUser({ userid }) {
             .then(async function (response) {
                 if (response?.data === 'success') {
                     message.success('ជោគជ័យ!');
-                    setTimeout(() => window.location.reload(), 100);
+                    setSuccess(true)
                 } else {
-                    message.error('ការលុបជោគជ័យ!');
+                    message.error('ការលុបមិនជោគជ័យ!');
                 }
 
             });
@@ -32,7 +34,7 @@ export default function DelectUser({ userid }) {
             okText="យល់ព្រម"
             cancelText="មិនព្រម"
         >
-            <a href="#">Delete</a>
+            <Button type="primary" shape="circle" icon={<AiOutlineDelete style={{ marginTop: '5px' }} />} size='middle' danger />
         </Popconfirm>
     )
 }

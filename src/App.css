@@ -33,3 +33,60 @@ body, html {
 .ant-drawer-wrapper-body{
     background-color: #c8d556 !important;
 }
+
+.login-form{
+    width: 100%;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .Login-user-icon{
+    width: 100%;
+    font-size: 50pt;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    color: #1890ff;
+  }
+
+  .create_Btn{
+      position: absolute;
+      right: 0 !important;
+  }
+
+  .printIcon path {
+      color: white !important;
+      stroke: white !important;
+  }
+
+  .reqeustPrint{
+    justify-content: center;
+    align-items: center;
+    
+  }
+  .display{
+      display: none;
+  }
+  .displaying{
+      display: block;
+  }
+  .ant-table-cell{
+      padding-top: 5px !important;
+      padding-bottom: 5px !important;
+  }
+
+  .row-danger td{
+      background-color: #ff9999 !important;
+      color: white !important;
+  }
+  .image-card{
+      object-fit: cover !important;
+      height: 150px !important;
+  }
+  .ant-form-item-explain-error{
+      margin-top: 5px !important;
+      margin-bottom: 5px !important;
+  }

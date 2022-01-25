@@ -30,8 +30,8 @@ export default function MobileNav() {
                 type="primary"
                 onClick={showDrawer}
                 style={{
-                    width:"70px",
-                    marginTop:"5px"
+                    width: "70px",
+                    marginTop: "5px"
                 }}
             >
                 <AiOutlineMenuFold />
@@ -72,14 +72,11 @@ export default function MobileNav() {
                     <Menu.Item key="/customer">
                         <Link to="/customer">អតិថិជន</Link>
                     </Menu.Item>
-                    <Menu.Item key="/unlaw_work">
-                        <Link to="/unlaw_work">ការងាររត់ច្បាប់</Link>
+                    <Menu.Item key="/petty_cash">
+                        <Link to="/petty_cash">តារាង Petty Cash</Link>
                     </Menu.Item>
                     <Menu.Item key="/requesting">
                         <Link to="/requesting">ស្នើរសុំសម្ភារៈ</Link>
-                    </Menu.Item>
-                    <Menu.Item key="/construction">
-                        <Link to="/construction">តារាងការដ្ឋាន</Link>
                     </Menu.Item>
                     <Menu.Item key="/users">
                         <Link to="/users">អ្នកប្រើប្រាស់</Link>

@@ -1,88 +1,107 @@
-import React from 'react'
-import { Table, Tag, Space } from 'antd';
+
+import React, { useEffect, useState } from 'react'
+import { Table } from 'antd';
+import axios from 'axios'
+
 const columns = [
     {
-        title: 'អតិថិជន',
-        dataIndex: 'name',
-        key: 'name',
-        render: text => <a>{text}</a>,
+        title: 'លរ',
+        dataIndex: 'no',
+        key: 'no',
     },
     {
-        title: 'ការងារ',
-        dataIndex: 'job',
-        key: 'job',
+        title: 'អតិថិជន',
+        dataIndex: 'customerName',
+        key: 'customerName',
+    },
+    {
+        title: 'ភេទ',
+        dataIndex: 'gender',
+        key: 'gender',
     },
     {
         title: 'ថ្ងៃចាប់ផ្ដើម',
-        dataIndex: 'startdate',
-        key: 'startdate',
+        dataIndex: 'startDate',
+        key: 'startDate',
+    },
+    {
+        title: 'ថ្ងៃបញ្ចប់',
+        dataIndex: 'endDate',
+        key: 'endDate',
     },
     {
         title: 'ស្ថានភាព',
-        dataIndex: 'status',
-        key: 'status',
+        dataIndex: 'priority',
+        key: 'priority',
+    },
+    {
+        title: 'ទីតាំងគម្រោង',
+        dataIndex: 'constructionLocation',
+        key: 'constructionLocation',
     },
     {
         title: 'ផ្សេងៗ',
-        dataIndex: 'other',
-        key: 'other',
-    },
-    {
-        // title,
-        key: 'action',
-        render: (text, record) => (
-            <Space size="middle">
-                <a>សស</a>
-            </Space>
-        ),
-    },
-
-];
-
-const data = [
-    {
-        key: '1',
-        name: 'សាត គង់',
-        job: 'រត់ច្បាប់',
-        startdate: '17/02/21',
-        status: 'មិនទាន់រួច',
-        other: 'នៅឃុំ'
-    },
-    {
-        key: '2',
-        name: 'សាត គង់',
-        job: 'រត់ច្បាប់',
-        startdate: '17/02/21',
-        status: 'មិនទាន់រួច',
-        other: 'នៅឃុំ'
-    },
-    {
-        key: '3',
-        name: 'សាត គង់',
-        job: 'រត់ច្បាប់',
-        startdate: '17/02/21',
-        status: 'មិនទាន់រួច',
-        other: 'នៅឃុំ'
-    }
-    ,
-    {
-        key: '4',
-        name: 'សាត គង់',
-        job: 'រត់ច្បាប់',
-        startdate: '17/02/21',
-        status: 'មិនទាន់រួច',
-        other: 'នៅឃុំ'
+        dataIndex: 'remark',
+        key: 'remark',
     }
 
 ];
+
+
 export default function UnLawWorkTabel() {
+    const [loading, setLoading] = React.useState(true);
+    const [customer, setCustomer] = useState()
+    const [page, setPage] = useState(1);
+    const [pageSize, setPageSize] = useState(4);
+    useEffect(() => {
+        setLoading(true);
+        getcustomer();
+    }, [])
+    const getcustomer = async () => {
+
+        const params = new URLSearchParams();
+        params.append('db_user', process.env.React_App_DB_USER);
+        params.append('db_password', process.env.React_App_DB_PASSWORD);
+        params.append('db', process.env.React_App_DB);
+        params.append('data', JSON.stringify({ page: page, pageSize: pageSize }))
+
+
+        return await axios.post(
+            `${process.env.React_App_URL}/get/getCustomerWithPaginationDashboard.php`, params
+        )
+            .then(async function (response) {
+
+                if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
+
+                    setCustomer(response?.data)
+                    setLoading(false);
+                    console.log(response?.data.data)
+                    return response?.data;
+                } else {
+                    console.log(response.data)
+                    return [];
+                }
+            });
+    }
+    let tableDataWithNo = []
+
+    customer?.data?.map((record, index) => {
+
+        let pageAdd = page > 1 ? ((page * pageSize) - pageSize) + 1 : 1;
+
+        let data = { ...record, no: (customer?.totalDoc - (pageAdd + index)) + 1 }
+        tableDataWithNo.push(data)
+
+    })
     return (
         <Table
             size="middle"
             columns={columns}
-            dataSource={data}
             pagination={false}
             className='Info-table'
+            scroll={{ x: 1000 }}
+            loading={loading}
+            dataSource={tableDataWithNo}
         />
     )
 }

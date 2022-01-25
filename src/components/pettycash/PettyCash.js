@@ -2,11 +2,14 @@ import React from 'react'
 import { Col, Row, Space } from 'antd';
 import { Typography, Button } from 'antd';
 import { Select } from 'antd';
-import AddUser from './AddUser';
-import UsersTable from './UsersTable';
+import CreatePettyCash from './CreatePettyCash'
+import PettyCashTable from './PettyCashTable';
+
 const { Option } = Select;
 const { Title } = Typography;
-export default function Users() {
+
+export default function PettyCash() {
+
     const [success, setSuccess] = React.useState(false);
     const [loading, setLoading] = React.useState(true);
 
@@ -29,12 +32,12 @@ export default function Users() {
                         }}
                         level={4}
                     >
-                        {`អ្នកប្រើប្រាស់`}
+                        {`តារាង Pretty Cash`}
                     </Title>
                     <Row>
                         <Col xs={20} sm={20} md={20} lg={20} xl={20}>
-                            <Space size="large">
-                                <Select placeholder="ស្វែងរកឈ្មោះ" style={{ width: 190 }} >
+                            <Space>
+                                <Select placeholder="ស្ថានភាព" style={{ width: 190 }} >
                                     <Option value="ផ្ទះល្វែង">ផ្ទះល្វែង</Option>
                                     <Option value="ភូមិគ្រិះ">ភូមិគ្រិះ</Option>
                                     <Option value="ឃ្លាំង">ឃ្លាំង</Option>
@@ -46,8 +49,10 @@ export default function Users() {
                                 <Button type="primary">Reset</Button>
                             </Space>
                         </Col>
-                        <Col xs={4} sm={4} md={4} lg={4} xl={4}>
-                            <AddUser
+                        <Col xs={4} sm={4} md={4} lg={4} xl={4}
+
+                        >
+                            <CreatePettyCash
                                 setSuccess={setSuccess}
                             />
                         </Col>
@@ -57,7 +62,8 @@ export default function Users() {
                 <Col
                     xs={24} sm={24} md={24} lg={24} xl={24}
                 >
-                    <UsersTable
+
+                    <PettyCashTable
                         setLoading={setLoading}
                         loading={loading}
                         setSuccess={setSuccess}

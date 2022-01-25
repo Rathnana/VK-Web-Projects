@@ -1,96 +1,128 @@
 import React, { useState } from 'react'
-import { Modal, Button, Select, Input, message } from 'antd';
-import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
-import { Add_New_User } from '../../getDatabase'
-
-
+import { Modal, Button, Select, Input, Form, Row, Col } from 'antd';
+import { Add_New_User } from '../../getDatabase';
 const { Option } = Select;
-export default function AddUser() {
+
+export default function AddUser({ setSuccess }) {
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const [user, setUser] = useState({
-        username: '',
-        password: '',
-        role: ''
-    })
+    const [form] = Form.useForm();
+
     const showModal = () => {
         setIsModalVisible(true);
     };
 
-    const handleOk = () => {
-        if (user.username && user.password ) {
-            setIsModalVisible(false);
-            Add_New_User(user.username, user.password, user.role)
-            setUser({
-                username: '',
-                password: '',
-                role: ''
-            })
-            message.success('បង្កើតអ្នកប្រើប្រាស់ជោគជ័យ!')
-            setTimeout(() => window.location.reload(), 100);
-        } else {
-            message.error('សូមបំពេញគ្រប់ Input Box ទាំងអស់!')
-        }
-    };
+    const onFinish = (values) => {
+        setIsModalVisible(false)
+        Add_New_User(values)
+        form.resetFields()
+        setSuccess(true)
 
-    const handleCancel = () => {
-        setIsModalVisible(false);
     };
-    function handleChange(value) {
-        setUser({ ...user, role: value })
-    }
 
     return (
-        <div>
-            <Button type="primary" onClick={showModal} style={{ background: 'red' }} >
-                បន្ថែម +
-            </Button>
+        <div
+            style={{
+                position: "absolute",
+                right: 0,
+            }}
+        >
+            <Button onClick={showModal} type="primary">+ បន្ថែមអ្នកប្រើប្រាស់</Button>
             <Modal
                 title="បន្ថែមអ្នកប្រើប្រាស់"
                 visible={isModalVisible}
-                onOk={handleOk}
-                onCancel={handleCancel}
-                okText="Create"
+                onCancel={() => setIsModalVisible(false)}
+                okText="បង្កើតអ្នកប្រើប្រាស់"
+                cancelText="បោះបង់"
+                okButtonProps={{ form: 'add-User-form', key: 'submit', htmlType: 'submit' }}
             >
-                <p>ឈ្មោះអ្នកប្រើប្រាស់</p>
-                <Input
-                    defaultValue={user.username}
-                    size="large"
-                    placeholder="ឈ្មោះអ្នកប្រើប្រាស់"
-                    allowClear
-                    style={{
-                        marginTop: '-20px'
-                    }}
-                    onChange={(e) => setUser({ ...user, username: e.target.value })}
-                />
-                < br />
-                < br />
-                <p>ពាក្យសម្ងាត់</p>
-                <Input.Password
-                    defaultValue={user.password}
-                    size="large"
-                    placeholder="ពាក្យសម្ងាត់"
-                    allowClear
-                    style={{
-                        marginTop: '-20px'
-                    }}
-                    onChange={(e) => setUser({ ...user, password: e.target.value })}
-                    iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
-                />
-                <br />
-                < br />
-                <p>ប្រភេទអ្នកប្រើប្រាស់</p>
-                <Select
-                    defaultValue="User"
-                    size="large"
-                    onChange={handleChange}
-                    style={{ width: '100%' }}
+                <Form
+                    form={form}
+                    id='add-User-form' layout="vertical" onFinish={onFinish}
                 >
-                    <Option value="Admin">Admin</Option>
-                    <Option value="Manangement">Manangement</Option>
-                    <Option value="User">User</Option>
-                </Select>
+                    <Row gutter={10}>
+                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                            <Form.Item
+                                name="username"
+                                label="ឈ្មោះអ្នកប្រើប្រាស់"
+                                rules={[{ required: true, message: "សូមបញ្ជូលឈ្មោះអ្នកប្រើប្រាស់!!" }]}
+                            >
+                                <Input
+                                    placeholder='ឈ្មោះអ្នកប្រើប្រាស់'
+                                    size='large'
+                                    allowClear
+
+                                />
+                            </Form.Item>
+                        </Col>
+                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                            <Form.Item
+                                name="password"
+                                label="ពាក្យសម្ងាត់"
+                                rules={[{ required: true, message: "សូមបញ្ជូលពាក្យសម្ងាត់ 8 ខ្ទង់ឡើង!!", min: 8 }]}
+                            >
+                                <Input.Password
+                                    placeholder='លេខសម្ងាត់'
+                                    size='large'
+                                    allowClear
+                                />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row gutter={10}>
+                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                            <Form.Item
+                                name="lastName"
+                                label="គោត្តនាម"
+                                rules={[{ required: true, message: "សូមបញ្ជូលគោត្តនាម!!" }]}
+                            >
+                                <Input
+                                    placeholder='គោត្តនាម'
+                                    size='large'
+                                    allowClear
+
+                                />
+                            </Form.Item>
+                        </Col>
+                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                            <Form.Item
+                                name="firstName"
+                                label="នាម"
+                                rules={[{ required: true, message: "សូមបញ្ជូលនាម!!" }]}
+                            >
+                                <Input
+                                    placeholder='នាម'
+                                    size='large'
+                                    allowClear
+                                />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                            <Form.Item
+                                name="role"
+                                label="ជ្រើសរើសប្រភេទអ្នកប្រើប្រាស់"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "សូមជ្រើសរើសប្រភេទអ្នកប្រើប្រាស់!!"
+                                    },
+                                ]}
+                            >
+                                <Select
+                                    placeholder="ប្រភេទអ្នកប្រើប្រាស់"
+                                    size='large'
+                                >
+                                    <Option value="Admin">Admin</Option>
+                                    <Option value="Manangement">Manangement</Option>
+                                    <Option value="User">User</Option>
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                </Form>
             </Modal>
-        </div>
+        </div >
     )
 
 }
