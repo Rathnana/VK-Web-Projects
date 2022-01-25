@@ -30,17 +30,17 @@ export default function Report() {
                     >
                         {`តារាងរបាយការណ៍`}
                     </Title>
-                    <Row>
-                        <Col xs={20} sm={20} md={20} lg={20} xl={20}>
-                            <Title level={5}>
-                                <Space size='middle'>
-                                    <Input placeholder="ឈ្មោះការដ្ឋាន" />
-                                    <DatePicker placeholder="កាលបរិច្ឆេទ" defaultValue={moment()} format={dateFormatList} />
-                                    <Button type="primary">OK</Button>
-                                </Space>
-                            </Title>
+                    <Row style={{marginBottom:10}}>
+                        <Col xs={24} sm={24} md={5} lg={5} xl={4} style={{padding:5}}>
+                            <Input placeholder="ឈ្មោះការដ្ឋាន" size='large' style={{ width: '100%' }} />
                         </Col>
-                        <Col xs={4} sm={4} md={4} lg={4} xl={4}>
+                        <Col xs={24} sm={24} md={5} lg={5} xl={4} style={{padding:5}}>
+                            <DatePicker size='large' style={{ width: '100%' }} placeholder="កាលបរិច្ឆេទ" defaultValue={moment()} format={dateFormatList} />
+                        </Col>
+                        <Col xs={24} sm={24} md={3} lg={3} xl={2} style={{padding:5}}>
+                            <Button type="primary" style={{ width: '100%' }} size='large'>OK</Button>
+                        </Col>
+                        <Col xs={24} sm={24} md={{span:5,offset:6}} lg={{span:4,offset:7}} xl={{span:3,offset:11}} style={{padding:5}}>
                             <AddReport setSuccess={setSuccess} />
                         </Col>
                     </Row>

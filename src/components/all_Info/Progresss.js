@@ -97,7 +97,7 @@ export default function Progresss({status}) {
                 day = 90;
                 break;
             case "បំពាក់អំពូល":
-                day = "93";
+                day = 93;
                 break;
             case "សម្អាត":
                 day = 96;

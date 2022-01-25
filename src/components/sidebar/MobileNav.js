@@ -4,9 +4,12 @@ import { Menu } from 'antd';
 import { Link, useLocation } from "react-router-dom";
 import vklogo from '../../Image/vk-logo.png'
 import { AiOutlineMenuFold } from "react-icons/ai";
+import { keyMenu } from './NavKey';
 
 export default function MobileNav() {
     const [visible, setVisible] = useState(false);
+    const urlPath = useLocation().pathname
+
     const showDrawer = () => {
         setVisible(true);
     };
@@ -14,17 +17,18 @@ export default function MobileNav() {
     const onClose = () => {
         setVisible(false);
     };
-    let location = useLocation();
+
     const [current, setCurrent] = useState('');
     const handleClick = e => {
         setCurrent(e.key)
     };
 
-    useEffect(() => {
-        setCurrent(location.pathname)
-    }, []);
+    
     return (
-        <div>
+        <div style={{
+            position: "absolute",
+            zIndex: "2"
+          }}>
             <Button
                 // size='midel'
                 type="primary"
@@ -47,9 +51,9 @@ export default function MobileNav() {
                 <Menu
                     mode="inline"
                     className="side-bar"
-                    style={{ background: "#c8d556" }}
+                    style={{ background: "#c8d556",border:'none' }}
                     onClick={(e) => handleClick(e)}
-                    selectedKeys={[current]}
+                    selectedKeys={[keyMenu(urlPath)]}
                 >
 
                     <Link to="/">
@@ -63,22 +67,22 @@ export default function MobileNav() {
                             }}
                             src={vklogo} />
                     </Link>
-                    <Menu.Item key="/">
+                    <Menu.Item key="/" onClick={onClose}>
                         <Link to="/">ព័ត៌មានសរុប</Link>
                     </Menu.Item>
-                    <Menu.Item key="/report">
+                    <Menu.Item key="/report" onClick={onClose}>
                         <Link to="/report">របាយការណ៍</Link>
                     </Menu.Item>
-                    <Menu.Item key="/customer">
+                    <Menu.Item key="/customer" onClick={onClose}>
                         <Link to="/customer">អតិថិជន</Link>
                     </Menu.Item>
-                    <Menu.Item key="/petty_cash">
-                        <Link to="/petty_cash">តារាង Petty Cash</Link>
+                    <Menu.Item key="/pretty_cash" onClick={onClose}>
+                        <Link to="/pretty_cash">តារាង Petty Cash</Link>
                     </Menu.Item>
-                    <Menu.Item key="/requesting">
+                    <Menu.Item key="/requesting" onClick={onClose}>
                         <Link to="/requesting">ស្នើរសុំសម្ភារៈ</Link>
                     </Menu.Item>
-                    <Menu.Item key="/users">
+                    <Menu.Item key="/users" onClick={onClose}>
                         <Link to="/users">អ្នកប្រើប្រាស់</Link>
                     </Menu.Item>
                 </Menu>

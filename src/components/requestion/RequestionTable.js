@@ -134,7 +134,7 @@ export default function RequestionTable({
             dataSource={tableDataWithNo}
             loading={loading}
             rowKey={record => record?.r_id}
-
+            className='table-customize'
             pagination={{
                 position: ["bottomLeft"],
                 size: 'small',

@@ -37,6 +37,7 @@ export default function AllInfo() {
                                     <DatePicker
                                         defaultValue={moment()}
                                         placeholder="កាលបរិច្ឆេទ"
+                                        size='large'
                                         format={dateFormatList}
                                         onChange={(e) => console.log(e)}
                                     />

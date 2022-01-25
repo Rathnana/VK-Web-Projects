@@ -99,14 +99,8 @@ export default function AddReport({ setSuccess }) {
 
     }
 
-    return <div
-        style={{
-            position: "absolute",
-            right: 0,
-
-        }}
-    >
-        <Button onClick={showDrawer} type="primary">+ បន្ថែមថ្មី</Button>
+    return <>
+        <Button onClick={showDrawer} type="primary" size='large' style={{width:'100%'}}>+ បន្ថែមថ្មី</Button>
         <Row>
             <Col xs={2} sm={1} md={1} lg={10} xl={10}>
                 <Drawer width={"800px"} title="បន្ថែមរបាយការណ៍" placement="right" onClose={onClose} visible={visible}>
@@ -376,5 +370,5 @@ export default function AddReport({ setSuccess }) {
                 </Drawer>
             </Col>
         </Row>
-    </div>;
+    </>;
 }

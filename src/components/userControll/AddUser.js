@@ -20,13 +20,8 @@ export default function AddUser({ setSuccess }) {
     };
 
     return (
-        <div
-            style={{
-                position: "absolute",
-                right: 0,
-            }}
-        >
-            <Button onClick={showModal} type="primary">+ បន្ថែមអ្នកប្រើប្រាស់</Button>
+        <>
+            <Button onClick={showModal} type="primary" size='large' style={{ width: '100%' }}>+ បន្ថែមអ្នកប្រើប្រាស់</Button>
             <Modal
                 title="បន្ថែមអ្នកប្រើប្រាស់"
                 visible={isModalVisible}
@@ -122,7 +117,7 @@ export default function AddUser({ setSuccess }) {
                     </Row>
                 </Form>
             </Modal>
-        </div >
+        </ >
     )
 
 }

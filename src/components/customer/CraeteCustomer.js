@@ -36,13 +36,8 @@ export default function CraeteCustomer({
     };
 
     return (
-        <div
-            style={{
-                position: "absolute",
-                right: 0,
-            }}
-        >
-            <Button onClick={showModal} type="primary">+ បន្ថែមថ្មី</Button>
+        <>
+            <Button onClick={showModal} type="primary" size='large' style={{width:'100%'}}>+ បន្ថែមថ្មី</Button>
             <Modal
                 title="បង្កើតអតិថិជន"
                 visible={isModalVisible}
@@ -396,6 +391,6 @@ export default function CraeteCustomer({
                     </Row>
                 </Form>
             </Modal>
-        </div >
+        </ >
     )
 }

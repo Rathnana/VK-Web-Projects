@@ -27,10 +27,7 @@ export default function CreatePettyCash({ setSuccess }) {
         <div
 
         >
-            <Button style={{
-                position: "absolute",
-                right: 0,
-            }} onClick={showModal} type="primary">+ បន្ថែមថ្មី</Button>
+            <Button  onClick={showModal} type="primary" size='large' style={{width:'100%'}}>+ បន្ថែមថ្មី</Button>
 
             <Modal
                 title="បង្កើត Petty Cash"

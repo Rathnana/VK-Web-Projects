@@ -48,13 +48,8 @@ export default function CreateRequest({ setSuccess }) {
 
 
     return (
-        <div
-            style={{
-                position: "absolute",
-                right: 0,
-            }}
-        >
-            <Button onClick={showModal} type="primary">+ បន្ថែមថ្មី</Button>
+        <>
+            <Button onClick={showModal} type="primary" size='large' style={{ width: '100%' }}>+ បន្ថែមថ្មី</Button>
             <Modal
                 title="ការស្នើរសុំសម្ភារៈ"
                 visible={isModalVisible}
@@ -203,6 +198,6 @@ export default function CreateRequest({ setSuccess }) {
                 </Form>
             </Modal>
 
-        </div >
+        </ >
     )
 }

@@ -100,6 +100,7 @@ export default function UsersTable({
         columns={columns}
         dataSource={tableDataWithNo}
         loading={loading}
+        className='table-customize'
         rowKey={record => record?.u_id}
         pagination={{
             position: ["bottomLeft"],

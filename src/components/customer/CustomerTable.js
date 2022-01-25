@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Space } from 'antd';
+import { Table, Space, Typography, Popover } from 'antd';
 import axios from 'axios'
 import UpdateCustomer from './UpdateCustomer';
 import DelectCustomer from './DelectCustomer';
 
-
+const { Paragraph, Text } = Typography
 export default function CustomerTable({
     setLoading,
     loading,
@@ -45,94 +45,140 @@ export default function CustomerTable({
                 }
             });
     }
+
+    const content = (e) => (
+        <Paragraph style={{ fontSize: 16, width: 300, textAlign: 'justify' }}>
+            ឈ្មោះដែគូរ៖ {e?.partnerName}<br />
+            ភេទ៖ {e?.partnerGender}
+        </Paragraph>
+    )
+
+    const contentRemark = (e) => (
+        <Paragraph style={{ fontSize: 16, width: 300, textAlign: 'justify' }}>
+            {e}
+        </Paragraph>
+    )
+
     const columns = [
         {
             title: 'លរ',
             dataIndex: 'no',
             key: 'no',
+            width: 70
         },
         {
             title: 'ID',
             dataIndex: 'customerId',
             key: 'customerId',
-            
+            width: 100
+
         },
         {
             title: 'ឈ្មោះអតិថិជន',
             dataIndex: 'customerName',
             key: 'customerName',
-           
+            width: 150
         },
         {
             title: 'ភេទ',
             dataIndex: 'gender',
             key: 'gender',
-
+            width: 60
         },
         {
             title: 'សម្ព័នភាព',
             dataIndex: 'maritalStatus',
             key: 'maritalStatus',
+            width: 110,
+            render: (text, record) => (
+                <>
+                    {
+                        record?.maritalStatus === 'មានគ្រួសារ' ?
+                            <span style={{ cursor: 'pointer' }}>
+                                <Popover placement="bottom" content={() => content(record)} title={null} trigger="hover">
+                                    <Text ellipsis >
+                                        {record?.maritalStatus}
+                                    </Text>
+                                </Popover>
+                            </span>
+
+                            :
+                            <span>{record?.maritalStatus}</span>
+                    }
+                </>
+            )
         },
-        {
-            title: 'ឈ្មោះ',
-            dataIndex: 'partnerName',
-            key: 'partnerName',
-        },
-        {
-            title: 'ភេទ',
-            dataIndex: 'partnerGender',
-            key: 'partnerGender',
-        },
+        // {
+        //     title: 'ឈ្មោះដែគូរ',
+        //     dataIndex: 'partnerName',
+        //     key: 'partnerName',
+        //     width: 150
+
+        // },
+        // {
+        //     title: 'ភេទ',
+        //     dataIndex: 'partnerGender',
+        //     key: 'partnerGender',
+        // },
         {
             title: 'ការងារ',
             dataIndex: 'taskType',
             key: 'taskType',
+            width: 150,
         },
         {
             title: 'ប្រភេទ',
             dataIndex: 'constructionType',
             key: 'constructionType',
+            width: 180,
         },
         {
             title: 'ឈ្មោះការដ្ឋាន',
             dataIndex: 'constructionName',
             key: 'constructionName',
+            width: 150,
         },
         {
             title: 'លេខទូរស័ព្ទ',
             dataIndex: 'tel',
             key: 'tel',
+            width: 120,
         },
         {
             title: 'ទីតាំងគម្រោង',
             dataIndex: 'constructionLocation',
             key: 'constructionLocation',
+            width: 150,
         },
         {
             title: 'ជាន់',
             dataIndex: 'countFloor',
             key: 'countFloor',
+            width: 90,
         },
         {
             title: 'ស្ថានភាព',
             dataIndex: 'priority',
             key: 'priority',
+            width: 120,
         },
         {
             title: 'ថ្ងៃចាប់ផ្ដើម',
             dataIndex: 'startDate',
             key: 'startDate',
+            width: 120,
         },
         {
             title: 'ថ្ងៃបញ្ចប់',
             dataIndex: 'endDate',
             key: 'endDate',
+            width: 120,
         },
         {
             title: 'បង្ហាញ',
             dataIndex: 'showInDashboard',
             key: 'showInDashboard',
+            width: 80,
             render: text => <p
                 style={{
                     marginTop: "15px"
@@ -144,10 +190,21 @@ export default function CustomerTable({
             title: 'ផ្សេងៗ',
             dataIndex: 'remark',
             key: 'remark',
+            render: (text, record) => (
+                <span style={{ cursor: 'pointer' }}  >
+                    <Popover placement="bottom" content={() => contentRemark(record?.remark)} title={null} trigger="hover">
+                        <Text ellipsis >
+                            {record?.remark}
+                        </Text>
+                    </Popover>
+                </span>
+            )
         },
         {
             key: 'action',
-            fixed: 'rigth',
+            fixed:'right',
+            align:'center',
+            width:130,
             render: (text, record) => (
                 <Space size="middle">
                     <UpdateCustomer
@@ -177,6 +234,7 @@ export default function CustomerTable({
             dataSource={tableDataWithNo}
             scroll={{ x: 2200 }}
             loading={loading}
+            className='table-customize'
             style={{ marginTop: "20px" }}
             pagination={{
                 position: ["bottomLeft"],

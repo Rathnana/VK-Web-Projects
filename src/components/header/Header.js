@@ -27,7 +27,8 @@ export default function Header({ setAuth }) {
                             marginTop: 10,
                             position: "absolute",
                             right: 0,
-                            cursor: "pointer"
+                            cursor: "pointer",
+                            fontSize:18
                         }}
                     >
                         <Popconfirm
@@ -44,7 +45,7 @@ export default function Header({ setAuth }) {
                         >
                             <span style={{ color: "red" }}>ចាកចេញ</span>
                         </Popconfirm>
-                        {` | ${sessionStorage.getItem("username")}`}
+                        <span style={{}}>{` | ${sessionStorage.getItem("username").toUpperCase()}`}</span>
                     </p>
                 </Col>
             </Row>

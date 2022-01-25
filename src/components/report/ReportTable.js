@@ -134,6 +134,7 @@ export default function ReportTable({
             columns={columns}
             dataSource={tableDataWithNo}
             scroll={{ x: 1200 }}
+            className='table-customize'
             loading={loading}
             rowClassName={record => record?.challenges ? 'row-danger' : null}
             rowKey={record => record?.dc_id}

@@ -9,7 +9,7 @@ export default function SectionB() {
     let navigate = useNavigate();
     return (
         <Col
-            xs={12} sm={12} md={12} lg={12} xl={12}
+            xs={24} sm={24} md={12} lg={12} xl={12}
             // className="site-card-wrapper"
             style={{ marginTop: 12, padding: 10 }}
         >

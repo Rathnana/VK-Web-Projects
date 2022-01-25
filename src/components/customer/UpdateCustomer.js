@@ -171,42 +171,44 @@ export default function UpdateCustomer({
                             </Form.Item>
                         </Col>
                     </Row>
-                    <Row
-                        gutter={10}
-                        style={
-                            maritalStatus ? { display: "" } : { display: "none" }
-                        }
-                    >
-                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
-                            <Form.Item
-                                name="partnerName"
-                                label="ឈ្មោះ"
-                                rules={[{ required: true, message: "សូមបំពេញឈ្មោះ!!" }]}
+                    {
+                        maritalStatus ?
+                            <Row
+                                gutter={10}
+
                             >
-                                <Input
-                                    placeholder='ឈ្មោះ'
-                                    size='large'
-                                    allowClear
-                                />
-                            </Form.Item>
-                        </Col>
-                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
-                            <Form.Item
-                                name="partnerGender"
-                                label="ភេទ"
-                                rules={[{ required: true, message: "សូមជ្រើសរើសភេទ!!" }]}
-                            >
-                                <Select
-                                    placeholder="ភេទ"
-                                    size="large"
-                                    allowClear
-                                >
-                                    <Option value="ប្រុស">ប្រុស</Option>
-                                    <Option value="ស្រី">ស្រី</Option>
-                                </Select>
-                            </Form.Item>
-                        </Col>
-                    </Row>
+                                <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                                    <Form.Item
+                                        name="partnerName"
+                                        label="ឈ្មោះ"
+                                        rules={[{ required: true, message: "សូមបំពេញឈ្មោះ!!" }]}
+                                    >
+                                        <Input
+                                            placeholder='ឈ្មោះ'
+                                            size='large'
+                                            allowClear
+                                        />
+                                    </Form.Item>
+                                </Col>
+                                <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                                    <Form.Item
+                                        name="partnerGender"
+                                        label="ភេទ"
+                                        rules={[{ required: true, message: "សូមជ្រើសរើសភេទ!!" }]}
+                                    >
+                                        <Select
+                                            placeholder="ភេទ"
+                                            size="large"
+                                            allowClear
+                                        >
+                                            <Option value="ប្រុស">ប្រុស</Option>
+                                            <Option value="ស្រី">ស្រី</Option>
+                                        </Select>
+                                    </Form.Item>
+                                </Col>
+                            </Row>
+                            : null
+                    }
                     <Row
                         gutter={10}
                     >

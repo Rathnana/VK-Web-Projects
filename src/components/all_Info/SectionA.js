@@ -41,11 +41,11 @@ export default function SectionA() {
     }
 
     if (loading || todos?.length <= 0) return (<Col
-        xs={12} sm={12} md={12} lg={12} xl={12}
+        xs={24} sm={24} md={12} lg={12} xl={12}
     >
         <Row>
             <Col
-                xs={12} sm={12} md={12} lg={8} xl={8}
+                xs={24} sm={24} md={12} lg={8} xl={8}
             >
                 <center style={{ width: "100%",padding:10 }} >
                     <Skeleton.Image width= "100%"  />
@@ -53,7 +53,7 @@ export default function SectionA() {
                 </center>
             </Col>
             <Col
-                xs={12} sm={12} md={12} lg={8} xl={8}
+                xs={24} sm={24} md={12} lg={8} xl={8}
             >
                 <center style={{ width: "100%",padding:10 }} >
                     <Skeleton.Image width="100%" />
@@ -61,7 +61,7 @@ export default function SectionA() {
                 </center>
             </Col>
             <Col
-                xs={12} sm={12} md={12} lg={8} xl={8}
+                xs={24} sm={24} md={12} lg={8} xl={8}
             >
                 <center style={{ width: "100%",padding:10 }} >
                     <Skeleton.Image width="100%" />
@@ -73,19 +73,20 @@ export default function SectionA() {
     )
     return (
         <Col
-            xs={12} sm={12} md={12} lg={12} xl={12}
+            xs={24} sm={24} md={12} lg={12} xl={12}
         >
             <Row>
                 {
                     todos?.map(todo =>
                         <Col key={todo.dc_id}
-                            xs={12} sm={12} md={12} lg={8} xl={8}
+                            xs={12} sm={12} md={12} lg={12} xl={8} style={{padding:10}}
                         >
                             <Card
                                 bordered={false}
                                 style={{
-                                    background: "#f0f0f0", borderRadius: 10, marginTop: 20, marginRight: 10,
+                                    background: "#f0f0f0", borderRadius: 5,
                                 }}
+                                className='card-report'
                                 cover={
                                     <img
                                         className='image-card'
@@ -104,7 +105,7 @@ export default function SectionA() {
                                     {
                                         `${todo.constructionName} (${todo.constructionLocation})`
                                     }
-                                </Typography>
+                                </Typography><br/>
                                 <Typography style={{ fontWeight: "bold" }}>
                                     {`${todo.chiefName} (${todo.teamCount}ក្រុម)`}
                                 </Typography>
@@ -112,8 +113,9 @@ export default function SectionA() {
                                     {`ចំ.ជាង៖ ${todo.builderCount} | ចំ.កម្មករ៖ ${todo.workerCount}`}
                                 </Typography>
                                 {
-                                    todo.performances?.map((per) => <Typography >{per.performance}</Typography>)
+                                    todo.performances?.map((per) => <Typography >- {per.performance}</Typography>)
                                 }
+                               
 
                                 <Typography style={{ color: 'red' }}>{todo.challenges}</Typography>
                                 <Progress status={todo?.status} />
