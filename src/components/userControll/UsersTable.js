@@ -51,7 +51,7 @@ export default function UsersTable({
             key: 'no',
         },
         {
-            title: 'ឈ្មោះ',
+            title: 'ឈ្មោះអ្នកប្រើប្រាស់',
             dataIndex: 'username',
             key: 'username',
 

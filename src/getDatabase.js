@@ -44,6 +44,8 @@ export const Add_New_User = async (user) => {
             console.log(response?.data)
             if (response?.data === "success") {
                 message.success('បង្កើតអ្នកប្រើប្រាស់ជោគជ័យ!!!')
+            } else if (response?.data === "usernameExisted") {
+                message.error(` អ្នកប្រើប្រាស់ ${user.username} បានបង្កើតរួចរាល់ម្ដង់ហើយ!!`)
             } else {
                 message.error('បង្កើតអ្នកប្រើប្រាស់មានបញ្ហា!!')
             }

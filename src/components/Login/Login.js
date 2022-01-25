@@ -4,13 +4,15 @@ import 'antd/dist/antd.css';
 import { Layout } from 'antd';
 import { FaUserCircle } from 'react-icons/fa';
 import axios from 'axios'
+import { useState } from 'react/cjs/react.development';
 const { Footer } = Layout;
 
 export default function Login({ setAuth }) {
-
+    const [loading, setLoading] = useState(false)
     const onFinish = async (values) => {
         // console.log('Success:', values.password);
         // console.log(values.username, values.password)
+        setLoading(true)
         const params = new URLSearchParams();
         params.append('db_user', process.env.React_App_DB_USER);
         params.append('db_password', process.env.React_App_DB_PASSWORD);
@@ -19,12 +21,14 @@ export default function Login({ setAuth }) {
         params.append('data', JSON.stringify({ username: values.username, password: values.password }));
 
         return await axios.post(
-            `${process.env.React_App_URL}/login/loginProcess.php`, params
+            `${process.env.React_App_URL}/login/loginProcessAdmin.php`, params
         )
             .then(async function (response) {
                 // console.log(response?.data)
+
                 if (response?.data === "incorrect") {
                     message.error("Username & Password មានបញ្ហា!!")
+                    setLoading(false)
                 } else {
                     message.success('Login ជោគជ័យ!!');
                     sessionStorage.setItem("u_id", response?.data?.u_id);
@@ -94,7 +98,7 @@ export default function Login({ setAuth }) {
 
                         <Col>
                             <Form.Item >
-                                <Button type="primary" htmlType="submit" size='large'>
+                                <Button type="primary" htmlType="submit" size='large' loading={loading} >
                                     ចូលប្រព័ន្ធ
                                 </Button>
                             </Form.Item>
