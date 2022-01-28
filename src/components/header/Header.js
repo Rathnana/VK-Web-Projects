@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Row, Col, Input, Popconfirm, message } from 'antd';
-import axios from 'axios';
 const { Search } = Input;
 
-export default function Header({ setAuth }) {
+export default function Header({ setAuth, setSearch }) {
 
- 
+
 
 
 
@@ -19,6 +18,7 @@ export default function Header({ setAuth }) {
                         allowClear
                         enterButton="ស្វែងរក"
                         size="large"
+                        onChange={(e) => setSearch(e.target.value)}
                     />
                 </Col>
                 <Col xs={10} sm={10} md={15} lg={16} xl={18} >
@@ -28,7 +28,7 @@ export default function Header({ setAuth }) {
                             position: "absolute",
                             right: 0,
                             cursor: "pointer",
-                            fontSize:18
+                            fontSize: 18
                         }}
                     >
                         <Popconfirm

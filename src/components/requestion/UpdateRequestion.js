@@ -1,7 +1,7 @@
 
 
 import React, { useState, useEffect } from 'react'
-import { Select, Modal, Input, DatePicker, Row, Col, Space } from 'antd';
+import { Select, Modal, Input, DatePicker, Row, Col, Space, Drawer } from 'antd';
 import axios from 'axios'
 import { update_Request } from '../../getDatabase';
 import { Form, Button } from 'antd';
@@ -18,15 +18,18 @@ export default function UpdateRequestion({
     requests
 }) {
     const [form] = Form.useForm();
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [visible, setVisible] = useState(false);
+    const showDrawer = () => {
+        setVisible(true);
+    };
+    const onClose = () => {
+        setVisible(false);
+    };
     const [construction, setConstruction] = useState()
     const [data, setData] = useState()
-    const showModal = () => {
-        setIsModalVisible(true);
 
-    };
     const onFinish = values => {
-        setIsModalVisible(false);
+        setVisible(false);
         update_Request(values, r_id);
         // message.success('ស្នើសុំជោជ័យ!');
         setSuccess(true)
@@ -90,16 +93,9 @@ export default function UpdateRequestion({
     }
     return (
         <div>
-            <Button onClick={showModal} type="primary" shape="circle" icon={<AiOutlineEdit />} size='middle' />
+            <Button onClick={showDrawer} type="primary" shape="circle" icon={<AiOutlineEdit />} size='middle' />
+            <Drawer width={520} title="ការស្នើរសុំសម្ភារៈ" placement="right" onClose={onClose} visible={visible}>
 
-            <Modal
-                title="ការស្នើរសុំសម្ភារៈ"
-                visible={isModalVisible}
-                onCancel={() => setIsModalVisible(false)}
-                okText="កែប្រែ"
-                cancelText="បោះបង់"
-                okButtonProps={{ form: 'create-requestion-form', key: 'submit', htmlType: 'submit' }}
-            >
                 <Form
                     form={form}
                     id='create-requestion-form' layout="vertical" onFinish={onFinish}
@@ -237,8 +233,17 @@ export default function UpdateRequestion({
                             </Form.List>
                         </Col>
                     </Row>
+                    <Row>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                            <Form.Item>
+                                <Button style={{ width: "100%" }} type="primary" htmlType="submit" size='large'>
+                                    កែប្រែ
+                                </Button>
+                            </Form.Item>
+                        </Col>
+                    </Row>
                 </Form>
-            </Modal>
+            </Drawer>
 
         </div >
     )

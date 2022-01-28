@@ -10,8 +10,7 @@ const { Footer } = Layout;
 export default function Login({ setAuth }) {
     const [loading, setLoading] = useState(false)
     const onFinish = async (values) => {
-        // console.log('Success:', values.password);
-        // console.log(values.username, values.password)
+     
         setLoading(true)
         const params = new URLSearchParams();
         params.append('db_user', process.env.React_App_DB_USER);

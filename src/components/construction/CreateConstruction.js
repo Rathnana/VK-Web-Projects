@@ -1,10 +1,7 @@
 import React, { useState } from 'react'
-import { Modal, Select, Input, message, DatePicker, Row, Col, Space } from 'antd';
+import { Modal, Input, message, DatePicker, Row, Col, Space } from 'antd';
 import { Button } from 'antd';
 import { Creat_Construction } from '../../getDatabase'
-
-
-const { Option } = Select;
 
 export default function CreateConstruction({ setSuccess }) {
     const [isModalVisible, setIsModalVisible] = useState(false);

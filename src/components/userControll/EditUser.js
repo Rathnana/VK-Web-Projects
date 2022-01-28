@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { AiOutlineEdit } from "react-icons/ai";
-import { Modal, Button, Select, Input, Form, Row, Col } from 'antd';
+import { Modal, Button, Select, Input, Form, Row, Col, Drawer } from 'antd';
 import { Update_User } from '../../getDatabase';
 
 const { Option } = Select;
 
 export default function EditUser({ setSuccess, users, userId }) {
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [visible, setVisible] = useState(false);
+    const showDrawer = () => {
+        setVisible(true);
+    };
+    const onClose = () => {
+        setVisible(false);
+    };
     const [form] = Form.useForm();
 
-    const showModal = () => {
-        setIsModalVisible(true);
-    };
+
 
     useEffect(() => {
         if (users) {
@@ -21,26 +25,19 @@ export default function EditUser({ setSuccess, users, userId }) {
 
 
     const onFinish = (values) => {
-        setIsModalVisible(false)
+        setVisible(false);
         Update_User(values, userId)
         setSuccess(true)
-       
+
     };
 
 
     return (
         <div>
 
-            <Button onClick={showModal} type="primary" shape="circle" icon={<AiOutlineEdit style={{ marginTop: '5px' }} />} size='middle' />
+            <Button onClick={showDrawer} type="primary" shape="circle" icon={<AiOutlineEdit style={{ marginTop: '5px' }} />} size='middle' />
+            <Drawer width={500} title="ធ្វើបច្ចុប្បន្នភាពអ្នកប្រើប្រាស់" placement="right" onClose={onClose} visible={visible}>
 
-            <Modal
-                title="ធ្វើបច្ចុប្បន្នភាពអ្នកប្រើប្រាស់"
-                visible={isModalVisible}
-                onCancel={() => setIsModalVisible(false)}
-                okText="កែប្រែ"
-                cancelText="បោះបង់"
-                okButtonProps={{ form: 'edit-User-form', key: 'submit', htmlType: 'submit' }}
-            >
                 <Form
                     form={form}
                     id='edit-User-form' layout="vertical" onFinish={onFinish}
@@ -112,8 +109,19 @@ export default function EditUser({ setSuccess, users, userId }) {
                             </Form.Item>
                         </Col>
                     </Row>
+                    <Row>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                            <Form.Item
+
+                            >
+                                <Button style={{ width: "100%" }} type="primary" htmlType="submit" size='large'>
+                                   កែប្រែ
+                                </Button>
+                            </Form.Item>
+                        </Col>
+                    </Row>
                 </Form>
-            </Modal>
+            </Drawer>
         </div>
     )
 }

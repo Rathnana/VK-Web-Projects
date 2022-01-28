@@ -8,7 +8,9 @@ export default function PettyCashTable({
     setLoading,
     loading,
     setSuccess,
-    success
+    success,
+    status,
+    search
 }) {
 
     const [pettyCash, setPettyCash] = useState();
@@ -19,7 +21,7 @@ export default function PettyCashTable({
     useEffect(() => {
         setLoading(true);
         getPettyCash();
-    }, [success])
+    }, [success, status, search])
 
     const getPettyCash = async () => {
         const params = new URLSearchParams();
@@ -28,6 +30,7 @@ export default function PettyCashTable({
         params.append('db', 'wwvka_vkms', process.env.React_App_DB);
         params.append('page', page)
         params.append('pageSize', pageSize)
+        params.append('data', JSON.stringify({ status, search }))
 
         return await axios.post(
             `${process.env.React_App_URL}/get/getPrettyCashWithPagination.php`, params

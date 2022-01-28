@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Modal, Select, Input, DatePicker, Row, Col, Form, message } from 'antd';
+import { Modal, Select, Input, DatePicker, Row, Col, Form, Drawer, message } from 'antd';
 import { Button } from 'antd';
 import { AiOutlineEdit } from "react-icons/ai";
 import moment from 'moment';
@@ -12,31 +12,16 @@ export default function UpdateCustomer({
     setSuccess,
     c_id,
     customer
-    // constructionName,
-    // customerName,
-    // tel,
-    // gender,
-    // maritalStatus,
-    // partnerName,
-    // partnerGender,
-    // taskType,
-    // constructionType,
-    // constructionLocation,
-    // countFloor,
-    // mapLink,
-    // priority,
-    // showInDashboard,
-    // startDate,
-    // endDate,
-    // remark,
-    // landNumber,
-    // landOfficerName
+
 }) {
     const [form] = Form.useForm();
-    const [isModalVisible, setIsModalVisible] = useState(false);
     const [loading, setLoading] = useState(false);
-    const showModal = () => {
-        setIsModalVisible(true);
+    const [visible, setVisible] = useState(false);
+    const showDrawer = () => {
+        setVisible(true);
+    };
+    const onClose = () => {
+        setVisible(false);
     };
     const [maritalStatus, setMaritalStatus] = useState(
         customer?.maritalStatus === "មានគ្រួសារ" ? true : false
@@ -57,7 +42,7 @@ export default function UpdateCustomer({
         let updateState = await Update_Customer(values, c_id);
 
         if (updateState) {
-            setIsModalVisible(false);
+            setVisible(false);
             form.resetFields()
             message.success('ជោជ័យ!');
             setSuccess(true)
@@ -70,16 +55,9 @@ export default function UpdateCustomer({
 
     return (
         <div>
-            <Button onClick={showModal} type="primary" shape="circle" icon={<AiOutlineEdit style={{ marginTop: '5px' }} />} size='middle' />
-            <Modal
-                title="បង្កើតអតិថិជន"
-                visible={isModalVisible}
-                onCancel={() => setIsModalVisible(false)}
-                okText="បង្កើត"
-                cancelText="បោះបង់"
-                // okButtonProps={{ form: 'create-customer-form', key: 'submit', htmlType: 'submit' }}
-                footer={null}
-            >
+            <Button onClick={showDrawer} type="primary" shape="circle" icon={<AiOutlineEdit style={{ marginTop: '5px' }} />} size='middle' />
+
+            <Drawer width={500} title="កែប្រែអតិថិជន" placement="right" onClose={onClose} visible={visible}>
                 <Form
                     form={form}
                     id='create-customer-form' layout="vertical" onFinish={onFinish}
@@ -411,32 +389,18 @@ export default function UpdateCustomer({
                         </Col>
                     </Row>
 
-                    <Row gutter={10}>
-                        {/* <Col xs={24} sm={24} md={24} lg={24} xl={24} >
-                            <Form.Item
-                                name="landOfficerName"
-                                label="ឈ្មោះមន្ត្រី"
-                                rules={[{ required: true, message: "សូមបំពេញឈ្មោះមន្ត្រី!!" }]}
-                            >
-                                <Input
-                                    placeholder='ឈ្មោះមន្ត្រី'
-                                    size='large'
-                                    allowClear
-                                />
-                            </Form.Item>
-                        </Col> */}
-                        <Col xs={24} sm={24} md={24} lg={24} xl={24} >
-                            <Form.Item
 
-                            >
-                                <Button type='primary' htmlType='submit' loading={loading}>
+                    <Row>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                            <Form.Item>
+                                <Button style={{ width: "100%" }} type="primary" htmlType="submit" size='large' loading={loading}>
                                     កែតម្រូវ
                                 </Button>
                             </Form.Item>
                         </Col>
                     </Row>
                 </Form>
-            </Modal>
+            </Drawer>
         </div>
     )
 }

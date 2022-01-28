@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Modal, Select, Input, DatePicker, Row, Col, Form, message } from 'antd';
+import { Drawer, Select, Input, DatePicker, Row, Col, Form, message } from 'antd';
 import { Button } from 'antd';
 import { Creat_Customer } from '../../getDatabase'
 
@@ -9,11 +9,14 @@ export default function CraeteCustomer({
     setSuccess
 }) {
     const [form] = Form.useForm();
-    const [isModalVisible, setIsModalVisible] = useState(false);
     const [maritalStatus, setMaritalStatus] = useState(false)
     const [loading, setLoading] = useState(false);
-    const showModal = () => {
-        setIsModalVisible(true);
+    const [visible, setVisible] = useState(false);
+    const showDrawer = () => {
+        setVisible(true);
+    };
+    const onClose = () => {
+        setVisible(false);
     };
     const onFinish = async values => {
 
@@ -23,7 +26,7 @@ export default function CraeteCustomer({
         let CreatCustomer = await Creat_Customer(values);
 
         if (CreatCustomer) {
-            setIsModalVisible(false);
+            setVisible(false);
             form.resetFields()
             message.success('ជោជ័យ!');
             setSuccess(true)
@@ -37,16 +40,10 @@ export default function CraeteCustomer({
 
     return (
         <>
-            <Button onClick={showModal} type="primary" size='large' style={{width:'100%'}}>+ បន្ថែមថ្មី</Button>
-            <Modal
-                title="បង្កើតអតិថិជន"
-                visible={isModalVisible}
-                onCancel={() => setIsModalVisible(false)}
-                okText="បង្កើត"
-                cancelText="បោះបង់"
-                footer={null}
-            // okButtonProps={{ form: 'create-customer-form', key: 'submit', htmlType: 'submit' }}
-            >
+            <Button onClick={showDrawer} type="primary" size='large' style={{ width: '100%' }}>+ បន្ថែមថ្មី</Button>
+
+            <Drawer width={500} title="បង្កើតអតិថិជន" placement="right" onClose={onClose} visible={visible}>
+
                 <Form
                     form={form}
                     id='create-customer-form' layout="vertical" onFinish={onFinish}
@@ -379,18 +376,19 @@ export default function CraeteCustomer({
                                 />
                             </Form.Item>
                         </Col>
-                        <Col xs={24} sm={24} md={24} lg={24} xl={24} >
-                            <Form.Item
-
-                            >
-                                <Button type='primary' htmlType='submit' loading={loading}>
+                       
+                    </Row>
+                    <Row>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                            <Form.Item>
+                                <Button style={{ width: "100%" }} type="primary" htmlType="submit" size='large' loading={loading}>
                                     បង្កើត
                                 </Button>
                             </Form.Item>
                         </Col>
                     </Row>
                 </Form>
-            </Modal>
+            </Drawer>
         </ >
     )
 }

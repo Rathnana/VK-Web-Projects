@@ -9,20 +9,21 @@ export default function ReportTable({
     setLoading,
     loading,
     setSuccess,
-    success
+    success,
+    startDate,
+    endDate,
+    customerId,
+    chiefId
 }) {
     const [reports, setReports] = useState([]);
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(20);
-    const [customerId, setCustomerId] = useState(null)
-    const [startDate, setStartDate] = useState('');
-    const [endDate, setEndDate] = useState('')
-    const [userId, setUserId] = useState('');
 
+    // console.log(customerId);
     useEffect(() => {
         getReports();
         setLoading(true);
-    }, [success]);
+    }, [success, startDate, endDate, customerId, chiefId]);
 
     const getReports = async () => {
         const params = new URLSearchParams();
@@ -30,12 +31,13 @@ export default function ReportTable({
         params.append('db_password', process.env.React_App_DB_PASSWORD);
         params.append('db', process.env.React_App_DB);
         params.append('data', JSON.stringify({
-            page: page,
-            pageSize: pageSize,
-            customerId: customerId,
-            userId: userId,
-            startDate: startDate,
-            endDate: endDate
+            page,
+            pageSize,
+            customerId,
+            userId: sessionStorage.getItem("u_id"),
+            startDate: startDate?.format('YYYY-MM-DD'),
+            endDate: endDate?.format('YYYY-MM-DD'),
+            chiefId
         }));
 
         return await axios.post(

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Modal, Form, Input, DatePicker, Row, Col } from 'antd';
+import { Drawer, Form, Input, DatePicker, Row, Col } from 'antd';
 import { Button } from 'antd';
 import { Creat_PettyCash } from '../../getDatabase'
 
@@ -7,15 +7,17 @@ import { Creat_PettyCash } from '../../getDatabase'
 
 export default function CreatePettyCash({ setSuccess }) {
     const [form] = Form.useForm();
-    const [isModalVisible, setIsModalVisible] = useState(false);
-
-    const showModal = () => {
-        setIsModalVisible(true);
+    const [visible, setVisible] = useState(false);
+    const showDrawer = () => {
+        setVisible(true);
+    };
+    const onClose = () => {
+        setVisible(false);
     };
 
     const onFinish = values => {
         // console.log(values);
-        setIsModalVisible(false);
+        setVisible(false);
         Creat_PettyCash(values, sessionStorage.getItem("u_id"));
         form.resetFields();
         setSuccess(true)
@@ -27,16 +29,9 @@ export default function CreatePettyCash({ setSuccess }) {
         <div
 
         >
-            <Button  onClick={showModal} type="primary" size='large' style={{width:'100%'}}>+ បន្ថែមថ្មី</Button>
+            <Button onClick={showDrawer} type="primary" size='large' style={{ width: '100%' }}>+ បន្ថែមថ្មី</Button>
+            <Drawer width={500} title="បង្កើត Petty Cash" placement="right" onClose={onClose} visible={visible}>
 
-            <Modal
-                title="បង្កើត Petty Cash"
-                okText="បង្កើត"
-                visible={isModalVisible}
-                onCancel={() => setIsModalVisible(false)}
-                cancelText="បោះបង់"
-                okButtonProps={{ form: 'create-petty-cash-form', key: 'submit', htmlType: 'submit' }}
-            >
                 <Form
                     form={form}
                     id='create-petty-cash-form' layout="vertical" onFinish={onFinish}
@@ -102,9 +97,17 @@ export default function CreatePettyCash({ setSuccess }) {
                             </Form.Item>
                         </Col>
                     </Row>
-
+                    <Row>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                            <Form.Item>
+                                <Button style={{ width: "100%" }} type="primary" htmlType="submit" size='large'>
+                                    បង្កើត
+                                </Button>
+                            </Form.Item>
+                        </Col>
+                    </Row>
                 </Form>
-            </Modal>
+            </Drawer>
         </div >
     )
 }

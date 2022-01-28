@@ -10,7 +10,9 @@ export default function RequestionTable({
     setLoading,
     loading,
     setSuccess,
-    success
+    success,
+    constructionId,
+    date
 }) {
     const [request, setRequest] = useState()
     const [page, setPage] = useState(1);
@@ -19,14 +21,14 @@ export default function RequestionTable({
     useEffect(() => {
         setLoading(true);
         getRequests();
-    }, [success])
+    }, [success, constructionId, date])
 
     const getRequests = async () => {
         const params = new URLSearchParams();
         params.append('db_user', process.env.React_App_DB_USER);
         params.append('db_password', process.env.React_App_DB_PASSWORD);
         params.append('db', process.env.React_App_DB);
-        params.append('data', JSON.stringify({ page: page, pageSize: pageSize }))
+        params.append('data', JSON.stringify({ page: page, pageSize: pageSize, constructionId, date: date?.format('YYYY-MM-DD') }))
 
 
         return await axios.post(
@@ -47,7 +49,7 @@ export default function RequestionTable({
             });
     }
 
-    
+
     const columns = [
         {
             title: 'លរ',

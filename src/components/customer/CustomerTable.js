@@ -9,7 +9,11 @@ export default function CustomerTable({
     setLoading,
     loading,
     setSuccess,
-    success
+    success,
+    taskType,
+    priority,
+    constructionType,
+    search
 }) {
     const [customer, setCustomer] = useState();
     const [page, setPage] = useState(1);
@@ -18,7 +22,7 @@ export default function CustomerTable({
     useEffect(() => {
         setLoading(true);
         getCustomer();
-    }, [success])
+    }, [success, taskType, priority, search])
 
     const getCustomer = async () => {
         const params = new URLSearchParams();
@@ -27,14 +31,15 @@ export default function CustomerTable({
         params.append('db', 'wwvka_vkms', process.env.React_App_DB);
         params.append('page', page)
         params.append('pageSize', pageSize)
-
+        // params.append('taskType', taskType)
+        params.append('data', JSON.stringify({ taskType, priority, constructionType, search }))
         return await axios.post(
             `${process.env.React_App_URL}/get/getCustomerWithPagination.php`, params
         )
             .then(async function (response) {
 
                 if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
-                    // console.log(response?.data.data)
+                    console.log(response?.data.data)
                     setLoading(false);
                     setSuccess(false);
                     setCustomer(response?.data)
@@ -202,9 +207,9 @@ export default function CustomerTable({
         },
         {
             key: 'action',
-            fixed:'right',
-            align:'center',
-            width:130,
+            fixed: 'right',
+            align: 'center',
+            width: 130,
             render: (text, record) => (
                 <Space size="middle">
                     <UpdateCustomer

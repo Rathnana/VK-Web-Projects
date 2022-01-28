@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Select, Modal, Input, DatePicker, Row, Col, Space } from 'antd';
+import { Select, Input, DatePicker, Row, Col, Space, Drawer } from 'antd';
 import axios from 'axios'
 import { Create_Request } from '../../getDatabase'
 import { Form, Button } from 'antd';
@@ -8,17 +8,19 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 const { Option } = Select;
 export default function CreateRequest({ setSuccess }) {
     const [form] = Form.useForm();
-    const [isModalVisible, setIsModalVisible] = useState(false);
     const [construction, setConstruction] = useState()
-
-    const showModal = () => {
-        setIsModalVisible(true);
+    const [visible, setVisible] = useState(false);
+    const showDrawer = () => {
+        setVisible(true);
     };
+    const onClose = () => {
+        setVisible(false);
+    };
+
     const onFinish = values => {
-        setIsModalVisible(false);
+        setVisible(false);
         Create_Request(values, sessionStorage.getItem("u_id"));
         form.resetFields();
-
         setSuccess(true)
 
     };
@@ -39,6 +41,7 @@ export default function CreateRequest({ setSuccess }) {
 
                 if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
                     setConstruction(response?.data.data)
+                    console.log(response?.data.data);
                     return response?.data;
                 } else {
                     return [];
@@ -49,15 +52,8 @@ export default function CreateRequest({ setSuccess }) {
 
     return (
         <>
-            <Button onClick={showModal} type="primary" size='large' style={{ width: '100%' }}>+ បន្ថែមថ្មី</Button>
-            <Modal
-                title="ការស្នើរសុំសម្ភារៈ"
-                visible={isModalVisible}
-                onCancel={() => setIsModalVisible(false)}
-                okText="ស្នើរសុំ"
-                cancelText="បោះបង់"
-                okButtonProps={{ form: 'create-requestion-form', key: 'submit', htmlType: 'submit' }}
-            >
+            <Button onClick={showDrawer} type="primary" size='large' style={{ width: '100%' }}>+ បន្ថែមថ្មី</Button>
+            <Drawer width={500} title="ការស្នើរសុំសម្ភារៈ" placement="right" onClose={onClose} visible={visible}>
                 <Form
                     form={form}
                     id='create-requestion-form' layout="vertical" onFinish={onFinish}
@@ -195,8 +191,17 @@ export default function CreateRequest({ setSuccess }) {
                             </Form.List>
                         </Col>
                     </Row>
+                    <Row>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                            <Form.Item>
+                                <Button style={{ width: "100%" }} type="primary" htmlType="submit" size='large'>
+                                    បង្កើត
+                                </Button>
+                            </Form.Item>
+                        </Col>
+                    </Row>
                 </Form>
-            </Modal>
+            </Drawer>
 
         </ >
     )

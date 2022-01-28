@@ -1,18 +1,22 @@
 import React, { useState } from 'react'
-import { Modal, Button, Select, Input, Form, Row, Col } from 'antd';
+import { Modal, Button, Select, Input, Form, Row, Col, Drawer } from 'antd';
 import { Add_New_User } from '../../getDatabase';
 const { Option } = Select;
 
 export default function AddUser({ setSuccess }) {
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [visible, setVisible] = useState(false);
+    const showDrawer = () => {
+        setVisible(true);
+    };
+    const onClose = () => {
+        setVisible(false);
+    };
     const [form] = Form.useForm();
 
-    const showModal = () => {
-        setIsModalVisible(true);
-    };
+
 
     const onFinish = (values) => {
-        setIsModalVisible(false)
+        setVisible(false);
         Add_New_User(values)
         form.resetFields()
         setSuccess(true)
@@ -21,15 +25,9 @@ export default function AddUser({ setSuccess }) {
 
     return (
         <>
-            <Button onClick={showModal} type="primary" size='large' style={{ width: '100%' }}>+ បន្ថែមអ្នកប្រើប្រាស់</Button>
-            <Modal
-                title="បន្ថែមអ្នកប្រើប្រាស់"
-                visible={isModalVisible}
-                onCancel={() => setIsModalVisible(false)}
-                okText="បង្កើតអ្នកប្រើប្រាស់"
-                cancelText="បោះបង់"
-                okButtonProps={{ form: 'add-User-form', key: 'submit', htmlType: 'submit' }}
-            >
+            <Button onClick={showDrawer} type="primary" size='large' style={{ width: '100%' }}>+ បន្ថែមអ្នកប្រើប្រាស់</Button>
+            <Drawer width={500} title="បន្ថែមអ្នកប្រើប្រាស់" placement="right" onClose={onClose} visible={visible}>
+
                 <Form
                     form={form}
                     id='add-User-form' layout="vertical" onFinish={onFinish}
@@ -115,8 +113,19 @@ export default function AddUser({ setSuccess }) {
                             </Form.Item>
                         </Col>
                     </Row>
+                    <Row>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                            <Form.Item
+
+                            >
+                                <Button style={{width:"100%"}} type="primary" htmlType="submit" size='large'>
+                                    បង្កើត
+                                </Button>
+                            </Form.Item>
+                        </Col>
+                    </Row>
                 </Form>
-            </Modal>
+            </Drawer>
         </ >
     )
 

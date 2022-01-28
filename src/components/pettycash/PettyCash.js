@@ -1,18 +1,19 @@
 import React from 'react'
-import { Col, Row, Space } from 'antd';
-import { Typography, Button } from 'antd';
+import { Col, Row } from 'antd';
+import { Typography, Button, Form } from 'antd';
 import { Select } from 'antd';
 import CreatePettyCash from './CreatePettyCash'
 import PettyCashTable from './PettyCashTable';
 
+
 const { Option } = Select;
 const { Title } = Typography;
 
-export default function PettyCash() {
-
+export default function PettyCash({ search }) {
+    const [form] = Form.useForm();
     const [success, setSuccess] = React.useState(false);
     const [loading, setLoading] = React.useState(true);
-
+    const [status, setStatus] = React.useState('')
     return (
         <div
             style={{
@@ -34,30 +35,43 @@ export default function PettyCash() {
                     >
                         {`តារាង Pretty Cash`}
                     </Title>
-                    <Row>
-                        <Col xs={24} sm={24} md={8} lg={6} xl={4} style={{ padding: 5 }}>
+                    <Form
+                        form={form}
+                        id='petty-cash-filter-form'
+                    >
+                        <Row>
+                            <Col xs={24} sm={24} md={8} lg={6} xl={4} style={{ padding: 5 }}>
 
-                            <Select placeholder="ស្ថានភាព" size='large' style={{ width: '100%' }} >
-                                <Option value="ផ្ទះល្វែង">ផ្ទះល្វែង</Option>
-                                <Option value="ភូមិគ្រិះ">ភូមិគ្រិះ</Option>
-                                <Option value="ឃ្លាំង">ឃ្លាំង</Option>
-                                <Option value="ស្ថានីយប្រេង">ស្ថានីយប្រេង</Option>
-                                <Option value="កាត់ប្លង់ផ្ទះល្វែង ដីឡូគ៍">ភូមិគ្កាត់ប្លង់ផ្ទះល្វែង ដីឡូគ៍</Option>
-                                <Option value="សាងសង់">សាងសង់</Option>
-                                <Option value="ផ្សេងៗ">ផ្សេងៗ</Option>
-                            </Select>
+                                <Form.Item
+                                    name="status"
+                                    label="ស្ថានភាព"
+                                    rules={[{ required: true, message: "សូមជ្រើសរើសស្ថានភាព!!" }]}
+                                >
+                                    <Select
+                                        placeholder="ស្ថានភាព"
+                                        size='large'
+                                        onChange={(e) => setStatus(e)}
+                                    >
+                                        <Option value="បានទូរទាត់">បានទូរទាត់</Option>
+                                        <Option value="មិនទាន់ទូរទាត់">មិនទាន់ទូរទាត់</Option>
+                                    </Select>
+                                </Form.Item>
 
-                        </Col>
-                        <Col xs={24} sm={24} md={4} lg={3} xl={3} style={{ padding: 5 }}>
-                            <Button type="primary" size='large' style={{ width: '100%' }}>Reset</Button>
+                            </Col>
+                            <Col xs={24} sm={24} md={4} lg={3} xl={3} style={{ padding: 5 }}>
+                                <Button onClick={() => {
+                                    form.resetFields();
+                                    setStatus(null)
+                                }} type="primary" size='large' style={{ width: '100%' }}>Reset</Button>
 
-                        </Col>
-                        <Col xs={24} sm={24} md={{span:4,offset:8}} lg={{span:4,offset:11}} xl={{span:3,offset:14}} style={{padding:5}} >
-                            <CreatePettyCash
-                                setSuccess={setSuccess}
-                            />
-                        </Col>
-                    </Row>
+                            </Col>
+                            <Col xs={24} sm={24} md={{ span: 4, offset: 8 }} lg={{ span: 4, offset: 11 }} xl={{ span: 3, offset: 14 }} style={{ padding: 5 }} >
+                                <CreatePettyCash
+                                    setSuccess={setSuccess}
+                                />
+                            </Col>
+                        </Row>
+                    </Form>
                 </Col>
 
                 <Col
@@ -69,6 +83,8 @@ export default function PettyCash() {
                         loading={loading}
                         setSuccess={setSuccess}
                         success={success}
+                        status={status}
+                        search={search}
                     />
                 </Col>
             </Row>

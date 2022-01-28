@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Modal, Form, Input, DatePicker, Row, Col, Select } from 'antd';
+import { Form, Input, DatePicker, Row, Col, Select, Drawer } from 'antd';
 import { Button } from 'antd';
 import { AiOutlineEdit } from "react-icons/ai";
 import moment from 'moment';
@@ -12,12 +12,15 @@ export default function UpdatePettyCash({
     pettyCash
 }) {
     const [form] = Form.useForm();
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const showModal = () => {
-        setIsModalVisible(true);
+    const [visible, setVisible] = useState(false);
+    const showDrawer = () => {
+        setVisible(true);
+    };
+    const onClose = () => {
+        setVisible(false);
     };
     const onFinish = values => {
-        setIsModalVisible(false);
+        setVisible(false);
         Update_PettyCash(values, pc_id);
         setSuccess(true)
 
@@ -34,15 +37,9 @@ export default function UpdatePettyCash({
 
     return (
         <div>
-            <Button onClick={showModal} type="primary" shape="circle" icon={<AiOutlineEdit style={{ marginTop: '5px' }} />} size='middle' />
-            <Modal
-                title="Edit Petty Cash"
-                okText="កែប្រែ"
-                visible={isModalVisible}
-                onCancel={() => setIsModalVisible(false)}
-                cancelText="បោះបង់"
-                okButtonProps={{ form: 'edit-petty-cash-form', key: 'submit', htmlType: 'submit' }}
-            >
+            <Button onClick={showDrawer} type="primary" shape="circle" icon={<AiOutlineEdit style={{ marginTop: '5px' }} />} size='middle' />
+            <Drawer width={520} title="Edit Petty Cash" placement="right" onClose={onClose} visible={visible}>
+
                 <Form
                     form={form}
                     id='edit-petty-cash-form' layout="vertical" onFinish={onFinish}
@@ -127,8 +124,17 @@ export default function UpdatePettyCash({
                         </Col>
                     </Row>
 
+                    <Row>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                            <Form.Item>
+                                <Button style={{ width: "100%" }} type="primary" htmlType="submit" size='large'>
+                                    កែប្រែ
+                                </Button>
+                            </Form.Item>
+                        </Col>
+                    </Row>
                 </Form>
-            </Modal>
+            </Drawer>
         </div >
     )
 }

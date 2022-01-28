@@ -9,7 +9,8 @@ export default function UsersTable({
     setLoading,
     loading,
     setSuccess,
-    success
+    success,
+    search
 }) {
     const [users, setUsers] = useState([]);
     const [page, setPage] = useState(1);
@@ -17,7 +18,7 @@ export default function UsersTable({
     useEffect(() => {
         getUsers();
         setLoading(true);
-    }, [success])
+    }, [success, search])
 
     const getUsers = async () => {
         const params = new URLSearchParams();
@@ -26,7 +27,7 @@ export default function UsersTable({
         params.append('db', process.env.React_App_DB);
         params.append('page', page)
         params.append('pageSize', pageSize)
-
+        params.append('data', JSON.stringify({ search }))
         return await axios.post(
             `${process.env.React_App_URL}/get/getUser.php`, params
         )

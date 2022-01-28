@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { AiOutlineEdit } from "react-icons/ai";
 // import moment from 'moment';
-import { Drawer, Button, Form, Row, Col, Select, Input, Divider, Space, InputNumber, message, Image } from 'antd';
+import { Drawer, Button, Form, Row, Col, Select, Input, Divider, InputNumber, message, Image } from 'antd';
 import { AiOutlineTeam, AiFillCloseCircle } from 'react-icons/ai';
 import { SelectChief } from './SelectChief';
 import { SelectCustomer } from './SelectCustomer';
@@ -14,12 +14,10 @@ const { TextArea } = Input;
 export default function EditReport({ setSuccess, id, reports }) {
     const [visible, setVisible] = useState(false);
     const [loading, setLoading] = useState(false);
-    // const [file, setFile] = useState();
     const [startImage, setStartImage] = useState(null);
     const [resultImage, setResultImage] = useState(null);
     const [report, setReport] = useState({})
     const [form] = Form.useForm()
-    console.log(resultImage);
 
     useEffect(() => {
         // console.log(reports);
