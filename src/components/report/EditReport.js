@@ -18,6 +18,22 @@ export default function EditReport({ setSuccess, id, reports }) {
     const [resultImage, setResultImage] = useState(null);
     const [report, setReport] = useState({})
     const [form] = Form.useForm()
+    const [isMobile,setIsMobile] = useState(false)
+
+    const handleResize = () => {
+        // 960
+        if (window.innerWidth <= 960) {
+            setIsMobile(true)
+        } else {
+            setIsMobile(false)
+        }
+    }
+
+    useEffect(() => {
+        handleResize()
+    }, [])
+
+    window.addEventListener('resize', handleResize)
 
     useEffect(() => {
         // console.log(reports);
@@ -123,7 +139,13 @@ export default function EditReport({ setSuccess, id, reports }) {
     }
     return <div>
         <Button type="primary" onClick={showDrawer} shape="circle" icon={<AiOutlineEdit />} size='middle' />
-        <Drawer title="កែប្រែបាយការណ៍" placement="right" width={"800px"} onClose={onClose} visible={visible}>
+        <Drawer 
+        title="កែប្រែបាយការណ៍" 
+        placement="right"                     
+        width={isMobile ? '100%' : 736}
+             onClose={onClose} 
+             visible={visible}
+             >
             <Form encType='multipart/form-data' form={form} name="dynamic_form_nest_item" onFinish={onFinish} autoComplete="off">
                 <Row gutter={10}>
                     <Col xs={8} sm={8} md={8} lg={8} xl={8}>

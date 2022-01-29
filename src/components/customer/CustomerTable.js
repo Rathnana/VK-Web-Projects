@@ -209,7 +209,7 @@ export default function CustomerTable({
             key: 'action',
             fixed: 'right',
             align: 'center',
-            width: 130,
+            width: 100,
             render: (text, record) => (
                 <Space size="middle">
                     <UpdateCustomer

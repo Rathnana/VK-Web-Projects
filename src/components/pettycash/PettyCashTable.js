@@ -3,6 +3,7 @@ import { Table, Space } from 'antd';
 import axios from 'axios'
 import DelectPettyCash from './DelectPettyCash'
 import UpdatePettyCash from './UpdatePettyCash'
+import { currencyFormat } from '../../getDatabase';
 
 export default function PettyCashTable({
     setLoading,
@@ -55,21 +56,25 @@ export default function PettyCashTable({
             title: 'លរ',
             dataIndex: 'no',
             key: 'no',
+            width:80
         },
         {
             title: 'កាលបរិច្ឆេទ',
             dataIndex: 'date',
             key: 'date',
+            width:120
         },
         {
             title: 'ឈ្មោះអ្នកខ្ចី',
             dataIndex: 'borrowPerson',
             key: 'borrowPerson',
+            width:250
         },
         {
             title: 'ឈ្មោះអ្នកផ្ដល់',
             dataIndex: 'lendedBy',
             key: 'lendedBy',
+            width:250,
             render: (text, record) => (
                 <Space>
                     {record?.lastName + " " + record?.firstName}
@@ -80,11 +85,18 @@ export default function PettyCashTable({
             title: 'ចំនួនទឹកប្រាក់',
             dataIndex: 'totalCash',
             key: 'totalCash',
+            width:120,
+            render: (text, record) => (
+                <Space>
+                    {currencyFormat(record?.totalCash)}
+                </Space>
+            )
         },
         {
             title: 'ស្ថានភាព',
             dataIndex: 'status',
             key: 'status',
+            width:120,
         }
         ,
 
@@ -95,7 +107,9 @@ export default function PettyCashTable({
         },
         {
             key: 'action',
-            fixed: 'rigth',
+            fixed: 'right',
+            align: 'center',
+            width:100,
             render: (text, record) => (
                 <Space size="middle">
                     <UpdatePettyCash

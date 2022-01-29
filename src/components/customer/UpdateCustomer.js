@@ -17,6 +17,24 @@ export default function UpdateCustomer({
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
     const [visible, setVisible] = useState(false);
+
+    const [isMobile, setIsMobile] = useState(false)
+
+    const handleResize = () => {
+        // 960
+        if (window.innerWidth <= 960) {
+            setIsMobile(true)
+        } else {
+            setIsMobile(false)
+        }
+    }
+
+    useEffect(() => {
+        handleResize()
+    }, [])
+
+    window.addEventListener('resize', handleResize)
+
     const showDrawer = () => {
         setVisible(true);
     };
@@ -57,7 +75,13 @@ export default function UpdateCustomer({
         <div>
             <Button onClick={showDrawer} type="primary" shape="circle" icon={<AiOutlineEdit style={{ marginTop: '5px' }} />} size='middle' />
 
-            <Drawer width={500} title="កែប្រែអតិថិជន" placement="right" onClose={onClose} visible={visible}>
+            <Drawer
+                width={isMobile ? '100%' : 736}
+                title="កែប្រែអតិថិជន"
+                placement="right"
+                onClose={onClose}
+                visible={visible}
+            >
                 <Form
                     form={form}
                     id='create-customer-form' layout="vertical" onFinish={onFinish}
@@ -67,7 +91,7 @@ export default function UpdateCustomer({
                             <Form.Item
                                 name="landNumber"
                                 label="លេខប័ណ្ណដី"
-                                rules={[{ required: true, message: "សូមបំពេញលេខប័ណ្ណដី!!" }]}
+                                // rules={[{ required: true, message: "សូមបំពេញលេខប័ណ្ណដី!!" }]}
                             >
                                 <Input
                                     placeholder='លេខប័ណ្ណដី'
@@ -158,8 +182,8 @@ export default function UpdateCustomer({
                                 <Col xs={12} sm={12} md={12} lg={12} xl={12} >
                                     <Form.Item
                                         name="partnerName"
-                                        label="ឈ្មោះ"
-                                        rules={[{ required: true, message: "សូមបំពេញឈ្មោះ!!" }]}
+                                        label="ឈ្មោះដៃគូរ"
+                                        // rules={[{ required: true, message: "សូមបំពេញឈ្មោះ!!" }]}
                                     >
                                         <Input
                                             placeholder='ឈ្មោះ'
@@ -172,7 +196,7 @@ export default function UpdateCustomer({
                                     <Form.Item
                                         name="partnerGender"
                                         label="ភេទ"
-                                        rules={[{ required: true, message: "សូមជ្រើសរើសភេទ!!" }]}
+                                        // rules={[{ required: true, message: "សូមជ្រើសរើសភេទ!!" }]}
                                     >
                                         <Select
                                             placeholder="ភេទ"
@@ -367,7 +391,7 @@ export default function UpdateCustomer({
                             <Form.Item
                                 name="landOfficerName"
                                 label="ឈ្មោះមន្ត្រី"
-                                rules={[{ required: true, message: "សូមបំពេញឈ្មោះមន្ត្រី!!" }]}
+                                // rules={[{ required: true, message: "សូមបំពេញឈ្មោះមន្ត្រី!!" }]}
                             >
                                 <Input
                                     placeholder='ឈ្មោះមន្ត្រី'

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Drawer, Button, Form, Row, Col, Select, Input, Divider, InputNumber, message, Image } from 'antd';
 import { AiFillCloseCircle, AiOutlineTeam } from 'react-icons/ai';
 import { SelectCustomer } from './SelectCustomer';
@@ -14,6 +14,22 @@ export default function AddReport({ setSuccess }) {
     const [startImage, setStartImage] = useState(null);
     const [resultImage, setResultImage] = useState(null);
     const [form] = Form.useForm()
+    const [isMobile, setIsMobile] = useState(false)
+
+    const handleResize = () => {
+        // 960
+        if (window.innerWidth <= 960) {
+            setIsMobile(true)
+        } else {
+            setIsMobile(false)
+        }
+    }
+
+    useEffect(() => {
+        handleResize()
+    }, [])
+
+    window.addEventListener('resize', handleResize)
 
     const showDrawer = () => {
         setVisible(true);
@@ -101,9 +117,14 @@ export default function AddReport({ setSuccess }) {
 
     return <>
         <Button onClick={showDrawer} type="primary" size='large' style={{width:'100%'}}>+ បន្ថែមថ្មី</Button>
-        <Row>
-            <Col xs={2} sm={1} md={1} lg={10} xl={10}>
-                <Drawer width={"800px"} title="បន្ថែមរបាយការណ៍" placement="right" onClose={onClose} visible={visible}>
+        
+                <Drawer                 
+                    width={isMobile ? '100%' : 736}
+                    title="បន្ថែមរបាយការណ៍" 
+                    placement="right" 
+                    onClose={onClose} 
+                    visible={visible}
+                >
                     <Form encType='multipart/form-data' form={form} name="dynamic_form_nest_item" onFinish={onFinish} autoComplete="off">
                         <Row gutter={10}>
                             <Col xs={8} sm={8} md={8} lg={8} xl={8}>
@@ -368,7 +389,6 @@ export default function AddReport({ setSuccess }) {
                         </Form.Item>
                     </Form>
                 </Drawer>
-            </Col>
-        </Row>
+            
     </>;
 }

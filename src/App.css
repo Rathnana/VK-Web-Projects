@@ -36,10 +36,10 @@ body, html {
 
 .login-form{
     width: 100%;
-    height: 70vh;
-    display: flex;
+    height: 100vh!important;
+    /* display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
   }
   
   .Login-user-icon{
@@ -77,14 +77,24 @@ body, html {
       
   } */
 
-  .table-customize tbody > tr > td{
+  /* .table-customize tbody > tr > td{
     padding-top: 5px !important;
     padding-bottom: 5px !important;
+  } */
+
+  .table-customize tbody >tr > td{
+    font-size: 16px!important;
+    padding: 5px 8px ;
+  }
+
+  .table-customize thead >tr > th{
+    font-size: 16px!important;
+    padding: 10px 10px ;
   }
 
   .row-danger td{
-      background-color: #ff9999 !important;
-      color: white !important;
+      background-color: #FFDFD8 !important;
+      /* color: white !important; */
   }
   .image-card{
       object-fit: cover !important;

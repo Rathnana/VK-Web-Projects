@@ -1,28 +1,52 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Col, Row, Form, DatePicker, Select } from 'antd';
 import { Typography, Button } from 'antd';
 import ReportTable from './ReportTable';
 import AddReport from './AddReport';
 import axios from 'axios';
+import moment from 'moment';
 
 
 const { Title } = Typography;
 const { Option } = Select;
 export default function Report() {
     const [form] = Form.useForm();
-    const [customers, setCustomers] = React.useState(null);
-    const [chiefs, setChiefs] = React.useState(null);
-    const [success, setSuccess] = React.useState(false);
-    const [loading, setLoading] = React.useState(true);
-    const [startDate, setStartDate] = React.useState();
-    const [endDate, setEndDate] = React.useState();
-    const [customerId, setCustomerId] = React.useState(null);
-    const [chiefId, setChiefId] = React.useState(null);
+    const [customers, setCustomers] = useState(null);
+    const [chiefs, setChiefs] = useState(null);
+    const [success, setSuccess] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [startDate, setStartDate] = useState();
+    const [endDate, setEndDate] = useState();
+    const [customerId, setCustomerId] = useState(null);
+    const [chiefId, setChiefId] = useState(null);
+
+    const [range,setRange] = useState({
+        startDate:null,
+        endDate:null
+    })
+
+    useEffect(() => {
+        getCheifs()
+    }, [])
 
     useEffect(() => {
         getCustomers();
-        getCheifs()
     }, [])
+
+    const handleSelectDate=(e)=>{
+        if(e){
+            setRange({
+                startDate:moment(e[0]).format("YYYY-MM-DD"),
+                endDate:moment(e[1]).format("YYYY-MM-DD"),
+            })
+        }else{
+            setRange({
+                startDate:null,
+                endDate:null
+            })
+        }
+    }
+
     const getCustomers = async () => {
         const params = new URLSearchParams();
         params.append('db_user', process.env.React_App_DB_USER);
@@ -36,7 +60,6 @@ export default function Report() {
 
                 if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
                     setCustomers(response?.data?.data);
-                    // console.log(response?.data?.data);
                     return response?.data;
                 } else {
                     return [];
@@ -57,7 +80,6 @@ export default function Report() {
 
                 if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
                     setChiefs(response?.data?.data);
-                    console.log(response?.data?.data);
                     return response?.data;
                 } else {
                     return [];
@@ -91,21 +113,20 @@ export default function Report() {
                     >
                         <Row style={{ marginBottom: 10 }}>
 
-                            <Col xs={24} sm={24} md={4} lg={5} xl={3} style={{ padding: 5 }}>
+                            <Col xs={24} sm={24} md={4} lg={5} xl={6} style={{ padding: 5 }}>
                                 <Form.Item
                                     name="StartDate"
-                                // label="ថ្ងៃចាប់ផ្ដើម"
                                 >
-                                    <DatePicker
+                                    <DatePicker.RangePicker
                                         size='large'
                                         style={{ width: '100%' }}
-                                        placeholder="ថ្ងៃចាប់ផ្ដើម"
-                                        onChange={e => setStartDate(e)}
+                                        placeholder={["ថ្ងៃចាប់ផ្ដើម","រហូតដល់"]}
+                                        onChange={e => handleSelectDate(e)}
                                     />
                                 </Form.Item>
 
                             </Col>
-                            <Col xs={24} sm={24} md={4} lg={5} xl={3} style={{ padding: 5 }}>
+                            {/* <Col xs={24} sm={24} md={4} lg={5} xl={3} style={{ padding: 5 }}>
                                 <Form.Item
                                     name="EndtDate"
                                 // label="ថ្ងៃបញ្ចប់"
@@ -117,7 +138,7 @@ export default function Report() {
                                         onChange={e => setEndDate(e)}
                                     />
                                 </Form.Item>
-                            </Col>
+                            </Col> */}
                             <Col xs={24} sm={24} md={4} lg={5} xl={3} style={{ padding: 5 }}>
                                 <Form.Item
                                     name="constructionName"
@@ -130,9 +151,10 @@ export default function Report() {
                                         showSearch
                                         onChange={e => setCustomerId(e)}
                                     >
+                                        <Option value={''} key='all'>--ទាំងអស់--</Option>
                                         {
                                             customers?.map(customer =>
-                                                <Option key={customer.c_id} value={customer.customerId}>{customer.constructionName}</Option>
+                                                <Option key={customer.c_id} value={customer.c_id}>{customer.constructionName}</Option>
                                             )
                                         }
                                     </Select>
@@ -148,6 +170,7 @@ export default function Report() {
                                         style={{ width: '100%' }}
                                         onChange={e => setChiefId(e)}
                                     >
+                                        <Option value={''} key='all'>--ទាំងអស់--</Option>
                                         {
                                             chiefs?.map(chief =>
                                                 <Option key={chief.u_id} value={chief.u_id}>{`${chief.lastName} ${chief.firstName}`}</Option>
@@ -165,10 +188,12 @@ export default function Report() {
                                     size='large'
                                     onClick={() => {
                                         form.resetFields();
-                                        setStartDate(null)
                                         setChiefId(null)
                                         setCustomerId(null)
-                                        setEndDate(null)
+                                        setRange({
+                                            startDate:null,
+                                            endDate:null
+                                        })
                                     }}
                                 >
                                     Reset
@@ -189,8 +214,7 @@ export default function Report() {
                         loading={loading}
                         setSuccess={setSuccess}
                         success={success}
-                        startDate={startDate}
-                        endDate={endDate}
+                        range={range}
                         customerId={customerId}
                         chiefId={chiefId}
                     />

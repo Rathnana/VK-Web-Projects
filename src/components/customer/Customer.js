@@ -45,11 +45,12 @@ export default function Customer({ search }) {
                             <Col xs={24} sm={24} md={5} lg={5} xl={4} style={{ padding: 5 }}>
                                 <Form.Item
                                     name="TaskType"
-                                    label="ការងារ"
+                                // label="ការងារ"
                                 >
                                     <Select placeholder="ការងារ" size='large' style={{ width: '100%' }}
                                         onChange={(e) => setTaskType(e)}
                                     >
+                                        <Option value={''} key='all'>--ទាំងអស់--</Option>
                                         <Option value="សាងសង់">សាងសង់</Option>
                                         <Option value="រត់ច្បាប់">រត់ច្បាប់</Option>
                                         <Option value="រត់ច្បាប់ & សាងសង់" >
@@ -61,9 +62,10 @@ export default function Customer({ search }) {
                             <Col xs={24} sm={24} md={5} lg={5} xl={4} style={{ padding: 5 }}>
                                 <Form.Item
                                     name="ConstructionType"
-                                    label="ប្រភេទ"
+                                // label="ប្រភេទ"
                                 >
                                     <Select placeholder="ប្រភេទ" size='large' style={{ width: '100%' }} onChange={e => setConstructionType(e)} >
+                                        <Option value={''} key='all'>--ទាំងអស់--</Option>
                                         <Option value="ផ្ទះល្វែង">ផ្ទះល្វែង</Option>
                                         <Option value="ភូមិគ្រិះ">ភូមិគ្រិះ</Option>
                                         <Option value="ឃ្លាំង">ឃ្លាំង</Option>
@@ -77,9 +79,10 @@ export default function Customer({ search }) {
                             <Col xs={24} sm={24} md={5} lg={5} xl={4} style={{ padding: 5 }}>
                                 <Form.Item
                                     name="Priority"
-                                    label="ស្ថានភាព"
+                                // label="ស្ថានភាព"
                                 >
                                     <Select placeholder="ស្ថានភាព" size='large' style={{ width: '100%' }} onChange={e => setPriority(e)} >
+                                        <Option value={''} key='all'>--ទាំងអស់--</Option>
                                         <Option value="គូសប្លង់">គូសប្លង់</Option>
                                         <Option value="ចៅសង្កាត់">ចៅសង្កាត់</Option>
                                         <Option value="ពិនិត្យ&កែតម្រូវ">ពិនិត្យ&កែតម្រូវ</Option>

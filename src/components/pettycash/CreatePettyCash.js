@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Drawer, Form, Input, DatePicker, Row, Col } from 'antd';
 import { Button } from 'antd';
 import { Creat_PettyCash } from '../../getDatabase'
@@ -8,6 +8,24 @@ import { Creat_PettyCash } from '../../getDatabase'
 export default function CreatePettyCash({ setSuccess }) {
     const [form] = Form.useForm();
     const [visible, setVisible] = useState(false);
+
+    const [isMobile, setIsMobile] = useState(false)
+
+    const handleResize = () => {
+        // 960
+        if (window.innerWidth <= 960) {
+            setIsMobile(true)
+        } else {
+            setIsMobile(false)
+        }
+    }
+
+    useEffect(() => {
+        handleResize()
+    }, [])
+
+    window.addEventListener('resize', handleResize)
+
     const showDrawer = () => {
         setVisible(true);
     };
@@ -30,7 +48,13 @@ export default function CreatePettyCash({ setSuccess }) {
 
         >
             <Button onClick={showDrawer} type="primary" size='large' style={{ width: '100%' }}>+ បន្ថែមថ្មី</Button>
-            <Drawer width={500} title="បង្កើត Petty Cash" placement="right" onClose={onClose} visible={visible}>
+            <Drawer
+                width={isMobile ? '100%' : 736}
+                title="បង្កើត Petty Cash"
+                placement="right"
+                onClose={onClose}
+                visible={visible}
+            >
 
                 <Form
                     form={form}

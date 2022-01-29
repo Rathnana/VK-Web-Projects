@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Select, Input, DatePicker, Row, Col, Space, Drawer } from 'antd';
+import { Select, Input, DatePicker, Row, Col, Space, Drawer, InputNumber } from 'antd';
 import axios from 'axios'
 import { Create_Request } from '../../getDatabase'
 import { Form, Button } from 'antd';
@@ -10,6 +10,24 @@ export default function CreateRequest({ setSuccess }) {
     const [form] = Form.useForm();
     const [construction, setConstruction] = useState()
     const [visible, setVisible] = useState(false);
+    const [isMobile, setIsMobile] = useState(false)
+    const [loading,setLoading]= useState(false)
+
+    const handleResize = () => {
+        // 960
+        if (window.innerWidth <= 960) {
+            setIsMobile(true)
+        } else {
+            setIsMobile(false)
+        }
+    }
+
+    useEffect(() => {
+        handleResize()
+    }, [])
+
+    window.addEventListener('resize', handleResize)
+
     const showDrawer = () => {
         setVisible(true);
     };
@@ -17,11 +35,16 @@ export default function CreateRequest({ setSuccess }) {
         setVisible(false);
     };
 
-    const onFinish = values => {
-        setVisible(false);
-        Create_Request(values, sessionStorage.getItem("u_id"));
-        form.resetFields();
-        setSuccess(true)
+    const onFinish = async (values) => {
+        setLoading(true)
+        if(await Create_Request(values, sessionStorage.getItem("u_id"))){
+            setVisible(false);
+            form.resetFields();
+            setSuccess(true)
+        }else{
+            setLoading(false)
+        }
+        
 
     };
 
@@ -53,7 +76,13 @@ export default function CreateRequest({ setSuccess }) {
     return (
         <>
             <Button onClick={showDrawer} type="primary" size='large' style={{ width: '100%' }}>+ បន្ថែមថ្មី</Button>
-            <Drawer width={500} title="ការស្នើរសុំសម្ភារៈ" placement="right" onClose={onClose} visible={visible}>
+            <Drawer
+                width={isMobile ? '100%' : 736}
+                title="ការស្នើរសុំសម្ភារៈ"
+                placement="right"
+                onClose={onClose}
+                visible={visible}
+            >
                 <Form
                     form={form}
                     id='create-requestion-form' layout="vertical" onFinish={onFinish}
@@ -168,7 +197,7 @@ export default function CreateRequest({ setSuccess }) {
                                                     name={[name, 'qty']}
                                                     rules={[{ required: true, message: 'សូមបញ្ជូលបរិមាណ' }]}
                                                 >
-                                                    <Input style={{ width: 100 }} type="number" placeholder="បរិមាណ" size='large' />
+                                                    <InputNumber style={{ width: 100 }} min={0} prefix={0.1} placeholder="បរិមាណ" size='large' />
                                                 </Form.Item>
                                                 <Form.Item
                                                     label="ឯកតា"
@@ -176,7 +205,7 @@ export default function CreateRequest({ setSuccess }) {
                                                     name={[name, 'unit']}
                                                     rules={[{ required: true, message: 'សូមបញ្ជូលឯកតា' }]}
                                                 >
-                                                    <Input style={{ width: 100 }} type="number" placeholder="ឯកតា" size='large' />
+                                                    <Input style={{ width: 130 }} placeholder="ឯកតា" size='large' />
                                                 </Form.Item>
                                                 <MinusCircleOutlined onClick={() => remove(name)} />
                                             </Space>
@@ -194,7 +223,7 @@ export default function CreateRequest({ setSuccess }) {
                     <Row>
                         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                             <Form.Item>
-                                <Button style={{ width: "100%" }} type="primary" htmlType="submit" size='large'>
+                                <Button style={{ width: "100%" }} type="primary" loading={loading} htmlType="submit" size='large'>
                                     បង្កើត
                                 </Button>
                             </Form.Item>

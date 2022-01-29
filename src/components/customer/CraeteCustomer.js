@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Drawer, Select, Input, DatePicker, Row, Col, Form, message } from 'antd';
 import { Button } from 'antd';
 import { Creat_Customer } from '../../getDatabase'
@@ -12,6 +12,24 @@ export default function CraeteCustomer({
     const [maritalStatus, setMaritalStatus] = useState(false)
     const [loading, setLoading] = useState(false);
     const [visible, setVisible] = useState(false);
+
+    const [isMobile, setIsMobile] = useState(false)
+
+    const handleResize = () => {
+        // 960
+        if (window.innerWidth <= 960) {
+            setIsMobile(true)
+        } else {
+            setIsMobile(false)
+        }
+    }
+
+    useEffect(() => {
+        handleResize()
+    }, [])
+
+    window.addEventListener('resize', handleResize)
+
     const showDrawer = () => {
         setVisible(true);
     };
@@ -42,7 +60,13 @@ export default function CraeteCustomer({
         <>
             <Button onClick={showDrawer} type="primary" size='large' style={{ width: '100%' }}>+ បន្ថែមថ្មី</Button>
 
-            <Drawer width={500} title="បង្កើតអតិថិជន" placement="right" onClose={onClose} visible={visible}>
+            <Drawer
+                width={isMobile ? '100%' : 736}
+                title="បង្កើតអតិថិជន"
+                placement="right"
+                onClose={onClose}
+                visible={visible}
+            >
 
                 <Form
                     form={form}
@@ -53,7 +77,7 @@ export default function CraeteCustomer({
                             <Form.Item
                                 name="landNumber"
                                 label="លេខប័ណ្ណដី"
-                                rules={[{ required: true, message: "សូមបំពេញលេខប័ណ្ណដី!!" }]}
+                                // rules={[{ required: true, message: "សូមបំពេញលេខប័ណ្ណដី!!" }]}
                             >
                                 <Input
                                     placeholder='លេខប័ណ្ណដី'
@@ -144,8 +168,8 @@ export default function CraeteCustomer({
                                 <Col xs={12} sm={12} md={12} lg={12} xl={12} >
                                     <Form.Item
                                         name="partnerName"
-                                        label="ឈ្មោះ"
-                                        rules={[{ required: true, message: "សូមបំពេញឈ្មោះ!!" }]}
+                                        label="ឈ្មោះដៃគូរ"
+                                        // rules={[{ required: true, message: "សូមបំពេញឈ្មោះ!!" }]}
                                     >
                                         <Input
                                             placeholder='ឈ្មោះ'
@@ -158,7 +182,7 @@ export default function CraeteCustomer({
                                     <Form.Item
                                         name="partnerGender"
                                         label="ភេទ"
-                                        rules={[{ required: true, message: "សូមជ្រើសរើសភេទ!!" }]}
+                                        // rules={[{ required: true, message: "សូមជ្រើសរើសភេទ!!" }]}
                                     >
                                         <Select
                                             placeholder="ភេទ"
@@ -356,7 +380,7 @@ export default function CraeteCustomer({
                             <Form.Item
                                 name="landOfficerName"
                                 label="ឈ្មោះមន្ត្រី"
-                                rules={[{ required: true, message: "សូមបំពេញឈ្មោះមន្ត្រី!!" }]}
+                                // rules={[{ required: true, message: "សូមបំពេញឈ្មោះមន្ត្រី!!" }]}
                             >
                                 <Input
                                     placeholder='ឈ្មោះមន្ត្រី'
@@ -376,7 +400,7 @@ export default function CraeteCustomer({
                                 />
                             </Form.Item>
                         </Col>
-                       
+
                     </Row>
                     <Row>
                         <Col xs={24} sm={24} md={24} lg={24} xl={24}>

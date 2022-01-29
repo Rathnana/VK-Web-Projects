@@ -7,6 +7,23 @@ const { Option } = Select;
 
 export default function EditUser({ setSuccess, users, userId }) {
     const [visible, setVisible] = useState(false);
+    const [isMobile, setIsMobile] = useState(false)
+
+    const handleResize = () => {
+        // 960
+        if (window.innerWidth <= 960) {
+            setIsMobile(true)
+        } else {
+            setIsMobile(false)
+        }
+    }
+
+    useEffect(() => {
+        handleResize()
+    }, [])
+
+    window.addEventListener('resize', handleResize)
+
     const showDrawer = () => {
         setVisible(true);
     };
@@ -36,7 +53,13 @@ export default function EditUser({ setSuccess, users, userId }) {
         <div>
 
             <Button onClick={showDrawer} type="primary" shape="circle" icon={<AiOutlineEdit style={{ marginTop: '5px' }} />} size='middle' />
-            <Drawer width={500} title="ធ្វើបច្ចុប្បន្នភាពអ្នកប្រើប្រាស់" placement="right" onClose={onClose} visible={visible}>
+            <Drawer
+                width={isMobile ? '100%' : 736}
+                title="ធ្វើបច្ចុប្បន្នភាពអ្នកប្រើប្រាស់"
+                placement="right"
+                onClose={onClose}
+                visible={visible}
+            >
 
                 <Form
                     form={form}
@@ -115,7 +138,7 @@ export default function EditUser({ setSuccess, users, userId }) {
 
                             >
                                 <Button style={{ width: "100%" }} type="primary" htmlType="submit" size='large'>
-                                   កែប្រែ
+                                    កែប្រែ
                                 </Button>
                             </Form.Item>
                         </Col>

@@ -1,5 +1,5 @@
 import { Col, Row, Space, DatePicker } from 'antd'
-import React from 'react'
+import React, { useState } from 'react'
 import { Typography } from 'antd';
 import moment from 'moment';
 import SectionA from './SectionA';
@@ -8,6 +8,9 @@ const { Title } = Typography;
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 
 export default function AllInfo() {
+
+    const [date,setDate] = useState()
+
     return (
         <div
             style={{
@@ -38,8 +41,9 @@ export default function AllInfo() {
                                         defaultValue={moment()}
                                         placeholder="កាលបរិច្ឆេទ"
                                         size='large'
+                                        allowClear={false}
                                         format={dateFormatList}
-                                        onChange={(e) => console.log(e)}
+                                        onChange={(e) => setDate(e)}
                                     />
                                 </Space>
                             </Title>
@@ -50,7 +54,7 @@ export default function AllInfo() {
                 <Col xs={24} sm={24} md={24} lg={24} xl={24}
                 >
                     <Row>
-                        <SectionA />
+                        <SectionA date={date} />
                         <SectionB />
                     </Row>
                 </Col>

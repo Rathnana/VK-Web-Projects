@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Drawer, Button, Space } from 'antd';
+import { Drawer, Button, Space, Affix } from 'antd';
 import { Menu } from 'antd';
 import { Link, useLocation } from "react-router-dom";
 import vklogo from '../../Image/vk-logo.png'
@@ -23,23 +23,25 @@ export default function MobileNav() {
         setCurrent(e.key)
     };
 
-    
+
     return (
         <div style={{
             position: "absolute",
             zIndex: "2"
-          }}>
-            <Button
-                // size='midel'
-                type="primary"
-                onClick={showDrawer}
-                style={{
-                    width: "70px",
-                    marginTop: "5px"
-                }}
-            >
-                <AiOutlineMenuFold />
-            </Button>
+        }}>
+            <Affix offsetTop={20}>
+                <Button
+                    type="primary"
+                    onClick={showDrawer}
+                    style={{
+                        width: "70px",
+                        height:'50px',
+                        paddingTop: "10px"
+                    }}
+                >
+                    <AiOutlineMenuFold style={{ fontSize: 25}} />
+                </Button>
+            </Affix>
             <Drawer
                 // title="Drawer with extra actions"
                 placement="left"
@@ -51,7 +53,7 @@ export default function MobileNav() {
                 <Menu
                     mode="inline"
                     className="side-bar"
-                    style={{ background: "#c8d556",border:'none' }}
+                    style={{ background: "#c8d556", border: 'none' }}
                     onClick={(e) => handleClick(e)}
                     selectedKeys={[keyMenu(urlPath)]}
                 >

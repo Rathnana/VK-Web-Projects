@@ -1,7 +1,7 @@
 
 
 import React, { useState, useEffect } from 'react'
-import { Select, Modal, Input, DatePicker, Row, Col, Space, Drawer } from 'antd';
+import { Select, Modal, Input, DatePicker, Row, Col, Space, Drawer, InputNumber } from 'antd';
 import axios from 'axios'
 import { update_Request } from '../../getDatabase';
 import { Form, Button } from 'antd';
@@ -19,6 +19,25 @@ export default function UpdateRequestion({
 }) {
     const [form] = Form.useForm();
     const [visible, setVisible] = useState(false);
+    const [loading,setLoading] = useState(false)
+
+    const [isMobile, setIsMobile] = useState(false)
+
+    const handleResize = () => {
+        // 960
+        if (window.innerWidth <= 960) {
+            setIsMobile(true)
+        } else {
+            setIsMobile(false)
+        }
+    }
+
+    useEffect(() => {
+        handleResize()
+    }, [])
+
+    window.addEventListener('resize', handleResize)
+
     const showDrawer = () => {
         setVisible(true);
     };
@@ -28,11 +47,17 @@ export default function UpdateRequestion({
     const [construction, setConstruction] = useState()
     const [data, setData] = useState()
 
-    const onFinish = values => {
-        setVisible(false);
-        update_Request(values, r_id);
-        // message.success('ស្នើសុំជោជ័យ!');
-        setSuccess(true)
+    const onFinish = async (values) => {
+
+        setLoading(true)
+        let updateState = await update_Request(values, r_id);
+        if(updateState===true){
+            setVisible(false);
+            setSuccess(true)
+            setLoading(false)
+        }else{
+            setLoading(false)
+        }
 
     };
 
@@ -94,7 +119,13 @@ export default function UpdateRequestion({
     return (
         <div>
             <Button onClick={showDrawer} type="primary" shape="circle" icon={<AiOutlineEdit />} size='middle' />
-            <Drawer width={520} title="ការស្នើរសុំសម្ភារៈ" placement="right" onClose={onClose} visible={visible}>
+            <Drawer
+                width={isMobile ? '100%' : 736}
+                title="ការស្នើរសុំសម្ភារៈ"
+                placement="right"
+                onClose={onClose}
+                visible={visible}
+            >
 
                 <Form
                     form={form}
@@ -210,7 +241,7 @@ export default function UpdateRequestion({
                                                     name={[name, 'qty']}
                                                     rules={[{ required: true, message: 'សូមបញ្ជូលបរិមាណ' }]}
                                                 >
-                                                    <Input style={{ width: 100 }} type="number" placeholder="បរិមាណ" size='large' />
+                                                    <InputNumber style={{ width: 100 }} placeholder="បរិមាណ" size='large' />
                                                 </Form.Item>
                                                 <Form.Item
                                                     label="ឯកតា"
@@ -218,7 +249,7 @@ export default function UpdateRequestion({
                                                     name={[name, 'unit']}
                                                     rules={[{ required: true, message: 'សូមបញ្ជូលឯកតា' }]}
                                                 >
-                                                    <Input style={{ width: 100 }} type="number" placeholder="ឯកតា" size='large' />
+                                                    <Input style={{ width: 100 }} placeholder="ឯកតា" size='large' />
                                                 </Form.Item>
                                                 <MinusCircleOutlined onClick={() => remove(name)} />
                                             </Space>
@@ -236,7 +267,7 @@ export default function UpdateRequestion({
                     <Row>
                         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                             <Form.Item>
-                                <Button style={{ width: "100%" }} type="primary" htmlType="submit" size='large'>
+                                <Button style={{ width: "100%" }} type="primary" htmlType="submit" loading={loading} size='large'>
                                     កែប្រែ
                                 </Button>
                             </Form.Item>

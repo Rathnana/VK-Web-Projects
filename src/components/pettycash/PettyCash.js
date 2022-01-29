@@ -44,7 +44,7 @@ export default function PettyCash({ search }) {
 
                                 <Form.Item
                                     name="status"
-                                    label="ស្ថានភាព"
+                                    // label="ស្ថានភាព"
                                     rules={[{ required: true, message: "សូមជ្រើសរើសស្ថានភាព!!" }]}
                                 >
                                     <Select
@@ -52,6 +52,7 @@ export default function PettyCash({ search }) {
                                         size='large'
                                         onChange={(e) => setStatus(e)}
                                     >
+                                        <Option value={''} key='all'>--ទាំងអស់--</Option>
                                         <Option value="បានទូរទាត់">បានទូរទាត់</Option>
                                         <Option value="មិនទាន់ទូរទាត់">មិនទាន់ទូរទាត់</Option>
                                     </Select>

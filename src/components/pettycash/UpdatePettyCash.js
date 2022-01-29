@@ -13,6 +13,25 @@ export default function UpdatePettyCash({
 }) {
     const [form] = Form.useForm();
     const [visible, setVisible] = useState(false);
+    const [loading,setLoading] = useState(false)
+
+    const [isMobile, setIsMobile] = useState(false)
+
+    const handleResize = () => {
+        // 960
+        if (window.innerWidth <= 960) {
+            setIsMobile(true)
+        } else {
+            setIsMobile(false)
+        }
+    }
+
+    useEffect(() => {
+        handleResize()
+    }, [])
+
+    window.addEventListener('resize', handleResize)
+
     const showDrawer = () => {
         setVisible(true);
     };
@@ -20,9 +39,15 @@ export default function UpdatePettyCash({
         setVisible(false);
     };
     const onFinish = values => {
-        setVisible(false);
-        Update_PettyCash(values, pc_id);
-        setSuccess(true)
+        setLoading(true)
+        let updateState = Update_PettyCash(values, pc_id);
+        if(updateState){
+            setVisible(false);
+            setSuccess(true)
+            setLoading(false)
+        }else{
+            setLoading(false)
+        }
 
     };
     useEffect(() => {
@@ -38,8 +63,13 @@ export default function UpdatePettyCash({
     return (
         <div>
             <Button onClick={showDrawer} type="primary" shape="circle" icon={<AiOutlineEdit style={{ marginTop: '5px' }} />} size='middle' />
-            <Drawer width={520} title="Edit Petty Cash" placement="right" onClose={onClose} visible={visible}>
-
+            <Drawer
+                width={isMobile ? '100%' : 736}
+                title="Edit Petty Cash"
+                placement="right"
+                onClose={onClose}
+                visible={visible}
+            >
                 <Form
                     form={form}
                     id='edit-petty-cash-form' layout="vertical" onFinish={onFinish}
@@ -127,7 +157,7 @@ export default function UpdatePettyCash({
                     <Row>
                         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                             <Form.Item>
-                                <Button style={{ width: "100%" }} type="primary" htmlType="submit" size='large'>
+                                <Button style={{ width: "100%" }} type="primary" loading={loading} htmlType="submit" size='large'>
                                     កែប្រែ
                                 </Button>
                             </Form.Item>

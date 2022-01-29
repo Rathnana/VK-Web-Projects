@@ -55,36 +55,43 @@ export default function RequestionTable({
             title: 'លរ',
             dataIndex: 'no',
             key: 'no',
+            width:80
         },
         {
             title: 'ថ្ងៃស្នើសុំ',
             dataIndex: 'date',
             key: 'date',
+            width:120
         },
         {
             title: 'ថ្ងៃត្រូវការ',
             dataIndex: 'needDate',
             key: 'needDate',
+            width:120
         },
         {
             title: "ស្នើរទៅកាន់",
             dataIndex: "requestTo",
-            key: "requestTo"
+            key: "requestTo",
+            width:120
         },
         {
             title: 'សម្រាប់ការដ្ឋាន',
             dataIndex: 'constructionName',
             key: 'constructionName',
+            width:250
         },
         {
             title: 'គោលបំណង',
             dataIndex: 'purpose',
             key: 'purpose',
+            width:250
         },
         {
             title: 'អ្នកស្នើរសុំ',
             dataIndex: 'createdBy',
             key: 'createdBy',
+            width:150,
             render: (text, record) => (
                 <Space size="middle">
                     {record?.firstName + " " + record?.lastName}
@@ -96,6 +103,9 @@ export default function RequestionTable({
 
         {
             key: 'action',
+            align:'center',
+            fixed:'right',
+            width:150,
             render: (text, record) => (
                 <Space size="middle">
                     <ToPrint

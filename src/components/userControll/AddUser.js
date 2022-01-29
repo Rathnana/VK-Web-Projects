@@ -1,10 +1,27 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Modal, Button, Select, Input, Form, Row, Col, Drawer } from 'antd';
 import { Add_New_User } from '../../getDatabase';
 const { Option } = Select;
 
 export default function AddUser({ setSuccess }) {
     const [visible, setVisible] = useState(false);
+    const [isMobile, setIsMobile] = useState(false)
+
+    const handleResize = () => {
+        // 960
+        if (window.innerWidth <= 960) {
+            setIsMobile(true)
+        } else {
+            setIsMobile(false)
+        }
+    }
+
+    useEffect(() => {
+        handleResize()
+    }, [])
+
+    window.addEventListener('resize', handleResize)
+
     const showDrawer = () => {
         setVisible(true);
     };
@@ -26,7 +43,13 @@ export default function AddUser({ setSuccess }) {
     return (
         <>
             <Button onClick={showDrawer} type="primary" size='large' style={{ width: '100%' }}>+ បន្ថែមអ្នកប្រើប្រាស់</Button>
-            <Drawer width={500} title="បន្ថែមអ្នកប្រើប្រាស់" placement="right" onClose={onClose} visible={visible}>
+            <Drawer
+                width={isMobile ? '100%' : 736}
+                title="បន្ថែមអ្នកប្រើប្រាស់"
+                placement="right"
+                onClose={onClose}
+                visible={visible}
+            >
 
                 <Form
                     form={form}
@@ -118,7 +141,7 @@ export default function AddUser({ setSuccess }) {
                             <Form.Item
 
                             >
-                                <Button style={{width:"100%"}} type="primary" htmlType="submit" size='large'>
+                                <Button style={{ width: "100%" }} type="primary" htmlType="submit" size='large'>
                                     បង្កើត
                                 </Button>
                             </Form.Item>

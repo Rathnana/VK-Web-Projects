@@ -69,7 +69,7 @@ export default function Requestion() {
                                 // label="ឈ្មោះការដ្ឋាន"
                                 >
                                     <Select onChange={e => setConstructionId(e)} placeholder="ឈ្មោះការដ្ឋាន" size='large' style={{ width: '100%' }} >
-
+                                        <Option value={''} key='all'>--ទាំងអស់--</Option>
                                         {
                                             construction?.map(con => <Option value={con.c_id}>{con.constructionName}</Option>)
                                         }

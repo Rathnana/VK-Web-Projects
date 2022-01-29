@@ -11,11 +11,11 @@ export default function SectionB() {
         <Col
             xs={24} sm={24} md={12} lg={12} xl={12}
             // className="site-card-wrapper"
-            style={{ marginTop: 12, padding: 10 }}
+            style={{ padding: '0px 20px' }}
         >
             <PageHeader
                 ghost={false}
-                title="ព័ត៌មានសរុប"
+                title="ការដ្ឋាន"
                 style={{ background: "#f0f0f0" }}
                 extra={[
                     <Button key="s" onClick={() => navigate('/customer')} type="text">View All</Button>

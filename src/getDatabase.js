@@ -1,6 +1,12 @@
 import axios from 'axios'
 import { openErrorNotification } from './own-comp'
 import { message } from 'antd';
+import moment from 'moment';
+
+export function currencyFormat(num){
+    num = num > 0 ? parseFloat(num):0
+    return '$'+ num?.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g,'$1,')
+}
 
 export const getUser = async () => {
     const params = new URLSearchParams();
@@ -102,12 +108,12 @@ export const Create_Request = async (requests, createdBy) => {
         `${process.env.React_App_URL}/create/createRequest.php`, params
     )
         .then(async function (response) {
-            console.log(response?.data)
-            // message.success('ស្នើសុំជោជ័យ!');
             if (response?.data === "success") {
                 message.success('ស្នើសុំជោជ័យ!!')
+                return true;
             } else {
                 message.error('ស្នើសុំមានបញ្ហា!!')
+                return false;
             }
         });
 }
@@ -116,8 +122,7 @@ export const update_Request = async (
     values, r_id
 
 ) => {
-    // console.log(values, r_id);
-    // format('YYYY-MM-DD')
+
     const params = new URLSearchParams();
     params.append('db_user', process.env.React_App_DB_USER);
     params.append('db_password', process.env.React_App_DB_PASSWORD);
@@ -126,8 +131,8 @@ export const update_Request = async (
     params.append('data', JSON.stringify({
         r_id,
         constructionId: values?.constructionId,
-        date: values?.date?.format('YYYY-MM-DD'),
-        needDate: values?.needDate?.format('YYYY-MM-DD'),
+        date: moment(values?.date)?.format('YYYY-MM-DD'),
+        needDate: moment(values?.needDate)?.format('YYYY-MM-DD'),
         // createdBy: values?.createdBy,
         requestTo: values?.requestTo,
         purpose: values?.purpose,
@@ -139,10 +144,12 @@ export const update_Request = async (
     )
         .then(async function (response) {
             console.log(response?.data)
-            if (response?.data === "success") {
+            if (response?.data?.trim() === "success") {
                 message.success('កែប្រែស្នើសុំជោជ័យ!!')
+                return true
             } else {
                 message.error('កែប្រែស្នើសុំមានបញ្ហា!!')
+                return false
             }
         });
 }
@@ -337,11 +344,12 @@ export const Update_PettyCash = async (
         `${process.env.React_App_URL}/update/updatePrettyCashById.php`, params
     )
         .then(async function (response) {
-            console.log(response?.data)
             if (response?.data === "success") {
                 message.success('Update Petty Cash សុំជោជ័យ!!')
+                return true
             } else {
                 message.error('Update Petty Cash សុំមានបញ្ហា!!')
+                return false
             }
         });
 }

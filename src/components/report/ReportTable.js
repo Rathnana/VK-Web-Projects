@@ -10,8 +10,7 @@ export default function ReportTable({
     loading,
     setSuccess,
     success,
-    startDate,
-    endDate,
+    range,
     customerId,
     chiefId
 }) {
@@ -19,38 +18,39 @@ export default function ReportTable({
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(20);
 
-    // console.log(customerId);
     useEffect(() => {
         getReports();
         setLoading(true);
-    }, [success, startDate, endDate, customerId, chiefId]);
+    }, [success, range, customerId, chiefId]);
 
     const getReports = async () => {
-        const params = new URLSearchParams();
+        const params = new FormData();
         params.append('db_user', process.env.React_App_DB_USER);
         params.append('db_password', process.env.React_App_DB_PASSWORD);
         params.append('db', process.env.React_App_DB);
         params.append('data', JSON.stringify({
-            page,
-            pageSize,
-            customerId,
+            page:page,
+            pageSize:pageSize,
+            customerId:customerId,
             userId: sessionStorage.getItem("u_id"),
-            startDate: startDate?.format('YYYY-MM-DD'),
-            endDate: endDate?.format('YYYY-MM-DD'),
-            chiefId
+            startDate: range?.startDate !== null ? range?.startDate : '',
+            endDate: range?.endDate !== null ? range?.endDate : '',
+            chiefId:chiefId
         }));
 
         return await axios.post(
             `${process.env.React_App_URL}/get/getDailyConstructWithPaginationAdmin.php`, params
         )
             .then(async function (response) {
-
+                console.log(response?.data)
                 if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
                     setReports(response?.data);
                     setLoading(false);
                     setSuccess(false);
                     return response?.data;
                 } else {
+                    setLoading(false);
+                    setSuccess(false);
                     return [];
                 }
             });
@@ -61,11 +61,13 @@ export default function ReportTable({
             title: 'លរ',
             dataIndex: 'no',
             key: 'no',
+            width:80
         }
         ,
         {
             title: 'កាលបរិច្ឆេទ',
             key: 'createdAt',
+            width:120,
             render: (text, record) => (
                 <Space size="middle">
                     {moment(record?.createdAt).format('YYYY-MM-DD')}
@@ -76,31 +78,37 @@ export default function ReportTable({
             title: 'ឈ្មោះការដ្ឋាន',
             dataIndex: 'constructionName',
             key: 'constructionName',
+            width:250
         },
         {
             title: 'ទីតាំង',
             dataIndex: 'constructionLocation',
             key: 'constructionLocation',
+            width:200
         },
         {
             title: 'មេការ',
             dataIndex: 'chiefName',
             key: 'chiefName',
+            width:150
         },
         {
             title: 'ចំនួនក្រុម',
             dataIndex: 'teamCount',
             key: 'teamCount',
+            width:100
         },
         {
             title: 'ជាង',
             dataIndex: 'builderCount',
             key: 'builderCount',
+            width:100
         },
         {
             title: 'កម្មករ',
             dataIndex: 'workerCount',
             key: 'workerCount',
+            width:100
         },
         {
             title: 'បញ្ហា',
@@ -110,7 +118,10 @@ export default function ReportTable({
 
         {
             title: '',
+            fixed: 'right',
+            align: 'center',
             key: 'action',
+            width:100,
             render: (text, record) => (
                 <Space size="middle">
                     <EditReport reports={record} setSuccess={setSuccess} id={record.dc_id} />
