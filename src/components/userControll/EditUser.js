@@ -8,6 +8,7 @@ const { Option } = Select;
 export default function EditUser({ setSuccess, users, userId }) {
     const [visible, setVisible] = useState(false);
     const [isMobile, setIsMobile] = useState(false)
+    const [loading,setLoading] = useState(false)
 
     const handleResize = () => {
         // 960
@@ -41,10 +42,16 @@ export default function EditUser({ setSuccess, users, userId }) {
     }, [])
 
 
-    const onFinish = (values) => {
-        setVisible(false);
-        Update_User(values, userId)
-        setSuccess(true)
+    const onFinish = async (values) => {
+        setLoading(true)
+        if(await Update_User(values, userId)){
+            setVisible(false);
+            setSuccess(true)
+            setLoading(false)
+        }
+        else{
+            setLoading(false)
+        }
 
     };
 
@@ -137,7 +144,7 @@ export default function EditUser({ setSuccess, users, userId }) {
                             <Form.Item
 
                             >
-                                <Button style={{ width: "100%" }} type="primary" htmlType="submit" size='large'>
+                                <Button style={{ width: "100%" }} type="primary" loading={loading} htmlType="submit" size='large'>
                                     កែប្រែ
                                 </Button>
                             </Form.Item>

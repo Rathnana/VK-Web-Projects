@@ -48,7 +48,7 @@ export default function Login({ setAuth }) {
             <Col xs={24} sm={24} md={24} lg={24} xl={24}
                 style={{ padding: '20px 20px', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}
             >
-                <div >
+                <div style={{width:'400px'}}>
                     <FaUserCircle className="Login-user-icon" />
                     <p
                         style={{
@@ -95,9 +95,9 @@ export default function Login({ setAuth }) {
                             </Col>
 
 
-                            <Col>
+                            <Col xs={24}>
                                 <Form.Item >
-                                    <Button type="primary" htmlType="submit" size='large' loading={loading} >
+                                    <Button type="primary" htmlType="submit" size='large' style={{width:'100%'}} loading={loading} >
                                         ចូលប្រព័ន្ធ
                                     </Button>
                                 </Form.Item>

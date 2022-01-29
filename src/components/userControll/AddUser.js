@@ -6,6 +6,7 @@ const { Option } = Select;
 export default function AddUser({ setSuccess }) {
     const [visible, setVisible] = useState(false);
     const [isMobile, setIsMobile] = useState(false)
+    const [loading,setLoading] = useState(false)
 
     const handleResize = () => {
         // 960
@@ -32,11 +33,16 @@ export default function AddUser({ setSuccess }) {
 
 
 
-    const onFinish = (values) => {
-        setVisible(false);
-        Add_New_User(values)
-        form.resetFields()
-        setSuccess(true)
+    const onFinish = async (values) => {
+        setLoading(true)
+        if (await Add_New_User(values)) {
+            setVisible(false);
+            form.resetFields()
+            setSuccess(true)
+            setLoading(false)
+        }else{
+            setLoading(false)
+        }
 
     };
 
@@ -141,7 +147,7 @@ export default function AddUser({ setSuccess }) {
                             <Form.Item
 
                             >
-                                <Button style={{ width: "100%" }} type="primary" htmlType="submit" size='large'>
+                                <Button style={{ width: "100%" }} type="primary" loading={loading} htmlType="submit" size='large'>
                                     បង្កើត
                                 </Button>
                             </Form.Item>

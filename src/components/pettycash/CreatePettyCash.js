@@ -8,7 +8,7 @@ import { Creat_PettyCash } from '../../getDatabase'
 export default function CreatePettyCash({ setSuccess }) {
     const [form] = Form.useForm();
     const [visible, setVisible] = useState(false);
-
+    const [loading,setLoading] = useState(false)
     const [isMobile, setIsMobile] = useState(false)
 
     const handleResize = () => {
@@ -33,12 +33,16 @@ export default function CreatePettyCash({ setSuccess }) {
         setVisible(false);
     };
 
-    const onFinish = values => {
-        // console.log(values);
-        setVisible(false);
-        Creat_PettyCash(values, sessionStorage.getItem("u_id"));
-        form.resetFields();
-        setSuccess(true)
+    const onFinish = async (values) => {
+        setLoading(true)
+        if(await Creat_PettyCash(values, sessionStorage.getItem("u_id"))){
+            setVisible(false);
+            form.resetFields();
+            setSuccess(true)
+            setLoading(false)
+        }else{
+            setLoading(false)
+        }
 
     };
 
@@ -124,7 +128,7 @@ export default function CreatePettyCash({ setSuccess }) {
                     <Row>
                         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                             <Form.Item>
-                                <Button style={{ width: "100%" }} type="primary" htmlType="submit" size='large'>
+                                <Button style={{ width: "100%" }} type="primary" loading={loading} htmlType="submit" size='large'>
                                     បង្កើត
                                 </Button>
                             </Form.Item>

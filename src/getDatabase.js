@@ -47,13 +47,15 @@ export const Add_New_User = async (user) => {
         `${process.env.React_App_URL}/create/createUser.php`, params
     )
         .then(async function (response) {
-            console.log(response?.data)
             if (response?.data === "success") {
                 message.success('បង្កើតអ្នកប្រើប្រាស់ជោគជ័យ!!!')
+                return true
             } else if (response?.data === "usernameExisted") {
                 message.error(` អ្នកប្រើប្រាស់ ${user.username} បានបង្កើតរួចរាល់ម្ដង់ហើយ!!`)
+                return false
             } else {
                 message.error('បង្កើតអ្នកប្រើប្រាស់មានបញ្ហា!!')
+                return false
             }
         });
 }
@@ -78,12 +80,12 @@ export const Update_User = async (users, u_id) => {
         `${process.env.React_App_URL}/update/updateUserById.php`, params
     )
         .then(async function (response) {
-            console.log(response?.data)
-
             if (response?.data === "success") {
                 message.success('ធ្វើបច្ចុប្បន្នភាពរួចរាល់!!')
+                return true
             } else {
                 message.error('ធ្វើបច្ចុប្បន្នភាពមានបញ្ហា!!')
+                return false
             }
         });
 }
@@ -313,11 +315,12 @@ export const Creat_PettyCash = async (
         `${process.env.React_App_URL}/create/createPrettyCash.php`, params
     )
         .then(async function (response) {
-            console.log(response?.data)
             if (response?.data === "success") {
                 message.success('បង្កើត Petty Cash ជោជ័យ!!')
+                return true
             } else {
                 message.error('បង្កើត Petty Cash មានបញ្ហា!!')
+                return false
             }
         });
 }

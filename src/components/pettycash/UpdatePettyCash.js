@@ -38,9 +38,9 @@ export default function UpdatePettyCash({
     const onClose = () => {
         setVisible(false);
     };
-    const onFinish = values => {
+    const onFinish = async (values) => {
         setLoading(true)
-        let updateState = Update_PettyCash(values, pc_id);
+        let updateState = await Update_PettyCash(values, pc_id);
         if(updateState){
             setVisible(false);
             setSuccess(true)
