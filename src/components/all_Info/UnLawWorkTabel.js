@@ -95,7 +95,7 @@ export default function UnLawWorkTabel() {
     })
     return (
         <Table
-            size="middle"
+            // size="small"
             columns={columns}
             pagination={false}
             className='Info-table'

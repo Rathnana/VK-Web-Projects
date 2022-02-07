@@ -48,7 +48,7 @@ export default function RequestTabel() {
     const [pageSize, setPageSize] = useState(4);
     useEffect(() => {
         getRequest();
-         setLoading(true);
+        setLoading(true);
     }, [])
     const getRequest = async () => {
 
@@ -88,6 +88,7 @@ export default function RequestTabel() {
     })
     return (
         <Table
+            // size="small"
             columns={columns}
             pagination={false}
             scroll={{ x: 1000 }}
