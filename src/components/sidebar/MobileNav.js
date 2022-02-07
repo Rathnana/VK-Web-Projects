@@ -48,12 +48,12 @@ export default function MobileNav() {
                 width={300}
                 onClose={onClose}
                 visible={visible}
-
+                className="drawer-phone"
             >
                 <Menu
                     mode="inline"
                     className="side-bar"
-                    style={{ background: "#c8d556", border: 'none' }}
+                    style={{ background: "rgb(180 217 255)", border: 'none' }}
                     onClick={(e) => handleClick(e)}
                     selectedKeys={[keyMenu(urlPath)]}
                 >

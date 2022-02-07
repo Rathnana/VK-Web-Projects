@@ -22,7 +22,7 @@ export default function CustomerTable({
     useEffect(() => {
         setLoading(true);
         getCustomer();
-    }, [success, taskType, priority, search])
+    }, [success, taskType, priority, search,constructionType])
 
     const getCustomer = async () => {
         const params = new URLSearchParams();
@@ -32,7 +32,12 @@ export default function CustomerTable({
         params.append('page', page)
         params.append('pageSize', pageSize)
         // params.append('taskType', taskType)
-        params.append('data', JSON.stringify({ taskType, priority, constructionType, search }))
+        params.append('data', JSON.stringify({ 
+            taskType: taskType ? taskType: '', 
+            priority: priority ? priority : '', 
+            constructionType: constructionType ? constructionType:'', 
+            search
+        }))
         return await axios.post(
             `${process.env.React_App_URL}/get/getCustomerWithPagination.php`, params
         )

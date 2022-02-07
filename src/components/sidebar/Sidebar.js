@@ -19,14 +19,14 @@ export default function Sidebar() {
         <Sider
             trigger={null}
             collapsible
-            style={{ background: "#c8d556" }}
+            style={{ background: "rgb(180 217 255)" }}
             // collapsed={collapsed}
             className="side-custom"
             theme='light'
         >
             <Menu
                 mode="inline"
-                style={{ background: "#c8d556",height:'100%' }}
+                style={{ background: "rgb(180 217 255)",height:'100%' }}
                 className="side-bar"
                 onClick={(e) => handleClick(e)}
                 selectedKeys={[keyMenu(urlPath)]}

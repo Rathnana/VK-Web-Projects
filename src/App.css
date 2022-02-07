@@ -111,3 +111,7 @@ body, html {
     /* max-height: 350px!important; */
     /* overflow-y: scroll; */
   }
+
+  .drawer-phone .ant-drawer-wrapper-body{
+      background-color: rgb(180 217 255)!important;
+  }

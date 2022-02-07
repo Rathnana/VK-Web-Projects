@@ -12,7 +12,7 @@ export default function Customer({ search }) {
     const [form] = Form.useForm();
     const [success, setSuccess] = React.useState(false);
     const [loading, setLoading] = React.useState(true);
-    const [taskType, setTaskType] = React.useState('សាងសង់');
+    const [taskType, setTaskType] = React.useState('');
     const [constructionType, setConstructionType] = React.useState('');
     const [priority, setPriority] = React.useState('');
 
