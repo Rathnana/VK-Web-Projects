@@ -1,25 +1,23 @@
 import React, { useState, useRef, useEffect } from 'react'
-import {  Typography, Row, Col } from 'antd';
+import { Typography, Row, Col } from 'antd';
 import { Button } from 'antd';
 import { GrPrint } from "react-icons/gr";
 import ReactToPrint from "react-to-print";
 import axios from 'axios'
 import { Table } from 'antd';
+import vklogo from '../../Image/vk-logo.png'
+
 const { Title } = Typography;
 
 export default function ToPrint({
     r_id,
-    date,
-    startDate,
-    requestTo,
-    purpose,
-    constructionName
+
+    info
 }) {
     const componentRef = useRef();
     const [data, setData] = useState()
-    
     useEffect(() => {
-       
+
         getRequestDescription(r_id)
     }, [data])
     const getRequestDescription = async (r_id) => {
@@ -36,8 +34,8 @@ export default function ToPrint({
             .then(async function (response) {
 
                 if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
-                  
-                    
+
+
                     setData(response?.data.data)
                     return response?.data;
                 } else {
@@ -85,22 +83,40 @@ export default function ToPrint({
 
                     ref={componentRef}
                     style={{
-                        padding: "60px",
+                        paddingTop: "20px",
+                        paddingRight: "60px",
+                        paddingLeft: "60px",
                         fontSize: "15px",
 
                     }}
                 >
-                    <Title
-                        style={{
-                            fontFamily: 'Moul',
-                            color: '#1983e6',
-                            fontWeight: 'normal',
-                            textAlign: "center"
-                        }}
-                        level={4}
-                    >
-                        {`តារាងទិន្នន័យអតិថិជន`}
-                    </Title>
+                    <Row>
+                        <Col xs={12} sm={12} md={12} lg={12} xl={12}>
+                            <img
+
+                                style={{
+                                    width: "200px",
+
+                                    // marginBottom: "30px"
+                                }}
+                                src={vklogo} />
+
+                        </Col>
+                        <Col>
+                            <Title
+                                style={{
+                                    fontFamily: 'Moul',
+                                    color: '#1983e6',
+                                    marginTop: "60px",
+                                    fontWeight: 'normal',
+                                    textAlign: "center"
+                                }}
+                                level={4}
+                            >
+                                {`ការស្នើរសុំសម្ភាៈ`}
+                            </Title>
+                        </Col>
+                    </Row>
 
                     <Row
                         style={{
@@ -108,13 +124,13 @@ export default function ToPrint({
                             paddingTop: "8px"
                         }}
                     >
-
-                        <Col xs={10} sm={10} md={10} lg={10} xl={10}>
-                            កាលបរិច្ឆេទស្នើរសុំ៖ {date}
+                        {/*  */}
+                        <Col xs={12} sm={12} md={12} lg={12} xl={12}>
+                            ស្នើរទៅកាន់៖ {info.requestTo}
                         </Col>
 
                         <Col xs={10} sm={10} md={10} lg={10} xl={10}>
-                            កាលបរិច្ឆេទត្រូវការ៖{startDate}
+                            កាលបរិច្ឆេទស្នើរសុំ៖{info.date}
                         </Col>
 
                     </Row>
@@ -125,11 +141,11 @@ export default function ToPrint({
                             paddingTop: "8px"
                         }}
                     >
-                        <Col xs={10} sm={10} md={10} lg={10} xl={10}>
-                            ស្នើរទៅកាន់៖{requestTo}
+                        <Col xs={12} sm={12} md={12} lg={12} xl={12}>
+                            សម្រាប់ការដ្ឋាន៖{info.constructionName}
                         </Col>
                         <Col xs={10} sm={10} md={10} lg={10} xl={10}>
-
+                            កាលបរិច្ឆេទត្រូវការ៖ {info.needDate}
                         </Col>
 
                     </Row>
@@ -141,7 +157,7 @@ export default function ToPrint({
                         }}
                     >
                         <Col xs={6} sm={6} md={6} lg={6} xl={6}>
-                            សម្រាប់ការដ្ឋាន៖{constructionName}
+                            គោលបំណង៖{info.purpose}
                         </Col>
                         <Col xs={6} sm={6} md={6} lg={6} xl={6}>
 
@@ -156,7 +172,7 @@ export default function ToPrint({
                         }}
                     >
                         <Col xs={10} sm={10} md={10} lg={10} xl={10}>
-                            គោលបំណង៖{purpose}
+                            data remark
                         </Col>
                         <Col xs={6} sm={6} md={6} lg={6} xl={6}>
 
@@ -168,12 +184,25 @@ export default function ToPrint({
                             marginTop: "20px",
                         }}
                             xs={24} sm={24} md={24} lg={24} xl={24}>
-                            <Table pagination={false}  columns={columns} dataSource={data} />
+                            <Table size="small" pagination={false} columns={columns} dataSource={data} />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{ position: "relative", bottom: '0px' }} >
+                            <p style={{
+                                position: "fixed",
+                                bottom: "0px",
+                                left: "0px",
+                                width: "100%",
+                                textAlign: "center"
+                            }} >
+                                VK Angkor 2022
+                            </p>
                         </Col>
                     </Row>
                 </div>
             </div>
-           
+
         </div>
 
     )
