@@ -37,13 +37,19 @@ export default function EditReport({ setSuccess, id, reports }) {
 
     useEffect(() => {
         // console.log(reports);
+        if(reports){
+            form.setFieldsValue({
+                userId: reports?.userId
+            })
+        }
         if (report) {
+            console.log(report)
             form.setFieldsValue({
                 customerId: report?.customerId,
                 status: report?.status,
                 team: report?.team,
                 challenges: report?.challenges,
-                userId: reports?.userId
+                
             })
         }
         getConstructById(id)
