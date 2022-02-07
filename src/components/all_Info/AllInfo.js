@@ -4,6 +4,7 @@ import { Typography } from 'antd';
 import moment from 'moment';
 import SectionA from './SectionA';
 import SectionB from './SectionB';
+import WorkerGraph from './WorkerGraph';
 const { Title } = Typography;
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 
@@ -56,6 +57,9 @@ export default function AllInfo() {
                     <Row>
                         <SectionA date={date} />
                         <SectionB />
+                    </Row>
+<Row>
+                        <WorkerGraph />
                     </Row>
                 </Col>
 
