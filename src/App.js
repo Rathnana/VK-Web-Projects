@@ -59,7 +59,6 @@ function App() {
         isMobile ? <MobileNav /> : <Sidebar />
       }
 
-
       <Layout className="site-layout" >
         <Headers setAuth={setAuth} setSearch={setSearch} />
         <Divider />
