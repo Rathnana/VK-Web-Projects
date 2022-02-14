@@ -14,6 +14,7 @@ import { Line } from 'react-chartjs-2';
 import { Col } from 'antd';
 import axios from 'axios';
 import moment from 'moment';
+import KhmerOSSiemreap from '../../assets/fonts/KHMEROSSIEMREAP.TTF'
 
 ChartJS.register(
     CategoryScale,
@@ -29,16 +30,20 @@ export const options = {
     responsive: true,
     plugins: {
         legend: {
-            display:true,
-            position: 'top',
-            fontFamily: 'Khmer OS Siemreap',
-            fontSize:20
+            labels: {
+                font: {
+                    size: 15,
+                    family: KhmerOSSiemreap
+                }
+            }
         },
         title: {
             display: true,
             text: 'ចំនួនកម្មករប្រចាំថ្ងៃ',
-            fontFamily: 'Khmer OS Siemreap',
-            fontSize:50
+            font:{
+                size:15,
+                family: KhmerOSSiemreap
+            }
 
         },
     },
@@ -47,7 +52,10 @@ export const options = {
             beginAtZero: true,
             ticks: {
                 min: 0,
-                maxTicksLimit: 5
+                maxTicksLimit: 5,
+                font: {
+                    family: "Khmer OS Siemreap"
+                }
             }
         },
         x: {
@@ -55,6 +63,9 @@ export const options = {
             ticks: {
                 min: 0,
                 // maxTicksLimit: 7
+                font: {
+                    family: "Khmer OS Siemreap"
+                }
             }
         }
     }
@@ -114,8 +125,8 @@ function getDaysInMonthUTC(month, year) {
     var date = new Date(Date.UTC(year, month, 1));
     var days = [];
     while (date.getUTCMonth() === month) {
-      days.push(moment(new Date(date)).format('DD'));
-      date.setUTCDate(date.getUTCDate() + 1);
+        days.push(moment(new Date(date)).format('DD'));
+        date.setUTCDate(date.getUTCDate() + 1);
     }
 
 
