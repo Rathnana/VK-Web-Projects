@@ -45,7 +45,7 @@ export default function Login({ setAuth }) {
         <Row
             className='login-form'
         >
-            <Col xs={24} sm={24} md={24} lg={24} xl={24}
+            <Col xs={24} sm={18} md={14} lg={14} xl={7}
                 style={{ padding: '20px 20px', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}
             >
                 <div style={{width:'400px'}}>
