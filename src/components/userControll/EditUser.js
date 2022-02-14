@@ -133,7 +133,7 @@ export default function EditUser({ setSuccess, users, userId }) {
                                     size='large'
                                 >
                                     <Option value="Admin">Admin</Option>
-                                    <Option value="Manangement">Manangement</Option>
+                                    <Option value="Management">Management</Option>
                                     <Option value="User">User</Option>
                                 </Select>
                             </Form.Item>
