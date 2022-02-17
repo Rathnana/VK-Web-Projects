@@ -100,7 +100,6 @@ const getDailyWorkerGraph = async () => {
 }
 
 const combineWorkerCount = (array) => {
-
     let res = array.reduce((ac, a) => {
         let ind = ac.findIndex(x => x.createdAt === a.createdAt);
         ind === -1 ? ac.push(a) : ac[ind].workerCount += a.workerCount;
@@ -134,8 +133,6 @@ function getDaysInMonthUTC(month, year) {
     return days;
 }
 
-console.log(getDaysInMonthUTC(new Date().getUTCMonth(), new Date().getUTCFullYear()))
-
 export default function WorkerGraph() {
 
     const [graph, setGraph] = useState(null)
@@ -147,13 +144,40 @@ export default function WorkerGraph() {
     useEffect(() => {
         const getData = async () => {
             let data = await getDailyWorkerGraph()
-
             if (data) {
                 setGraph(data?.data)
                 let combinedWorkerArray = combineWorkerCount(data?.data)
                 let combinedBuilderArray = combineBuilderCount(data?.data)
 
-                setMonthLabel(combinedWorkerArray?.map(e => e.createdAt))
+                let daysInMonth = getDaysInMonthUTC(new Date().getUTCMonth(), new Date().getUTCFullYear());
+                
+                let newArr=[]
+                daysInMonth?.map(day=>{
+                    let set = {createdAt:day}
+
+                    combinedWorkerArray?.map(e =>{
+                        if(e?.createdAt===day?.toString()){
+                            set = {...set, workerCount:e?.workerCount}
+                        }
+                    })
+
+                    combinedBuilderArray?.map(e =>{
+                        if(e?.createdAt===day?.toString()){
+                            set = {...set, builderCount:e?.builderCount}
+                        }
+                    })
+
+                    if(!set?.workerCount && !set?.builderCount){
+                        let today = new Date().getUTCDate()
+                        let setCount = parseInt(set?.createdAt) <= today ? 0 : null
+                        set = {...set, builderCount:setCount,workerCount:setCount}
+                    }
+                    newArr.push(set)
+                })
+
+                // console.log(newArr)
+                setGraph(newArr)
+
                 setWorkerCount(combinedWorkerArray?.map(e => e.workerCount))
                 setbuilderCount(combinedBuilderArray?.map(e => e.builderCount))
             }
@@ -163,11 +187,12 @@ export default function WorkerGraph() {
     }, [])
 
     let data = {
-        labels: getDaysInMonthUTC(new Date().getUTCMonth(), new Date().getUTCFullYear()),
+        labels: graph?.map(e=> e?.createdAt),
+        // labels: getDaysInMonthUTC(new Date().getUTCMonth(), new Date().getUTCFullYear()),
         datasets: [
             {
                 label: 'ចំនួនកម្មករ',
-                data: workerCount,
+                data: graph?.map(e=> e?.workerCount),
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
                 tension: 0.6,
@@ -183,7 +208,7 @@ export default function WorkerGraph() {
             },
             {
                 label: 'ចំនួនជាង',
-                data: builderCount,
+                data: graph?.map(e=> e?.builderCount),
                 borderColor: 'rgb(53, 162, 235)',
                 backgroundColor: 'rgba(53, 162, 235, 0.5)',
                 tension: 0.6,

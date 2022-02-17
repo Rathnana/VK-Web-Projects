@@ -10,7 +10,7 @@ const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 
 export default function AllInfo() {
 
-    const [date,setDate] = useState()
+    const [date, setDate] = useState()
 
     return (
         <div
@@ -58,7 +58,7 @@ export default function AllInfo() {
                         <SectionA date={date} />
                         <SectionB />
                     </Row>
-<Row>
+                    <Row>
                         <WorkerGraph />
                     </Row>
                 </Col>

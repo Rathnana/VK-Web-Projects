@@ -193,7 +193,7 @@ export default function CustomerTable({
                 style={{
                     marginTop: "15px"
                 }}
-            >{text === "0" ? "yes" : "no"}</p>,
+            >{text === "0" ? "no" : "yes"}</p>,
         },
 
         {

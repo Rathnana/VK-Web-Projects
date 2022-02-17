@@ -52,7 +52,7 @@ export default function UnLawWorkTabel() {
     const [loading, setLoading] = React.useState(true);
     const [customer, setCustomer] = useState()
     const [page, setPage] = useState(1);
-    const [pageSize, setPageSize] = useState(4);
+    const [pageSize, setPageSize] = useState(10);
     useEffect(() => {
         setLoading(true);
         getcustomer();
@@ -70,7 +70,7 @@ export default function UnLawWorkTabel() {
             `${process.env.React_App_URL}/get/getCustomerWithPaginationDashboard.php`, params
         )
             .then(async function (response) {
-
+                console.log(response?.data)
                 if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
 
                     setCustomer(response?.data)
