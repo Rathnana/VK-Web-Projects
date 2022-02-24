@@ -22,7 +22,7 @@ function App() {
 
   const [user, setUser] = useState(false)
   const [auth, setAuth] = useState(getuser !== null && getuser !== undefined ? true : false);
-  const [search, setSearch] = useState();
+  const [search, setSearch] = useState(null);
   useEffect(() => {
 
     if (getuser) {
@@ -60,7 +60,7 @@ function App() {
       }
 
       <Layout className="site-layout" >
-        <Headers setAuth={setAuth} setSearch={setSearch} />
+        <Headers setAuth={setAuth} search={search} setSearch={setSearch} />
         <Divider />
 
         <Routes>

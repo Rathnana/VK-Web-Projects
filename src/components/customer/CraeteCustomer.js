@@ -77,7 +77,7 @@ export default function CraeteCustomer({
                             <Form.Item
                                 name="landNumber"
                                 label="លេខប័ណ្ណដី"
-                                // rules={[{ required: true, message: "សូមបំពេញលេខប័ណ្ណដី!!" }]}
+                            // rules={[{ required: true, message: "សូមបំពេញលេខប័ណ្ណដី!!" }]}
                             >
                                 <Input
                                     placeholder='លេខប័ណ្ណដី'
@@ -88,7 +88,7 @@ export default function CraeteCustomer({
                         </Col>
                     </Row>
                     <Row gutter={10}>
-                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                        <Col xs={10} sm={10} md={10} lg={10} xl={10} >
                             <Form.Item
                                 name="customerName"
                                 label="ឈ្មោះអតិថិជន"
@@ -101,7 +101,7 @@ export default function CraeteCustomer({
                                 />
                             </Form.Item>
                         </Col>
-                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                        <Col xs={4} sm={4} md={4} lg={4} xl={4} >
                             <Form.Item
                                 name="gender"
                                 label="ភេទ"
@@ -117,13 +117,27 @@ export default function CraeteCustomer({
                                 </Select>
                             </Form.Item>
                         </Col>
+
+                        <Col xs={10} sm={10} md={10} lg={10} xl={10} >
+                            <Form.Item
+                                name="idNumber"
+                                label="លេខអត្តសញ្ញាណប័ណ្ណ"
+                                // rules={[{ required: true, message: "សូមបំពេញឈ្មោះ!!" }]}
+                            >
+                                <Input
+                                    placeholder='លេខអត្តសញ្ញាណប័ណ្ណ'
+                                    size='large'
+                                    allowClear
+                                />
+                            </Form.Item>
+                        </Col>
                     </Row>
                     <Row gutter={10}>
                         <Col xs={12} sm={12} md={12} lg={12} xl={12} >
                             <Form.Item
                                 name="tel"
                                 label="លេខទូរស័ព្ទ"
-                                rules={[{ required: true, message: "សូមបំពេញលេខទូរស័ព្ទ!!" }]}
+                            // rules={[{ required: true, message: "សូមបំពេញលេខទូរស័ព្ទ!!" }]}
                             >
                                 <Input
                                     placeholder='លេខទូរស័ព្ទ'
@@ -136,7 +150,7 @@ export default function CraeteCustomer({
                             <Form.Item
                                 name="maritalStatus"
                                 label="សម្ព័នភាព"
-                                rules={[{ required: true, message: "សូមជ្រើសរើសសម្ព័នភាព!!" }]}
+                            // rules={[{ required: true, message: "សូមជ្រើសរើសសម្ព័នភាព!!" }]}
 
                             >
                                 <Select
@@ -161,11 +175,8 @@ export default function CraeteCustomer({
                     </Row>
                     {
                         maritalStatus ?
-                            <Row
-                                gutter={10}
-
-                            >
-                                <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                            <Row gutter={10}>
+                                <Col xs={10} sm={10} md={10} lg={10} xl={10} >
                                     <Form.Item
                                         name="partnerName"
                                         label="ឈ្មោះដៃគូរ"
@@ -178,7 +189,7 @@ export default function CraeteCustomer({
                                         />
                                     </Form.Item>
                                 </Col>
-                                <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                                <Col xs={4} sm={4} md={4} lg={4} xl={4} >
                                     <Form.Item
                                         name="partnerGender"
                                         label="ភេទ"
@@ -192,6 +203,20 @@ export default function CraeteCustomer({
                                             <Option value="ប្រុស">ប្រុស</Option>
                                             <Option value="ស្រី">ស្រី</Option>
                                         </Select>
+                                    </Form.Item>
+                                </Col>
+
+                                <Col xs={10} sm={10} md={10} lg={10} xl={10} >
+                                    <Form.Item
+                                        name="partnerIdNumber"
+                                        label="លេខអត្តសញ្ញាណប័ណ្ណ"
+                                        // rules={[{ required: true, message: "សូមបំពេញឈ្មោះ!!" }]}
+                                    >
+                                        <Input
+                                            placeholder='លេខអត្តសញ្ញាណប័ណ្ណ'
+                                            size='large'
+                                            allowClear
+                                        />
                                     </Form.Item>
                                 </Col>
                             </Row>
@@ -214,7 +239,7 @@ export default function CraeteCustomer({
                                 >
                                     <Option value="សាងសង់">សាងសង់</Option>
                                     <Option value="រត់ច្បាប់">រត់ច្បាប់</Option>
-                                    <Option value="រត់ច្បាប់ & សាងសង់">រត់ច្បាប់ & សាងសង់</Option>
+                                    <Option value="រត់ច្បាប់&សង់">រត់ច្បាប់&សង់</Option>
                                 </Select>
                             </Form.Item>
                         </Col>
@@ -235,6 +260,8 @@ export default function CraeteCustomer({
                                     <Option value="ស្ថានីយប្រេង">ស្ថានីយប្រេង</Option>
                                     <Option value="កាត់ប្លង់ផ្ទះល្វែង ដីឡូត៍">កាត់ប្លង់ផ្ទះល្វែង ដីឡូត៍</Option>
                                     <Option value="សាងសង់">សាងសង់</Option>
+                                    <Option value="ភោជនីយដ្ឋាន">ភោជនីយដ្ឋាន</Option>
+                                    <Option value="អភិវឌ្ឍន៍ដី">អភិវឌ្ឍន៍ដី</Option>
                                     <Option value="ផ្សេងៗ">ផ្សេងៗ</Option>
                                 </Select>
 
@@ -259,7 +286,7 @@ export default function CraeteCustomer({
                             <Form.Item
                                 name="countFloor"
                                 label="ចំនួនជាន់"
-                                rules={[{ required: true, message: "សូមបំពេញចំនួនជាន់!!" }]}
+                            // rules={[{ required: true, message: "សូមបំពេញចំនួនជាន់!!" }]}
                             >
                                 <Input
                                     placeholder='ចំនួនជាន់'
@@ -275,7 +302,7 @@ export default function CraeteCustomer({
                             <Form.Item
                                 name="constructionLocation"
                                 label="ទីតាំងគម្រោង"
-                                rules={[{ required: true, message: "សូមបំពេញទីតាំងគម្រោង!!" }]}
+                            // rules={[{ required: true, message: "សូមបំពេញទីតាំងគម្រោង!!" }]}
                             >
                                 <Input
                                     placeholder='ទីតាំងគម្រោង'
@@ -314,9 +341,11 @@ export default function CraeteCustomer({
                                 >
                                     <Option value="គូសប្លង់">គូសប្លង់</Option>
                                     <Option value="ចៅសង្កាត់">ចៅសង្កាត់</Option>
-                                    <Option value="ពិនិត្យ&កែតម្រូវ">ពិនិត្យ&កែតម្រូវ</Option>
                                     <Option value="ធ្វើសៀវភៅ">ធ្វើសៀវភៅ</Option>
                                     <Option value="នៅក្រុង">នៅក្រុង</Option>
+                                    <Option value="នៅមន្ទីរ">នៅមន្ទីរ</Option>
+                                    <Option value="កំពុងសាងសង់">កំពុងសាងសង់</Option>
+                                    <Option value="ផ្អាក">ផ្អាក</Option>
                                     <Option value="រួចរាល់">រួចរាល់</Option>
                                     <Option value="បញ្ចប់">បញ្ចប់</Option>
                                 </Select>
@@ -363,7 +392,7 @@ export default function CraeteCustomer({
                             <Form.Item
                                 name="endDate"
                                 label="ថ្ងៃបញ្ចប់"
-                                rules={[{ required: true, message: "សូមជ្រើសរើសថ្ងៃបញ្ចប់!!" }]}
+                            // rules={[{ required: true, message: "សូមជ្រើសរើសថ្ងៃបញ្ចប់!!" }]}
                             >
 
                                 <DatePicker
@@ -380,7 +409,7 @@ export default function CraeteCustomer({
                             <Form.Item
                                 name="landOfficerName"
                                 label="ឈ្មោះមន្ត្រី"
-                                // rules={[{ required: true, message: "សូមបំពេញឈ្មោះមន្ត្រី!!" }]}
+                            // rules={[{ required: true, message: "សូមបំពេញឈ្មោះមន្ត្រី!!" }]}
                             >
                                 <Input
                                     placeholder='ឈ្មោះមន្ត្រី'

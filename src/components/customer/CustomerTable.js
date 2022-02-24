@@ -3,6 +3,7 @@ import { Table, Space, Typography, Popover } from 'antd';
 import axios from 'axios'
 import UpdateCustomer from './UpdateCustomer';
 import DelectCustomer from './DelectCustomer';
+import moment from 'moment';
 
 const { Paragraph, Text } = Typography
 export default function CustomerTable({
@@ -62,6 +63,13 @@ export default function CustomerTable({
             ភេទ៖ {e?.partnerGender}
         </Paragraph>
     )
+
+    // const content = (e) => (
+    //     <Paragraph style={{ fontSize: 16, width: 300, textAlign: 'justify' }}>
+    //         ឈ្មោះដែគូរ៖ {e?.partnerName}<br />
+    //         ភេទ៖ {e?.partnerGender}
+    //     </Paragraph>
+    // )
 
     const contentRemark = (e) => (
         <Paragraph style={{ fontSize: 16, width: 300, textAlign: 'justify' }}>
@@ -159,13 +167,22 @@ export default function CustomerTable({
             dataIndex: 'constructionLocation',
             key: 'constructionLocation',
             width: 150,
+            render: (text, record) => (
+                <span style={{ cursor: 'pointer' }}  >
+                    <Popover placement="bottom" content={() => contentRemark(record?.constructionLocation)} title={null} trigger="hover">
+                        <Text ellipsis >
+                            {record?.constructionLocation}
+                        </Text>
+                    </Popover>
+                </span>
+            )
         },
-        {
-            title: 'ជាន់',
-            dataIndex: 'countFloor',
-            key: 'countFloor',
-            width: 90,
-        },
+        // {
+        //     title: 'ជាន់',
+        //     dataIndex: 'countFloor',
+        //     key: 'countFloor',
+        //     width: 90,
+        // },
         {
             title: 'ស្ថានភាព',
             dataIndex: 'priority',
@@ -177,29 +194,40 @@ export default function CustomerTable({
             dataIndex: 'startDate',
             key: 'startDate',
             width: 120,
+            render: (text, record) => (
+                <span>
+                    {moment(record?.startDate).format('DD-MMM-YYYY')}
+                </span>
+            )
         },
         {
             title: 'ថ្ងៃបញ្ចប់',
             dataIndex: 'endDate',
             key: 'endDate',
             width: 120,
+            render: (text, record) => (
+                <span>
+                    {record?.endDate !== '' ? moment(record?.startDate).format('DD-MMM-YYYY'):'គ្មាន'}
+                </span>
+            )
         },
-        {
-            title: 'បង្ហាញ',
-            dataIndex: 'showInDashboard',
-            key: 'showInDashboard',
-            width: 80,
-            render: text => <p
-                style={{
-                    marginTop: "15px"
-                }}
-            >{text === "0" ? "no" : "yes"}</p>,
-        },
+        // {
+        //     title: 'បង្ហាញ',
+        //     dataIndex: 'showInDashboard',
+        //     key: 'showInDashboard',
+        //     width: 80,
+        //     render: text => <p
+        //         style={{
+        //             marginTop: "15px"
+        //         }}
+        //     >{text === "0" ? "no" : "yes"}</p>,
+        // },
 
         {
             title: 'ផ្សេងៗ',
             dataIndex: 'remark',
             key: 'remark',
+            width:150,
             render: (text, record) => (
                 <span style={{ cursor: 'pointer' }}  >
                     <Popover placement="bottom" content={() => contentRemark(record?.remark)} title={null} trigger="hover">
