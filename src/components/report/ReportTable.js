@@ -44,7 +44,6 @@ export default function ReportTable({
             `${process.env.React_App_URL}/get/getDailyConstructWithPaginationAdmin.php`, params
         )
             .then(async function (response) {
-                console.log(response?.data)
                 if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
                     setReports(response?.data);
                     setLoading(false);
@@ -78,7 +77,7 @@ export default function ReportTable({
             width: 120,
             render: (text, record) => (
                 <Space size="middle">
-                    {moment(record?.createdAt).format('YYYY-MM-DD')}
+                    {moment(record?.createdAt).format('DD-MMM-YYYY')}
                 </Space>
             ),
         },
@@ -131,6 +130,16 @@ export default function ReportTable({
             title: 'បញ្ហា',
             dataIndex: 'challenges',
             key: 'challenges',
+            width: 160,
+            render: (text, record) => (
+                <span style={{ cursor: 'pointer' }}  >
+                    <Popover placement="bottom" content={() => contentRemark(record?.challenges)} title={null} trigger="hover">
+                        <Text ellipsis >
+                            {record?.challenges}
+                        </Text>
+                    </Popover>
+                </span>
+            )
         },
 
         {

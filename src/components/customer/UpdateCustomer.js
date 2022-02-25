@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Modal, Select, Input, DatePicker, Row, Col, Form, Drawer, message } from 'antd';
+import { Modal, Select, Input, DatePicker, Row, Col, Form, Drawer, message, Switch } from 'antd';
 import { Button } from 'antd';
-import { AiOutlineEdit } from "react-icons/ai";
+import { AiOutlineCheck, AiOutlineClose, AiOutlineEdit } from "react-icons/ai";
 import moment from 'moment';
 import { Update_Customer } from '../../getDatabase';
 
@@ -17,6 +17,14 @@ export default function UpdateCustomer({
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
     const [visible, setVisible] = useState(false);
+
+    const [idCardSet, setIdCardSet] = useState("0")
+    const [landCardSet, setLandCardSet] = useState("0")
+    const [footMeterSet, setFootMeterSet] = useState("0")
+    const [idCardPlowerSet, setIdCardPlowerSet] = useState("0")
+    const [familyBookSet, setFamilyBookSet] = useState("0")
+    const [idCardNextBorderSet, setIdCardNextBorderSet] = useState("0")
+    const [certificateCompanySet, setCertificateCompanySet] = useState("0")
 
     const [isMobile, setIsMobile] = useState(false)
 
@@ -51,13 +59,33 @@ export default function UpdateCustomer({
                 startDate: moment(customer?.startDate),
                 endDate: moment(customer?.endDate),
             })
+
+            setIdCardSet(customer?.idCardSet)
+            setLandCardSet(customer?.landCardSet)
+            setFootMeterSet(customer?.footMeterSet)
+            setIdCardPlowerSet(customer?.idCardPlowerSet)
+            setFamilyBookSet(customer?.familyBookSet)
+            setIdCardNextBorderSet(customer?.idCardNextBorderSet)
+            setCertificateCompanySet(customer?.certificateCompanySet)
         }
     }, [customer])
 
     const onFinish = async values => {
         // console.log(values);
         setLoading(true)
-        let updateState = await Update_Customer(values, c_id);
+        let updateState = await Update_Customer(
+            {
+            ...values,
+            idCardSet:idCardSet,
+            landCardSet:landCardSet,
+            footMeterSet:footMeterSet,
+            idCardPlowerSet:idCardPlowerSet,
+            familyBookSet:familyBookSet,
+            idCardNextBorderSet:idCardNextBorderSet,
+            certificateCompanySet:certificateCompanySet
+            }
+            , c_id
+        );
 
         if (updateState) {
             setVisible(false);
@@ -429,6 +457,110 @@ export default function UpdateCustomer({
                                 />
                             </Form.Item>
                         </Col>
+                        
+                    </Row>
+
+                    <Row gutter={10}>
+                        <Col xs={12} sm={12} md={8} lg={8} xl={8} >
+                            <Form.Item
+                                name="idCardSet"
+                                label="អត្តសញ្ញាណប័ណ្ណបញ្ជាក់រួច 5ច្បាប់"
+                            >
+                                <Switch
+                                    checkedChildren={<AiOutlineCheck />}
+                                    unCheckedChildren={<AiOutlineClose />}
+                                    onChange={(e) => setIdCardSet(idCardSet==='1' ? '0':'1')}
+                                    checked={idCardSet === '1'}
+                                // defaultChecked
+                                />
+                            </Form.Item>
+                        </Col>
+                        <Col xs={12} sm={12} md={8} lg={8} xl={8} >
+                            <Form.Item
+                                name="landCardSet"
+                                label="បណ្ណដី បញ្ជាក់រួច 5ច្បាប់"
+                            >
+                                <Switch
+                                    checkedChildren={<AiOutlineCheck />}
+                                    unCheckedChildren={<AiOutlineClose />}
+                                    onChange={(e) => setLandCardSet(landCardSet==='1' ? '0':'1')}
+                                    checked={landCardSet === '1'}
+                                />
+                            </Form.Item>
+                        </Col>
+
+                        <Col xs={12} sm={12} md={8} lg={8} xl={8} >
+                            <Form.Item
+                                name="footMeterSet"
+                                label="ជើងម៉ែត្រ"
+                            >
+                                <Switch
+                                    checkedChildren={<AiOutlineCheck />}
+                                    unCheckedChildren={<AiOutlineClose />}
+                                    onChange={(e) => setFootMeterSet(footMeterSet==='1' ? '0':'1')}
+                                    checked={footMeterSet === '1'}
+                                />
+                            </Form.Item>
+                        </Col>
+                        <Col xs={12} sm={12} md={8} lg={8} xl={8} >
+                            <Form.Item
+                                name="idCardPlowerSet"
+                                label="អត្តសញ្ញណប័ណ្ណអ្នកចាក់ដី"
+                            >
+                                <Switch
+                                    checkedChildren={<AiOutlineCheck />}
+                                    unCheckedChildren={<AiOutlineClose />}
+                                    onChange={(e) => setIdCardPlowerSet(idCardPlowerSet==='1' ? '0':'1')}
+                                    checked={idCardPlowerSet === '1'}
+                                />
+                            </Form.Item>
+                        </Col>
+
+
+                        <Col xs={12} sm={12} md={8} lg={8} xl={8} >
+                            <Form.Item
+                                name="familyBookSet"
+                                label="សៀវភៅគ្រួសារ បញ្ជាក់ 5ច្បាប់ (បើមាន)"
+                            >
+                                <Switch
+                                    checkedChildren={<AiOutlineCheck />}
+                                    unCheckedChildren={<AiOutlineClose />}
+                                    onChange={(e) => setFamilyBookSet(familyBookSet==='1' ? '0':'1')}
+                                    checked={familyBookSet === '1'}
+                                />
+                            </Form.Item>
+                        </Col>
+                        <Col xs={12} sm={12} md={8} lg={8} xl={8} >
+                            <Form.Item
+                                name="idCardNextBorderSet"
+                                label="អត្តសញ្ញាណប័ណ្ណអ្នកជាប់ព្រំ 5ច្បាប់"
+                            >
+                                <Switch
+                                    checkedChildren={<AiOutlineCheck />}
+                                    unCheckedChildren={<AiOutlineClose />}
+                                    onChange={(e) => setIdCardNextBorderSet(idCardNextBorderSet==='1' ? '0':'1')}
+                                    checked={idCardNextBorderSet === '1'}
+                                />
+                            </Form.Item>
+                        </Col>
+                        <Col xs={12} sm={12} md={8} lg={8} xl={8} >
+                            <Form.Item
+                                name="certificateCompanySet"
+                                label="វិញ្ញាប័ណ្ណប័ត្រក្រុមហ៊ុន បញ្ចាក់ 5ច្បាប់"
+                            >
+                                <Switch
+                                    checkedChildren={<AiOutlineCheck />}
+                                    unCheckedChildren={<AiOutlineClose />}
+                                    onChange={(e) => setCertificateCompanySet(certificateCompanySet==='1' ? '0':'1')}
+                                    checked={certificateCompanySet === '1'}
+                                />
+                            </Form.Item>
+                        </Col>
+
+                    </Row>
+
+                    <Row gutter={10}>
+                       
                         <Col xs={24} sm={24} md={24} lg={24} xl={24} >
                             <Form.Item
                                 name="remark"

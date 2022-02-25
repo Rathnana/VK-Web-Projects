@@ -43,7 +43,6 @@ export default function EditReport({ setSuccess, id, reports }) {
             })
         }
         if (report) {
-            console.log(report)
             form.setFieldsValue({
                 customerId: report?.customerId,
                 status: report?.status,
@@ -63,7 +62,6 @@ export default function EditReport({ setSuccess, id, reports }) {
     };
 
     const onFinish = (val) => {
-        console.log(val);
         if (val.team.length <= 0) {
             message.error("សូមបញ្ជូលក្រុម!!");
             return
@@ -336,7 +334,7 @@ export default function EditReport({ setSuccess, id, reports }) {
                             <p>រូបភាពចាប់ផ្ដើម</p>
 
                             <UploadController
-                                name="startImage"
+                                name="startImageEdit"
                                 accept="image/png, image/jpeg, image/jpg"
                                 // value={resultImage}
                                 onChange={e => {
@@ -388,7 +386,7 @@ export default function EditReport({ setSuccess, id, reports }) {
                             <p>រូបភាពបញ្ចប់</p>
 
                             <UploadController
-                                name="resultImage"
+                                name="resultImageEdit"
                                 accept="image/png, image/jpeg, image/jpg"
                                 // value={resultImage}
                                 onChange={e => {

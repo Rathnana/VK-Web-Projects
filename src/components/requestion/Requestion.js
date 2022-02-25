@@ -71,7 +71,7 @@ export default function Requestion() {
                                     <Select onChange={e => setConstructionId(e)} placeholder="ឈ្មោះការដ្ឋាន" size='large' style={{ width: '100%' }} >
                                         <Option value={''} key='all'>--ទាំងអស់--</Option>
                                         {
-                                            construction?.map(con => <Option value={con.c_id}>{con.constructionName}</Option>)
+                                            construction?.map(con => <Option key={con.c_id} value={con.c_id}>{con.constructionName}</Option>)
                                         }
 
                                     </Select>

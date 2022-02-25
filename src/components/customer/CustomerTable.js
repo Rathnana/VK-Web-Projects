@@ -45,7 +45,6 @@ export default function CustomerTable({
             .then(async function (response) {
 
                 if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
-                    console.log(response?.data.data)
                     setLoading(false);
                     setSuccess(false);
                     setCustomer(response?.data)
@@ -272,6 +271,7 @@ export default function CustomerTable({
             dataSource={tableDataWithNo}
             scroll={{ x: 2200 }}
             loading={loading}
+            rowKey={record => record?.c_id}
             className='table-customize'
             style={{ marginTop: "20px" }}
             pagination={{

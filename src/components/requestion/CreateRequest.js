@@ -64,7 +64,6 @@ export default function CreateRequest({ setSuccess }) {
 
                 if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
                     setConstruction(response?.data.data)
-                    console.log(response?.data.data);
                     return response?.data;
                 } else {
                     return [];
@@ -147,7 +146,7 @@ export default function CreateRequest({ setSuccess }) {
                                     allowClear
                                 >
                                     {
-                                        construction?.map(con => <Option value={con.c_id}>{con.constructionName}</Option>)
+                                        construction?.map(con => <Option key={con.c_id} value={con.c_id}>{con.constructionName}</Option>)
                                     }
 
 

@@ -22,7 +22,6 @@ export default function Login({ setAuth }) {
             `${process.env.React_App_URL}/login/loginProcessAdmin.php`, params
         )
             .then(async function (response) {
-                // console.log(response?.data)
 
                 if (response?.data === "incorrect") {
                     message.error("Username & Password មានបញ្ហា!!")

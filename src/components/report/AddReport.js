@@ -105,7 +105,6 @@ export default function AddReport({ setSuccess }) {
     }
 
     const onSelectResultImage = (e) => {
-
         let imageFile = e.target.files[0]
         if (imageFile.size > 2000000) {
             message.error("ទំហំរូបភាពធំ!!")
@@ -294,7 +293,7 @@ export default function AddReport({ setSuccess }) {
 
 
                                     <UploadController
-                                        name="startImage"
+                                        name="startImageAdd"
                                         accept="image/png, image/jpeg, image/jpg"
                                         // value={resultImage}
                                         onChange={onSelectStartImage}
@@ -339,7 +338,7 @@ export default function AddReport({ setSuccess }) {
                                     <p>រូបភាពបញ្ចប់</p>
 
                                     <UploadController
-                                        name="resultImage"
+                                        name="resultImageAdd"
                                         accept="image/png, image/jpeg, image/jpg"
                                         // value={resultImage}
                                         onChange={onSelectResultImage}
