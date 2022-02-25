@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Table, Space } from 'antd';
+import { Table, Space, Typography, Popover } from 'antd';
 import moment from 'moment';
 import axios from 'axios';
 import DelectReport from './DelectReport';
 import EditReport from './EditReport';
+
+const { Paragraph ,Text} = Typography;
 
 export default function ReportTable({
     setLoading,
@@ -29,13 +31,13 @@ export default function ReportTable({
         params.append('db_password', process.env.React_App_DB_PASSWORD);
         params.append('db', process.env.React_App_DB);
         params.append('data', JSON.stringify({
-            page:page,
-            pageSize:pageSize,
-            customerId:customerId,
+            page: page,
+            pageSize: pageSize,
+            customerId: customerId,
             userId: sessionStorage.getItem("u_id"),
             startDate: range?.startDate !== null ? range?.startDate : '',
             endDate: range?.endDate !== null ? range?.endDate : '',
-            chiefId:chiefId
+            chiefId: chiefId
         }));
 
         return await axios.post(
@@ -56,18 +58,24 @@ export default function ReportTable({
             });
     }
 
+    const contentRemark = (e) => (
+        <Paragraph style={{ fontSize: 16, width: 300, textAlign: 'justify' }}>
+            {e}
+        </Paragraph>
+    )
+
     const columns = [
         {
             title: 'លរ',
             dataIndex: 'no',
             key: 'no',
-            width:80
+            width: 80
         }
         ,
         {
             title: 'កាលបរិច្ឆេទ',
             key: 'createdAt',
-            width:120,
+            width: 120,
             render: (text, record) => (
                 <Space size="middle">
                     {moment(record?.createdAt).format('YYYY-MM-DD')}
@@ -78,37 +86,46 @@ export default function ReportTable({
             title: 'ឈ្មោះការដ្ឋាន',
             dataIndex: 'constructionName',
             key: 'constructionName',
-            width:250
+            width: 250
         },
         {
             title: 'ទីតាំង',
             dataIndex: 'constructionLocation',
             key: 'constructionLocation',
-            width:200
+            width: 200,
+            render: (text, record) => (
+                <span style={{ cursor: 'pointer' }}  >
+                    <Popover placement="bottom" content={() => contentRemark(record?.constructionLocation)} title={null} trigger="hover">
+                        <Text ellipsis >
+                            {record?.constructionLocation}
+                        </Text>
+                    </Popover>
+                </span>
+            )
         },
         {
             title: 'មេការ',
             dataIndex: 'chiefName',
             key: 'chiefName',
-            width:150
+            width: 150
         },
         {
             title: 'ចំនួនក្រុម',
             dataIndex: 'teamCount',
             key: 'teamCount',
-            width:100
+            width: 100
         },
         {
             title: 'ជាង',
             dataIndex: 'builderCount',
             key: 'builderCount',
-            width:100
+            width: 100
         },
         {
             title: 'កម្មករ',
             dataIndex: 'workerCount',
             key: 'workerCount',
-            width:100
+            width: 100
         },
         {
             title: 'បញ្ហា',
@@ -121,7 +138,7 @@ export default function ReportTable({
             fixed: 'right',
             align: 'center',
             key: 'action',
-            width:100,
+            width: 100,
             render: (text, record) => (
                 <Space size="middle">
                     <EditReport reports={record} setSuccess={setSuccess} id={record.dc_id} />

@@ -19,7 +19,7 @@ export default function SectionA({ date }) {
         const params = new URLSearchParams();
         params.append('db_user', process.env.React_App_DB_USER);
         params.append('db_password', process.env.React_App_DB_PASSWORD);
-        params.append('db', 'wwvka_vkms', process.env.React_App_DB);
+        params.append('db', process.env.React_App_DB);
 
         params.append('data', JSON.stringify({ date: moment(date).format('YYYY-MM-DD') }))
 
@@ -133,15 +133,25 @@ export default function SectionA({ date }) {
 
                                         } />}
                             >
+                                {/* <img
+                                    className='image-card'
+                                    alt="example"
+                                    src={
+                                        todo?.resultImage === "" && todo?.startImage === "" ?
+                                            "https://www.chanchao.com.tw/ctg/images/default.jpg"
+                                            : todo?.resultImage !== "" ? `${process.env.React_App_IMAGES}/${todo.resultImage}`
+                                                : `${process.env.React_App_IMAGES}/${todo.startImage}`
+
+                                    } /> */}
                                 <Typography
                                     style={{ fontWeight: "bold", textAlign: "center" }}
                                 >
                                     {
                                         `${todo.constructionName}`
                                     }<br />
-                                    {
+                                    {/* {
                                         `(${todo.constructionLocation})`
-                                    }
+                                    } */}
                                 </Typography><br />
                                 <Typography style={{ fontWeight: "bold" }}>
                                     {`${todo.chiefName} (${todo.teamCount} ក្រុម)`}

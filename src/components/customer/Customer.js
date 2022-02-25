@@ -50,12 +50,9 @@ export default function Customer({ search }) {
                                     <Select placeholder="ការងារ" size='large' style={{ width: '100%' }}
                                         onChange={(e) => setTaskType(e)}
                                     >
-                                        <Option value={''} key='all'>--ទាំងអស់--</Option>
                                         <Option value="សាងសង់">សាងសង់</Option>
                                         <Option value="រត់ច្បាប់">រត់ច្បាប់</Option>
-                                        <Option value="រត់ច្បាប់ & សាងសង់" >
-                                            រត់ច្បាប់ & សាងសង់
-                                        </Option>
+                                        <Option value="រត់ច្បាប់&សង់">រត់ច្បាប់&សង់</Option>
                                     </Select>
                                 </Form.Item>
                             </Col>
@@ -72,6 +69,8 @@ export default function Customer({ search }) {
                                         <Option value="ស្ថានីយប្រេង">ស្ថានីយប្រេង</Option>
                                         <Option value="កាត់ប្លង់ផ្ទះល្វែង ដីឡូត៍">កាត់ប្លង់ផ្ទះល្វែង ដីឡូត៍</Option>
                                         <Option value="សាងសង់">សាងសង់</Option>
+                                        <Option value="ភោជនីយដ្ឋាន">ភោជនីយដ្ឋាន</Option>
+                                        <Option value="អភិវឌ្ឍន៍ដី">អភិវឌ្ឍន៍ដី</Option>
                                         <Option value="ផ្សេងៗ">ផ្សេងៗ</Option>
                                     </Select>
                                 </Form.Item >
@@ -85,9 +84,11 @@ export default function Customer({ search }) {
                                         <Option value={''} key='all'>--ទាំងអស់--</Option>
                                         <Option value="គូសប្លង់">គូសប្លង់</Option>
                                         <Option value="ចៅសង្កាត់">ចៅសង្កាត់</Option>
-                                        <Option value="ពិនិត្យ&កែតម្រូវ">ពិនិត្យ&កែតម្រូវ</Option>
                                         <Option value="ធ្វើសៀវភៅ">ធ្វើសៀវភៅ</Option>
                                         <Option value="នៅក្រុង">នៅក្រុង</Option>
+                                        <Option value="នៅមន្ទីរ">នៅមន្ទីរ</Option>
+                                        <Option value="កំពុងសាងសង់">កំពុងសាងសង់</Option>
+                                        <Option value="ផ្អាក">ផ្អាក</Option>
                                         <Option value="រួចរាល់">រួចរាល់</Option>
                                         <Option value="បញ្ចប់">បញ្ចប់</Option>
                                     </Select>
