@@ -133,16 +133,7 @@ export default function SectionA({ date }) {
 
                                         } />}
                             >
-                                {/* <img
-                                    className='image-card'
-                                    alt="example"
-                                    src={
-                                        todo?.resultImage === "" && todo?.startImage === "" ?
-                                            "https://www.chanchao.com.tw/ctg/images/default.jpg"
-                                            : todo?.resultImage !== "" ? `${process.env.React_App_IMAGES}/${todo.resultImage}`
-                                                : `${process.env.React_App_IMAGES}/${todo.startImage}`
-
-                                    } /> */}
+                             
                                 <Typography
                                     style={{ fontWeight: "bold", textAlign: "center" }}
                                 >
@@ -157,7 +148,7 @@ export default function SectionA({ date }) {
                                     {`${todo.chiefName} (${todo.teamCount} ក្រុម)`}
                                 </Typography>
                                 <Typography style={{ fontWeight: "bold" }}>
-                                    {`ចំ.ជាង៖ ${todo.builderCount} | ចំ.កម្មករ៖ ${todo.workerCount}`}
+                                    {`ជាង៖ ${todo.builderCount} | ក.ប្រុស៖ ${parseInt(todo.workerCount)-parseInt(todo.femaleWorkerCount)} | ក.ស្រី៖ ${todo.femaleWorkerCount}`}
                                 </Typography>
                                 {
                                     todo.performances?.map((per) => <Typography >- {per.performance}</Typography>)

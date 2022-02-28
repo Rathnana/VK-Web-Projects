@@ -29,7 +29,7 @@ export default function CustomerTable({
         const params = new URLSearchParams();
         params.append('db_user', process.env.React_App_DB_USER);
         params.append('db_password', process.env.React_App_DB_PASSWORD);
-        params.append('db', 'wwvka_vkms', process.env.React_App_DB);
+        params.append('db', process.env.React_App_DB);
         params.append('page', page)
         params.append('pageSize', pageSize)
         // params.append('taskType', taskType)
@@ -37,13 +37,15 @@ export default function CustomerTable({
             taskType: taskType ? taskType: '', 
             priority: priority ? priority : '', 
             constructionType: constructionType ? constructionType:'', 
-            search
+            search,
+            page,
+            pageSize
         }))
         return await axios.post(
             `${process.env.React_App_URL}/get/getCustomerWithPagination.php`, params
         )
             .then(async function (response) {
-
+                console.log(response?.data)
                 if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
                     setLoading(false);
                     setSuccess(false);
