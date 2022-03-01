@@ -68,13 +68,13 @@ export default function ReportTable({
             title: 'លរ',
             dataIndex: 'no',
             key: 'no',
-            width: 80
+            width: 60
         }
         ,
         {
             title: 'កាលបរិច្ឆេទ',
             key: 'createdAt',
-            width: 120,
+            width: 100,
             render: (text, record) => (
                 <Space size="middle">
                     {moment(record?.createdAt).format('DD-MM-YYYY')}

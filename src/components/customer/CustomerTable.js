@@ -83,73 +83,62 @@ export default function CustomerTable({
             title: 'លរ',
             dataIndex: 'no',
             key: 'no',
-            width: 70
+            width: 50
         },
         {
             title: 'ID',
             dataIndex: 'customerId',
             key: 'customerId',
-            width: 100
+            width: 70
 
         },
         {
             title: 'ឈ្មោះអតិថិជន',
             dataIndex: 'customerName',
             key: 'customerName',
-            width: 150
+            width: 120
         },
-        {
-            title: 'ភេទ',
-            dataIndex: 'gender',
-            key: 'gender',
-            width: 60
-        },
-        {
-            title: 'សម្ព័នភាព',
-            dataIndex: 'maritalStatus',
-            key: 'maritalStatus',
-            width: 110,
-            render: (text, record) => (
-                <>
-                    {
-                        record?.maritalStatus === 'មានគ្រួសារ' ?
-                            <span style={{ cursor: 'pointer' }}>
-                                <Popover placement="bottom" content={() => content(record)} title={null} trigger="hover">
-                                    <Text ellipsis >
-                                        {record?.maritalStatus}
-                                    </Text>
-                                </Popover>
-                            </span>
-
-                            :
-                            <span>{record?.maritalStatus}</span>
-                    }
-                </>
-            )
-        },
-        // {
-        //     title: 'ឈ្មោះដែគូរ',
-        //     dataIndex: 'partnerName',
-        //     key: 'partnerName',
-        //     width: 150
-
-        // },
         // {
         //     title: 'ភេទ',
-        //     dataIndex: 'partnerGender',
-        //     key: 'partnerGender',
+        //     dataIndex: 'gender',
+        //     key: 'gender',
+        //     width: 60
         // },
+        // {
+        //     title: 'សម្ព័នភាព',
+        //     dataIndex: 'maritalStatus',
+        //     key: 'maritalStatus',
+        //     width: 110,
+        //     render: (text, record) => (
+        //         <>
+        //             {
+        //                 record?.maritalStatus === 'មានគ្រួសារ' ?
+        //                     <span style={{ cursor: 'pointer' }}>
+        //                         <Popover placement="bottom" content={() => content(record)} title={null} trigger="hover">
+        //                             <Text ellipsis >
+        //                                 {record?.maritalStatus}
+        //                             </Text>
+        //                         </Popover>
+        //                     </span>
+
+        //                     :
+        //                     <span>{record?.maritalStatus}</span>
+        //             }
+        //         </>
+        //     )
+        // },
+        
         {
             title: 'ការងារ',
             dataIndex: 'taskType',
             key: 'taskType',
-            width: 150,
+            width: 120,
         },
         {
             title: 'ប្រភេទ',
             dataIndex: 'constructionType',
             key: 'constructionType',
-            width: 180,
+            width: 110,
         },
         {
             title: 'ឈ្មោះការដ្ឋាន',
@@ -194,7 +183,7 @@ export default function CustomerTable({
             title: 'ថ្ងៃចាប់ផ្ដើម',
             dataIndex: 'startDate',
             key: 'startDate',
-            width: 120,
+            width: 100,
             render: (text, record) => (
                 <span>
                     {moment(record?.startDate).format('DD-MM-YYYY')}
@@ -205,7 +194,7 @@ export default function CustomerTable({
             title: 'ថ្ងៃបញ្ចប់',
             dataIndex: 'endDate',
             key: 'endDate',
-            width: 120,
+            width: 100,
             render: (text, record) => (
                 <span>
                     {record?.endDate !== "0000-00-00" ? moment(record?.endDate).format('DD-MM-YYYY'):'គ្មាន'}
@@ -271,7 +260,7 @@ export default function CustomerTable({
         <Table
             columns={columns}
             dataSource={tableDataWithNo}
-            scroll={{ x: 2200 }}
+            scroll={{ x: 1200 }}
             loading={loading}
             rowKey={record => record?.c_id}
             className='table-customize'
