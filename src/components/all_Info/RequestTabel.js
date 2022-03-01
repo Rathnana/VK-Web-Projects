@@ -15,7 +15,7 @@ const columns = [
         key: 'date',
         render: (text, record) => (
             <Space size="middle">
-                {moment(record?.date).format('DD-MMM-YYYY')}
+                {moment(record?.date).format('DD-MM-YYYY')}
             </Space>
         ),
     },
@@ -25,7 +25,7 @@ const columns = [
         key: 'needDate',
         render: (text, record) => (
             <Space size="middle">
-                {moment(record?.needDate).format('DD-MMM-YYYY')}
+                {record?.needDate !== "0000-00-00" ? moment(record?.needDate).format('DD-MM-YYYY'):'គ្មាន'}
             </Space>
         ),
     },

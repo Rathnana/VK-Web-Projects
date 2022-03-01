@@ -38,7 +38,7 @@ const columns = [
         width: 110,
         render: (text, record) => (
             <Space size="middle">
-                {moment(record?.startDate).format('DD-MMM-YYYY')}
+                {moment(record?.startDate).format('DD-MM-YYYY')}
             </Space>
         ),
     },
@@ -49,7 +49,7 @@ const columns = [
         width: 110,
         render: (text, record) => (
             <Space size="middle">
-                {record?.startDate === '' ? 'គ្មាន' : moment(record?.startDate).format('DD-MMM-YYYY')}
+                {record?.endDate === "0000-00-00" ? 'គ្មាន' : moment(record?.endDate).format('DD-MM-YYYY')}
             </Space>
         ),
     },

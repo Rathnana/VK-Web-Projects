@@ -197,7 +197,7 @@ export default function CustomerTable({
             width: 120,
             render: (text, record) => (
                 <span>
-                    {moment(record?.startDate).format('DD-MMM-YYYY')}
+                    {moment(record?.startDate).format('DD-MM-YYYY')}
                 </span>
             )
         },
@@ -208,7 +208,7 @@ export default function CustomerTable({
             width: 120,
             render: (text, record) => (
                 <span>
-                    {record?.endDate !== '' ? moment(record?.startDate).format('DD-MMM-YYYY'):'គ្មាន'}
+                    {record?.endDate !== "0000-00-00" ? moment(record?.endDate).format('DD-MM-YYYY'):'គ្មាន'}
                 </span>
             )
         },

@@ -77,7 +77,7 @@ export default function ReportTable({
             width: 120,
             render: (text, record) => (
                 <Space size="middle">
-                    {moment(record?.createdAt).format('DD-MMM-YYYY')}
+                    {moment(record?.createdAt).format('DD-MM-YYYY')}
                 </Space>
             ),
         },
