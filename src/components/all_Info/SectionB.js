@@ -3,17 +3,18 @@ import { Col, PageHeader, Button } from 'antd';
 import UnLawWorkTabel from './UnLawWorkTabel';
 import RequestTabel from './RequestTabel';
 import { useNavigate } from "react-router-dom";
+import WorkerGraph from './WorkerGraph';
 
 
 export default function SectionB() {
     let navigate = useNavigate();
     return (
         <Col
-            xs={24} sm={24} md={12} lg={12} xl={12}
+            xs={8} sm={8} md={8} lg={8} xl={8}
             // className="site-card-wrapper"
             style={{ padding: '0px 20px' }}
         >
-            <PageHeader
+            {/* <PageHeader
                 ghost={false}
                 title="ការដ្ឋាន"
                 style={{ background: "#f0f0f0" }}
@@ -23,7 +24,8 @@ export default function SectionB() {
             >
 
             </PageHeader>
-            <UnLawWorkTabel />
+            <UnLawWorkTabel /> */}
+            <WorkerGraph />
             <PageHeader
                 ghost={false}
                 title="តារាងស្នើរសុំសម្ភារៈ"
