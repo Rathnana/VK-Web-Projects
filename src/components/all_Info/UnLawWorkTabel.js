@@ -4,7 +4,7 @@ import { Popover, Space, Table, Typography } from 'antd';
 import axios from 'axios'
 import moment from 'moment';
 
-const { Paragraph ,Text} = Typography;
+const { Paragraph, Text } = Typography;
 
 const contentRemark = (e) => (
     <Paragraph style={{ fontSize: 16, width: 300, textAlign: 'justify' }}>
@@ -141,6 +141,7 @@ export default function UnLawWorkTabel() {
     return (
         <Table
             // size="small"
+            style={{marginBottom: 50 }}
             columns={columns}
             pagination={false}
             className='Info-table'

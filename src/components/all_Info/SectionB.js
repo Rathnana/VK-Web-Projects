@@ -13,17 +13,7 @@ export default function SectionB() {
             // className="site-card-wrapper"
             style={{ padding: '0px 20px' }}
         >
-            {/* <PageHeader
-                ghost={false}
-                title="ការដ្ឋាន"
-                style={{ background: "#f0f0f0" }}
-                extra={[
-                    <Button key="s" onClick={() => navigate('/customer')} type="text">View All</Button>
-                ]}
-            >
-
-            </PageHeader>
-            <UnLawWorkTabel /> */}
+           
             <WorkerGraph />
             <PageHeader
                 ghost={false}
