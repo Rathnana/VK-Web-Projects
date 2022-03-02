@@ -51,19 +51,12 @@ export default function AllInfo() {
                         </Col>
                     </Row>
                 </Col>
-
-                <Col xs={24} sm={24} md={24} lg={24} xl={24}
-                >
+                <Col xs={24} sm={24} md={24} lg={24} xl={24} >
                     <Row>
                         <SectionA date={date} />
                         <SectionB />
                     </Row>
-                    <Row>
-                        <WorkerGraph />
-                    </Row>
                 </Col>
-
-
             </Row>
         </div>
 
