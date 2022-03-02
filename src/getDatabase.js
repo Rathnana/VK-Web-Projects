@@ -3,9 +3,9 @@ import { openErrorNotification } from './own-comp'
 import { message } from 'antd';
 import moment from 'moment';
 
-export function currencyFormat(num){
-    num = num > 0 ? parseFloat(num):0
-    return '$'+ num?.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g,'$1,')
+export function currencyFormat(num) {
+    num = num > 0 ? parseFloat(num) : 0
+    return '$' + num?.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
 }
 
 export const getUser = async () => {
@@ -227,6 +227,13 @@ export const Creat_Customer = async (
         remark: customer?.remark,
         landNumber: customer?.landNumber,
         landOfficerName: customer?.landOfficerName,
+        idCardSet: customer?.idCardSet,
+        landCardSet: customer?.landCardSet,
+        footMeterSet: customer?.footMeterSet,
+        idCardPlowerSet: customer?.idCardPlowerSet,
+        familyBookSet: customer?.familyBookSet,
+        idCardNextBorderSet: customer?.idCardNextBorderSet,
+        certificateCompanySet: customer?.certificateCompanySet
 
     }));
 
@@ -276,6 +283,13 @@ export const Update_Customer = async (
         remark: customer?.remark,
         landNumber: customer?.landNumber,
         landOfficerName: customer?.landOfficerName,
+        idCardSet: customer?.idCardSet,
+        landCardSet: customer?.landCardSet,
+        footMeterSet: customer?.footMeterSet,
+        idCardPlowerSet: customer?.idCardPlowerSet,
+        familyBookSet: customer?.familyBookSet,
+        idCardNextBorderSet: customer?.idCardNextBorderSet,
+        certificateCompanySet: customer?.certificateCompanySet,
         c_id
     }));
 

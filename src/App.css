@@ -31,7 +31,7 @@ body, html {
 }
 
 .ant-drawer-wrapper-body{
-    background-color: #c8d556 !important;
+    background-color: rgb(180 217 255) !important;
 }
 
 .login-form{
@@ -99,6 +99,7 @@ body, html {
   .image-card{
       object-fit: cover !important;
       height: 180px !important;
+      padding: 7px!important;
   }
   .ant-form-item-explain-error{
       margin-top: 5px !important;
@@ -110,4 +111,8 @@ body, html {
     /* padding: 10px!important; */
     /* max-height: 350px!important; */
     /* overflow-y: scroll; */
+  }
+
+  .drawer-phone .ant-drawer-wrapper-body{
+      background-color: rgb(180 217 255)!important;
   }

@@ -43,7 +43,6 @@ export default function RequestionTable({
                     // console.log(response?.data)
                     return response?.data;
                 } else {
-                    console.log(response.data)
                     return [];
                 }
             });

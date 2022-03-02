@@ -3,6 +3,7 @@ import { Table, Space, Typography, Popover } from 'antd';
 import axios from 'axios'
 import UpdateCustomer from './UpdateCustomer';
 import DelectCustomer from './DelectCustomer';
+import moment from 'moment';
 
 const { Paragraph, Text } = Typography
 export default function CustomerTable({
@@ -22,24 +23,30 @@ export default function CustomerTable({
     useEffect(() => {
         setLoading(true);
         getCustomer();
-    }, [success, taskType, priority, search])
+    }, [success, taskType, priority, search,constructionType])
 
     const getCustomer = async () => {
         const params = new URLSearchParams();
         params.append('db_user', process.env.React_App_DB_USER);
         params.append('db_password', process.env.React_App_DB_PASSWORD);
-        params.append('db', 'wwvka_vkms', process.env.React_App_DB);
+        params.append('db', process.env.React_App_DB);
         params.append('page', page)
         params.append('pageSize', pageSize)
         // params.append('taskType', taskType)
-        params.append('data', JSON.stringify({ taskType, priority, constructionType, search }))
+        params.append('data', JSON.stringify({ 
+            taskType: taskType ? taskType: '', 
+            priority: priority ? priority : '', 
+            constructionType: constructionType ? constructionType:'', 
+            search,
+            page,
+            pageSize
+        }))
         return await axios.post(
             `${process.env.React_App_URL}/get/getCustomerWithPagination.php`, params
         )
             .then(async function (response) {
-
+                console.log(response?.data)
                 if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
-                    console.log(response?.data.data)
                     setLoading(false);
                     setSuccess(false);
                     setCustomer(response?.data)
@@ -58,6 +65,13 @@ export default function CustomerTable({
         </Paragraph>
     )
 
+    // const content = (e) => (
+    //     <Paragraph style={{ fontSize: 16, width: 300, textAlign: 'justify' }}>
+    //         ឈ្មោះដែគូរ៖ {e?.partnerName}<br />
+    //         ភេទ៖ {e?.partnerGender}
+    //     </Paragraph>
+    // )
+
     const contentRemark = (e) => (
         <Paragraph style={{ fontSize: 16, width: 300, textAlign: 'justify' }}>
             {e}
@@ -69,73 +83,62 @@ export default function CustomerTable({
             title: 'លរ',
             dataIndex: 'no',
             key: 'no',
-            width: 70
+            width: 50
         },
         {
             title: 'ID',
             dataIndex: 'customerId',
             key: 'customerId',
-            width: 100
+            width: 70
 
         },
         {
             title: 'ឈ្មោះអតិថិជន',
             dataIndex: 'customerName',
             key: 'customerName',
-            width: 150
+            width: 120
         },
-        {
-            title: 'ភេទ',
-            dataIndex: 'gender',
-            key: 'gender',
-            width: 60
-        },
-        {
-            title: 'សម្ព័នភាព',
-            dataIndex: 'maritalStatus',
-            key: 'maritalStatus',
-            width: 110,
-            render: (text, record) => (
-                <>
-                    {
-                        record?.maritalStatus === 'មានគ្រួសារ' ?
-                            <span style={{ cursor: 'pointer' }}>
-                                <Popover placement="bottom" content={() => content(record)} title={null} trigger="hover">
-                                    <Text ellipsis >
-                                        {record?.maritalStatus}
-                                    </Text>
-                                </Popover>
-                            </span>
-
-                            :
-                            <span>{record?.maritalStatus}</span>
-                    }
-                </>
-            )
-        },
-        // {
-        //     title: 'ឈ្មោះដែគូរ',
-        //     dataIndex: 'partnerName',
-        //     key: 'partnerName',
-        //     width: 150
-
-        // },
         // {
         //     title: 'ភេទ',
-        //     dataIndex: 'partnerGender',
-        //     key: 'partnerGender',
+        //     dataIndex: 'gender',
+        //     key: 'gender',
+        //     width: 60
         // },
+        // {
+        //     title: 'សម្ព័នភាព',
+        //     dataIndex: 'maritalStatus',
+        //     key: 'maritalStatus',
+        //     width: 110,
+        //     render: (text, record) => (
+        //         <>
+        //             {
+        //                 record?.maritalStatus === 'មានគ្រួសារ' ?
+        //                     <span style={{ cursor: 'pointer' }}>
+        //                         <Popover placement="bottom" content={() => content(record)} title={null} trigger="hover">
+        //                             <Text ellipsis >
+        //                                 {record?.maritalStatus}
+        //                             </Text>
+        //                         </Popover>
+        //                     </span>
+
+        //                     :
+        //                     <span>{record?.maritalStatus}</span>
+        //             }
+        //         </>
+        //     )
+        // },
+        
         {
             title: 'ការងារ',
             dataIndex: 'taskType',
             key: 'taskType',
-            width: 150,
+            width: 120,
         },
         {
             title: 'ប្រភេទ',
             dataIndex: 'constructionType',
             key: 'constructionType',
-            width: 180,
+            width: 110,
         },
         {
             title: 'ឈ្មោះការដ្ឋាន',
@@ -154,13 +157,22 @@ export default function CustomerTable({
             dataIndex: 'constructionLocation',
             key: 'constructionLocation',
             width: 150,
+            render: (text, record) => (
+                <span style={{ cursor: 'pointer' }}  >
+                    <Popover placement="bottom" content={() => contentRemark(record?.constructionLocation)} title={null} trigger="hover">
+                        <Text ellipsis >
+                            {record?.constructionLocation}
+                        </Text>
+                    </Popover>
+                </span>
+            )
         },
-        {
-            title: 'ជាន់',
-            dataIndex: 'countFloor',
-            key: 'countFloor',
-            width: 90,
-        },
+        // {
+        //     title: 'ជាន់',
+        //     dataIndex: 'countFloor',
+        //     key: 'countFloor',
+        //     width: 90,
+        // },
         {
             title: 'ស្ថានភាព',
             dataIndex: 'priority',
@@ -171,30 +183,41 @@ export default function CustomerTable({
             title: 'ថ្ងៃចាប់ផ្ដើម',
             dataIndex: 'startDate',
             key: 'startDate',
-            width: 120,
+            width: 100,
+            render: (text, record) => (
+                <span>
+                    {moment(record?.startDate).format('DD-MM-YYYY')}
+                </span>
+            )
         },
         {
             title: 'ថ្ងៃបញ្ចប់',
             dataIndex: 'endDate',
             key: 'endDate',
-            width: 120,
+            width: 100,
+            render: (text, record) => (
+                <span>
+                    {record?.endDate !== "0000-00-00" ? moment(record?.endDate).format('DD-MM-YYYY'):'គ្មាន'}
+                </span>
+            )
         },
-        {
-            title: 'បង្ហាញ',
-            dataIndex: 'showInDashboard',
-            key: 'showInDashboard',
-            width: 80,
-            render: text => <p
-                style={{
-                    marginTop: "15px"
-                }}
-            >{text === "0" ? "yes" : "no"}</p>,
-        },
+        // {
+        //     title: 'បង្ហាញ',
+        //     dataIndex: 'showInDashboard',
+        //     key: 'showInDashboard',
+        //     width: 80,
+        //     render: text => <p
+        //         style={{
+        //             marginTop: "15px"
+        //         }}
+        //     >{text === "0" ? "no" : "yes"}</p>,
+        // },
 
         {
             title: 'ផ្សេងៗ',
             dataIndex: 'remark',
             key: 'remark',
+            width:150,
             render: (text, record) => (
                 <span style={{ cursor: 'pointer' }}  >
                     <Popover placement="bottom" content={() => contentRemark(record?.remark)} title={null} trigger="hover">
@@ -237,8 +260,9 @@ export default function CustomerTable({
         <Table
             columns={columns}
             dataSource={tableDataWithNo}
-            scroll={{ x: 2200 }}
+            scroll={{ x: 1200 }}
             loading={loading}
+            rowKey={record => record?.c_id}
             className='table-customize'
             style={{ marginTop: "20px" }}
             pagination={{

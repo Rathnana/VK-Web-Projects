@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 const { Search } = Input;
 
-export default function Header({ setAuth, setSearch }) {
+export default function Header({ setAuth, setSearch,search }) {
 
     const { pathname } = useLocation()
     const [isSearch, setIsSearch] = useState(true)
@@ -18,8 +18,6 @@ export default function Header({ setAuth, setSearch }) {
         }
     }, [pathname])
 
-    console.log(isSearch, pathname)
-
     return (
         <div>
             <Row
@@ -30,6 +28,7 @@ export default function Header({ setAuth, setSearch }) {
                         isSearch ? (
                             <Search
                                 allowClear
+                                value={search}
                                 enterButton="ស្វែងរក"
                                 size="large"
                                 onChange={(e) => setSearch(e.target.value)}

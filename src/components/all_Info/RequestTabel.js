@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Table } from 'antd';
+import { Space, Table } from 'antd';
 import axios from 'axios'
+import moment from 'moment';
 
 const columns = [
     {
@@ -12,11 +13,21 @@ const columns = [
         title: 'ថ្ងៃស្នើសុំ',
         dataIndex: 'date',
         key: 'date',
+        render: (text, record) => (
+            <Space size="middle">
+                {moment(record?.date).format('DD-MM-YYYY')}
+            </Space>
+        ),
     },
     {
         title: 'ថ្ងៃត្រូវការ',
         dataIndex: 'needDate',
         key: 'needDate',
+        render: (text, record) => (
+            <Space size="middle">
+                {record?.needDate !== "0000-00-00" ? moment(record?.needDate).format('DD-MM-YYYY'):'គ្មាន'}
+            </Space>
+        ),
     },
     {
         title: "ស្នើរទៅកាន់",
@@ -37,6 +48,12 @@ const columns = [
         title: 'អ្នកស្នើរសុំ',
         dataIndex: 'createdBy',
         key: 'createdBy',
+        render: (text, record) => (
+            <Space size="middle">
+                {record?.firstName + " " + record?.lastName}
+
+            </Space>
+        ),
     }
 ];
 

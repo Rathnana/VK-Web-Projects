@@ -4,9 +4,8 @@ import { Typography } from 'antd';
 import moment from 'moment';
 import SectionA from './SectionA';
 import SectionB from './SectionB';
-import WorkerGraph from './WorkerGraph';
-// import faker from 'faker';
-// import WorkerGraph from './WorkerGraph';
+
+
 const { Title } = Typography;
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 

@@ -18,7 +18,6 @@ export default function DelectCustomer({ setSuccess, id }) {
             `${process.env.React_App_URL}/delete/deleteCustomerById.php`, params
         )
             .then(async function (response) {
-                console.log(response.data)
                 if (response?.data === 'success') {
                     message.success('ជោគជ័យ!');
                     setSuccess(true)

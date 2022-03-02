@@ -22,7 +22,6 @@ export default function Login({ setAuth }) {
             `${process.env.React_App_URL}/login/loginProcessAdmin.php`, params
         )
             .then(async function (response) {
-                // console.log(response?.data)
 
                 if (response?.data === "incorrect") {
                     message.error("Username & Password មានបញ្ហា!!")
@@ -45,8 +44,8 @@ export default function Login({ setAuth }) {
         <Row
             className='login-form'
         >
-            <Col xs={24} sm={24} md={24} lg={24} xl={24}
-                style={{ padding: '20px 20px', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}
+            <Col xs={24} 
+                style={{ padding: '20px 20px', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%'}}
             >
                 <div style={{width:'400px'}}>
                     <FaUserCircle className="Login-user-icon" />

@@ -5,6 +5,8 @@ import { Drawer, Button, Form, Row, Col, Select, Input, Divider, InputNumber, me
 import { AiOutlineTeam, AiFillCloseCircle } from 'react-icons/ai';
 import { SelectChief } from './SelectChief';
 import { SelectCustomer } from './SelectCustomer';
+import { FaChartLine } from 'react-icons/fa';
+
 import axios from 'axios'
 import { UploadController } from '../../own-comp';
 
@@ -18,7 +20,7 @@ export default function EditReport({ setSuccess, id, reports }) {
     const [resultImage, setResultImage] = useState(null);
     const [report, setReport] = useState({})
     const [form] = Form.useForm()
-    const [isMobile,setIsMobile] = useState(false)
+    const [isMobile, setIsMobile] = useState(false)
 
     const handleResize = () => {
         // 960
@@ -37,13 +39,22 @@ export default function EditReport({ setSuccess, id, reports }) {
 
     useEffect(() => {
         // console.log(reports);
+        if (reports) {
+            form.setFieldsValue({
+                userId: reports?.userId
+            })
+        }
         if (report) {
             form.setFieldsValue({
                 customerId: report?.customerId,
                 status: report?.status,
                 team: report?.team,
                 challenges: report?.challenges,
-                userId: reports?.userId
+                femaleWorkerCount: parseInt(report?.femaleWorkerCount),
+                femaleWorkerCountTmr: parseInt(report?.femaleWorkerCountTmr),
+                builderCountTmr: parseInt(report?.builderCountTmr),
+                painterCountTmr: parseInt(report?.painterCountTmr),
+                workerCountTmr: parseInt(report?.workerCountTmr),
             })
         }
         getConstructById(id)
@@ -57,7 +68,6 @@ export default function EditReport({ setSuccess, id, reports }) {
     };
 
     const onFinish = (val) => {
-        console.log(val);
         if (val.team.length <= 0) {
             message.error("សូមបញ្ជូលក្រុម!!");
             return
@@ -137,15 +147,34 @@ export default function EditReport({ setSuccess, id, reports }) {
 
             });
     }
+
+    const handleSetFemaleWorkerCount = (e) => {
+
+        let workerCount = 0
+        let team = form.getFieldValue("team")
+
+        team?.map(t => {
+            workerCount += isNaN(parseInt(t?.workerCount)) ? 0 : parseInt(t?.workerCount)
+        })
+
+        if (e > workerCount) {
+            message.warning("មិនអាចមានកម្មករស្រីច្រើនជាងចំនួនកម្មករទាំងអស់ទេ!!")
+            form.setFieldsValue({
+                femaleWorkerCount: report?.femaleWorkerCount
+            })
+        }
+
+    }
+
     return <div>
         <Button type="primary" onClick={showDrawer} shape="circle" icon={<AiOutlineEdit />} size='middle' />
-        <Drawer 
-        title="កែប្រែបាយការណ៍" 
-        placement="right"                     
-        width={isMobile ? '100%' : 736}
-             onClose={onClose} 
-             visible={visible}
-             >
+        <Drawer
+            title="កែប្រែបាយការណ៍"
+            placement="right"
+            width={isMobile ? '100%' : 736}
+            onClose={onClose}
+            visible={visible}
+        >
             <Form encType='multipart/form-data' form={form} name="dynamic_form_nest_item" onFinish={onFinish} autoComplete="off">
                 <Row gutter={10}>
                     <Col xs={8} sm={8} md={8} lg={8} xl={8}>
@@ -309,6 +338,19 @@ export default function EditReport({ setSuccess, id, reports }) {
                         </>
                     )}
                 </Form.List>
+
+                <Row>
+                    <Col xs={24}>
+                        <Form.Item
+                            name="femaleWorkerCount"
+                            rules={[{ required: true, message: 'ទាមទារបំពេញ' }]}
+                        >
+                            <InputNumber placeholder='ចំ.កម្មករស្រី' onKeyUp={(e) => handleSetFemaleWorkerCount(e.target.value)} style={{ width: "100%" }} size='large' />
+
+                        </Form.Item>
+                    </Col>
+                </Row>
+
                 <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                     <Form.Item
                         name="challenges"
@@ -317,6 +359,50 @@ export default function EditReport({ setSuccess, id, reports }) {
                     </Form.Item>
 
                 </Col>
+
+                <Row gutter={10}>
+                    <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                        <p
+                            style={{
+                                marginTop: "13px",
+                                fontSize: "18px",
+                                // fontFamily: "Bayon",
+                                color: '#616161',
+                            }}
+                        >
+                            <FaChartLine /> ស្ថិតិកម្លាំងសម្រាប់ថ្ងៃស្អែក៖
+                        </p>
+                    </Col>
+                    <Col xs={12} sm={12} md={6} lg={6} xl={6}>
+                        <Form.Item
+                            name="builderCountTmr"
+                        >
+                            <InputNumber style={{ width: "100%" }} placeholder='ជាងសំណង់' size="large" allowClear />
+                        </Form.Item>
+                    </Col>
+                    <Col xs={12} sm={12} md={6} lg={6} xl={6}>
+                        <Form.Item
+                            name="painterCountTmr"
+                        >
+                            <InputNumber style={{ width: "100%" }} placeholder='ជាងថ្នាំ' size="large" allowClear />
+                        </Form.Item>
+                    </Col>
+                    <Col xs={12} sm={12} md={6} lg={6} xl={6}>
+                        <Form.Item
+                            name="workerCountTmr"
+                        >
+                            <InputNumber style={{ width: "100%" }} placeholder='កម្មករប្រុស' size="large" allowClear />
+                        </Form.Item>
+                    </Col>
+                    <Col xs={12} sm={12} md={6} lg={6} xl={6}>
+                        <Form.Item
+                            name="femaleWorkerCountTmr"
+                        >
+                            <InputNumber style={{ width: "100%" }} placeholder='កម្មករស្រី' size="large" allowClear />
+                        </Form.Item>
+                    </Col>
+                </Row>
+
                 <Row>
                     <Col xs={12} sm={12} md={12} lg={12} xl={12}>
                         <div
@@ -330,7 +416,7 @@ export default function EditReport({ setSuccess, id, reports }) {
                             <p>រូបភាពចាប់ផ្ដើម</p>
 
                             <UploadController
-                                name="startImage"
+                                name="startImageEdit"
                                 accept="image/png, image/jpeg, image/jpg"
                                 // value={resultImage}
                                 onChange={e => {
@@ -382,7 +468,7 @@ export default function EditReport({ setSuccess, id, reports }) {
                             <p>រូបភាពបញ្ចប់</p>
 
                             <UploadController
-                                name="resultImage"
+                                name="resultImageEdit"
                                 accept="image/png, image/jpeg, image/jpg"
                                 // value={resultImage}
                                 onChange={e => {

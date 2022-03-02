@@ -59,3 +59,4 @@ export const data = {
 export default function WorkerGraph() {
     return <Line options={options} data={data} />
 }
+

@@ -55,7 +55,7 @@ const getAllChief = async () => {
     )
         .then(async function (response) {
             if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
-                console.log(response?.data);
+
                 return response?.data;
             } else {
                 return [];
