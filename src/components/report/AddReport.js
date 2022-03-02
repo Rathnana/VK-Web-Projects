@@ -93,7 +93,7 @@ export default function AddReport({ setSuccess }) {
     }
 
     const onSelectStartImage = (e) => {
-        console.log(e)
+        // console.log(e)
 
         let imageFile = e.target.files[0]
         if (imageFile.size > 2000000) {

@@ -11,7 +11,6 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import faker from 'faker';
-import { Col } from 'antd';
 
 ChartJS.register(
     CategoryScale,
@@ -58,7 +57,5 @@ export const data = {
 };
 
 export default function WorkerGraph() {
-    return <Col style={{ marginBottom: "200px" }} xs={24} sm={24} md={12} lg={12} xl={12}>
-        <Line options={options} data={data} />
-    </Col>
+    return <Line options={options} data={data} />
 }
