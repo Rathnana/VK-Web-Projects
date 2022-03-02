@@ -1,16 +1,17 @@
-import { Col, Row, Space, DatePicker } from 'antd'
+import { Col, Row, Space, DatePicker, PageHeader, Button } from 'antd'
 import React, { useState } from 'react'
 import { Typography } from 'antd';
 import moment from 'moment';
 import SectionA from './SectionA';
 import SectionB from './SectionB';
-
+import UnLawWorkTabel from './UnLawWorkTabel'
+import { useNavigate } from "react-router-dom";
 
 const { Title } = Typography;
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 
 export default function AllInfo() {
-
+    let navigate = useNavigate();
     const [date, setDate] = useState()
 
     return (
@@ -57,15 +58,24 @@ export default function AllInfo() {
                     <Row>
                         <SectionA date={date} />
                         <SectionB />
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                            <PageHeader
+                                ghost={false}
+                                title="ការដ្ឋាន"
+                                style={{ background: "#f0f0f0", marginTop:20 }}
+                                extra={[
+                                    <Button key="s" onClick={() => navigate('/customer')} type="text">View All</Button>
+                                ]}
+                            >
+                            </PageHeader>
+                            <UnLawWorkTabel />
+
+                        </Col>
                     </Row>
 
                 </Col>
-            </Row>
-        </div>
+            </Row >
+        </div >
 
     )
 }
-
-{/* <SectionA date={date} />
-
-<WorkerGraph /> */}
