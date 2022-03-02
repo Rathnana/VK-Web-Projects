@@ -46,7 +46,7 @@ export default function SectionA({ date }) {
         <Row>
 
             <Col
-                xs={24} sm={24} md={24} lg={12} xl={12} xxl={8}
+                xs={24} sm={24} md={24} lg={12} xl={8} xxl={6}
             >
                 <center style={{ width: "100%", padding: 10 }} >
                     <Skeleton.Image width="100%" />
@@ -54,7 +54,7 @@ export default function SectionA({ date }) {
                 </center>
             </Col>
             <Col
-                xs={24} sm={24} md={24} lg={12} xl={12} xxl={8}
+                xs={24} sm={24} md={24} lg={12} xl={8} xxl={6}
             >
                 <center style={{ width: "100%", padding: 10 }} >
                     <Skeleton.Image width="100%" />
@@ -62,7 +62,7 @@ export default function SectionA({ date }) {
                 </center>
             </Col>
             <Col
-                xs={24} sm={24} md={24} lg={12} xl={12} xxl={8}
+                xs={24} sm={24} md={24} lg={12} xl={8} xxl={6}
             >
                 <center style={{ width: "100%", padding: 10 }} >
                     <Skeleton.Image width="100%" />
@@ -70,7 +70,7 @@ export default function SectionA({ date }) {
                 </center>
             </Col>
             <Col
-                xs={24} sm={24} md={24} lg={12} xl={12} xxl={8}
+                xs={24} sm={24} md={24} lg={12} xl={8} xxl={6}
             >
                 <center style={{ width: "100%", padding: 10 }} >
                     <Skeleton.Image width="100%" />
@@ -78,7 +78,7 @@ export default function SectionA({ date }) {
                 </center>
             </Col>
             <Col
-                xs={24} sm={24} md={24} lg={12} xl={12} xxl={8}
+                xs={24} sm={24} md={24} lg={12} xl={8} xxl={6}
             >
                 <center style={{ width: "100%", padding: 10 }} >
                     <Skeleton.Image width="100%" />
@@ -86,7 +86,23 @@ export default function SectionA({ date }) {
                 </center>
             </Col>
             <Col
-                xs={24} sm={24} md={24} lg={12} xl={12} xxl={8}
+                xs={24} sm={24} md={24} lg={12} xl={8} xxl={6}
+            >
+                <center style={{ width: "100%", padding: 10 }} >
+                    <Skeleton.Image width="100%" />
+                    <Skeleton active={loading} />
+                </center>
+            </Col>
+            <Col
+                xs={24} sm={24} md={24} lg={12} xl={8} xxl={6}
+            >
+                <center style={{ width: "100%", padding: 10 }} >
+                    <Skeleton.Image width="100%" />
+                    <Skeleton active={loading} />
+                </center>
+            </Col>
+            <Col
+                xs={24} sm={24} md={24} lg={12} xl={8} xxl={6}
             >
                 <center style={{ width: "100%", padding: 10 }} >
                     <Skeleton.Image width="100%" />
@@ -113,7 +129,7 @@ export default function SectionA({ date }) {
                 {
                     todos?.map(todo =>
                         <Col key={todo.dc_id}
-                            xs={24} sm={24} md={24} lg={12} xl={12} xxl={8} style={{ padding: 10 }}
+                            xs={24} sm={24} md={24} lg={12} xl={8} xxl={6} style={{ padding: 10 }}
                         >
                             <Card
                                 bordered={false}
@@ -133,21 +149,22 @@ export default function SectionA({ date }) {
 
                                         } />}
                             >
+                             
                                 <Typography
                                     style={{ fontWeight: "bold", textAlign: "center" }}
                                 >
                                     {
                                         `${todo.constructionName}`
                                     }<br />
-                                    {
+                                    {/* {
                                         `(${todo.constructionLocation})`
-                                    }
+                                    } */}
                                 </Typography><br />
                                 <Typography style={{ fontWeight: "bold" }}>
                                     {`${todo.chiefName} (${todo.teamCount} ក្រុម)`}
                                 </Typography>
                                 <Typography style={{ fontWeight: "bold" }}>
-                                    {`ចំ.ជាង៖ ${todo.builderCount} | ចំ.កម្មករ៖ ${todo.workerCount}`}
+                                    {`ជាង៖ ${todo.builderCount} | ក.ប្រុស៖ ${parseInt(todo.workerCount)-parseInt(todo.femaleWorkerCount)} | ក.ស្រី៖ ${todo.femaleWorkerCount}`}
                                 </Typography>
                                 {
                                     todo.performances?.map((per) => <Typography >- {per.performance}</Typography>)
