@@ -90,6 +90,28 @@ export const Update_User = async (users, u_id) => {
         });
 }
 
+export const Reset_Password = async (data) => {
+    const params = new URLSearchParams();
+    params.append('db_user', process.env.React_App_DB_USER);
+    params.append('db_password', process.env.React_App_DB_PASSWORD);
+    params.append('db', process.env.React_App_DB);
+
+    params.append('data', JSON.stringify(data));
+
+    return await axios.post(
+        `${process.env.React_App_URL}/update/resetPasswordById.php`, params
+    )
+        .then(async function (response) {
+            if (response?.data === "success") {
+                message.success('កែប្រែជោគជ័យ!!')
+                return true
+            } else {
+                message.error('កែប្រែមានបញ្ហា!!')
+                return false
+            }
+        });
+}
+
 export const Create_Request = async (requests, createdBy) => {
     const params = new URLSearchParams();
     params.append('db_user', process.env.React_App_DB_USER);

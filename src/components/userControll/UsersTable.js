@@ -3,6 +3,7 @@ import { Table, Space } from 'antd';
 import axios from 'axios'
 import DelectUser from './DelectUser';
 import EditUser from './EditUser';
+import ResetPassword from './ResetPassword';
 
 
 export default function UsersTable({
@@ -84,6 +85,7 @@ export default function UsersTable({
             width:100,
             render: (text, record) => (
                 <Space size="large">
+                    <ResetPassword setSuccess={setSuccess} userId={record?.u_id} />
                     <EditUser setSuccess={setSuccess} users={record} userId={record?.u_id} />
                     <DelectUser setSuccess={setSuccess} userid={record?.u_id} />
                 </Space>

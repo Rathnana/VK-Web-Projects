@@ -4,7 +4,7 @@ import { AiFillCloseCircle, AiOutlineTeam } from 'react-icons/ai';
 import { SelectCustomer } from './SelectCustomer';
 import { SelectChief } from './SelectChief';
 import axios from 'axios'
-import { UploadController } from '../../own-comp';
+import { compressImage, UploadController } from '../../own-comp';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -92,24 +92,22 @@ export default function AddReport({ setSuccess }) {
         })
     }
 
-    const onSelectStartImage = (e) => {
-        // console.log(e)
-
+    const onSelectStartImage = async (e) => {
         let imageFile = e.target.files[0]
-        if (imageFile.size > 2000000) {
-            message.error("ទំហំរូបភាពធំ!!")
-        } else {
-            setStartImage(e.target.files[0])
+        if(imageFile?.type?.split('/')[0]==='image'){
+            setStartImage(await compressImage(imageFile))
+        }else{
+            message.error('មិនមែនជា File រូបភាពទេ!!')
         }
 
     }
 
-    const onSelectResultImage = (e) => {
+    const onSelectResultImage = async (e) => {
         let imageFile = e.target.files[0]
-        if (imageFile.size > 2000000) {
-            message.error("ទំហំរូបភាពធំ!!")
-        } else {
-            setResultImage(e.target.files[0])
+        if(imageFile?.type?.split('/')[0]==='image'){
+            setResultImage(await compressImage(imageFile))
+        }else{
+            message.error('មិនមែនជា File រូបភាពទេ!!')
         }
 
     }

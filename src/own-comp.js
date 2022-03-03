@@ -1,5 +1,7 @@
 
 import { Button, notification } from 'antd';
+import imageCompression from 'browser-image-compression';
+
 export const openSuccessNotification = (data) => {
     notification.success({
         message: `${data.title}`,
@@ -41,4 +43,20 @@ export function UploadController({ children, value, onChange, disabled, accept, 
         </label>
         </Button>
     )
+}
+
+export const compressImage = async (file)=>{
+
+    const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true
+    }
+
+    const compressedFile = await imageCompression(file, options)
+
+    let newFile = new File([compressedFile], `${file?.name?.split('.')[0]}.png`, { type: 'image/png' });
+
+    return newFile
+
 }

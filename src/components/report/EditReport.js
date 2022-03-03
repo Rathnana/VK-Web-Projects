@@ -8,7 +8,7 @@ import { SelectCustomer } from './SelectCustomer';
 import { FaChartLine } from 'react-icons/fa';
 
 import axios from 'axios'
-import { UploadController } from '../../own-comp';
+import { compressImage, UploadController } from '../../own-comp';
 
 const { Option } = Select;
 const { TextArea } = Input;
@@ -162,6 +162,26 @@ export default function EditReport({ setSuccess, id, reports }) {
             form.setFieldsValue({
                 femaleWorkerCount: report?.femaleWorkerCount
             })
+        }
+
+    }
+
+    const onSelectStartImage = async (e) => {
+        let imageFile = e.target.files[0]
+        if(imageFile?.type?.split('/')[0]==='image'){
+            setStartImage(await compressImage(imageFile))
+        }else{
+            message.error('មិនមែនជា File រូបភាពទេ!!')
+        }
+
+    }
+
+    const onSelectResultImage = async (e) => {
+        let imageFile = e.target.files[0]
+        if(imageFile?.type?.split('/')[0]==='image'){
+            setResultImage(await compressImage(imageFile))
+        }else{
+            message.error('មិនមែនជា File រូបភាពទេ!!')
         }
 
     }
@@ -419,14 +439,7 @@ export default function EditReport({ setSuccess, id, reports }) {
                                 name="startImageEdit"
                                 accept="image/png, image/jpeg, image/jpg"
                                 // value={resultImage}
-                                onChange={e => {
-                                    let imageFile = e.target.files[0]
-                                    if (imageFile.size > 2000000) {
-                                        message.error("ទំហំរូបភាពធំ!!")
-                                    } else {
-                                        setStartImage(e.target.files[0])
-                                    }
-                                }}
+                                onChange={onSelectStartImage}
                             >
                                 Browse image
                             </UploadController>
@@ -471,14 +484,7 @@ export default function EditReport({ setSuccess, id, reports }) {
                                 name="resultImageEdit"
                                 accept="image/png, image/jpeg, image/jpg"
                                 // value={resultImage}
-                                onChange={e => {
-                                    let imageFile = e.target.files[0]
-                                    if (imageFile.size > 2000000) {
-                                        message.error("ទំហំរូបភាពធំ!!")
-                                    } else {
-                                        setResultImage(e.target.files[0])
-                                    }
-                                }}
+                                onChange={onSelectResultImage}
                             >
                                 Browse image
                             </UploadController>
