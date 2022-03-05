@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Table, Space, Typography, Popover } from 'antd';
+import { Table, Space, Typography, Popover, Button } from 'antd';
 import moment from 'moment';
 import axios from 'axios';
 import DelectReport from './DelectReport';
 import EditReport from './EditReport';
+import { AiFillEye } from 'react-icons/ai';
+import ModalDetail from '../all_Info/ModalDetail';
 
 const { Paragraph ,Text} = Typography;
 
@@ -20,10 +22,13 @@ export default function ReportTable({
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(20);
 
+    const [dailyConstructId, setDailyConstructId] = useState(null);
+    const [openDetail, setOpenDetail] = useState(false);
+
     useEffect(() => {
-        getReports();
         setLoading(true);
-    }, [success, range, customerId, chiefId]);
+        getReports();
+    }, [success, range, customerId, chiefId,page,pageSize]);
 
     const getReports = async () => {
         const params = new FormData();
@@ -55,6 +60,11 @@ export default function ReportTable({
                     return [];
                 }
             });
+    }
+
+    const handleOpenDetail=(e)=>{
+        setDailyConstructId(e)
+        setOpenDetail(true)
     }
 
     const contentRemark = (e) => (
@@ -147,9 +157,11 @@ export default function ReportTable({
             fixed: 'right',
             align: 'center',
             key: 'action',
-            width: 100,
+            width: 150,
             render: (text, record) => (
                 <Space size="middle">
+                    <Button onClick={()=>handleOpenDetail(record?.dc_id)} type="primary" shape="circle" icon={<AiFillEye style={{ marginTop: '5px' }} />} size='middle' />
+
                     <EditReport reports={record} setSuccess={setSuccess} id={record.dc_id} />
                     <DelectReport dc_id={record.dc_id} setSuccess={setSuccess} />
                 </Space>
@@ -169,9 +181,12 @@ export default function ReportTable({
     })
 
     return (
+        <>
+        <ModalDetail setOpen={setOpenDetail} open={openDetail} id={dailyConstructId} />
+        
         <Table
             columns={columns}
-            dataSource={tableDataWithNo}
+            dataSource={loading ? []:tableDataWithNo}
             scroll={{ x: 1200 }}
             className='table-customize'
             loading={loading}
@@ -186,5 +201,7 @@ export default function ReportTable({
                 onChange: ((page, pageSize) => { setPage(page); setPageSize(pageSize) })
             }}
         />
+        </>
+
     )
 }

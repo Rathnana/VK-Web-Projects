@@ -142,10 +142,9 @@ export default function Report() {
                             <Col xs={24} sm={24} md={4} lg={5} xl={3} style={{ padding: 5 }}>
                                 <Form.Item
                                     name="constructionName"
-                                // label="ឈ្មោះការដ្ឋាន"
                                 >
                                     <Select
-                                        placeholder="ឈ្មោះការដ្ឋាន"
+                                        placeholder="ការដ្ឋាន"
                                         size='large'
                                         style={{ width: '100%' }}
                                         showSearch
@@ -165,7 +164,7 @@ export default function Report() {
                                     name="chiefId"
                                 >
                                     <Select
-                                        placeholder="ឈ្មោះការដ្ឋាន"
+                                        placeholder="មេការ"
                                         size='large'
                                         style={{ width: '100%' }}
                                         onChange={e => setChiefId(e)}

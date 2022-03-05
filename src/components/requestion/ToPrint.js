@@ -6,6 +6,7 @@ import ReactToPrint from "react-to-print";
 import axios from 'axios'
 import { Table } from 'antd';
 import vklogo from '../../Image/vk-logo.png'
+import moment from 'moment';
 
 const { Title } = Typography;
 
@@ -113,7 +114,7 @@ export default function ToPrint({
                                 }}
                                 level={4}
                             >
-                                {`ការស្នើរសុំសម្ភាៈ`}
+                                {`ការស្នើរសុំសម្ភារៈ`}
                             </Title>
                         </Col>
                     </Row>
@@ -130,7 +131,7 @@ export default function ToPrint({
                         </Col>
 
                         <Col xs={10} sm={10} md={10} lg={10} xl={10}>
-                            កាលបរិច្ឆេទស្នើរសុំ៖{info.date}
+                            កាលបរិច្ឆេទស្នើរសុំ៖ {moment(info.date).format('DD-MM-YYYY')}
                         </Col>
 
                     </Row>
@@ -142,10 +143,10 @@ export default function ToPrint({
                         }}
                     >
                         <Col xs={12} sm={12} md={12} lg={12} xl={12}>
-                            សម្រាប់ការដ្ឋាន៖{info.constructionName}
+                            សម្រាប់ការដ្ឋាន៖ {info.constructionName}
                         </Col>
                         <Col xs={10} sm={10} md={10} lg={10} xl={10}>
-                            កាលបរិច្ឆេទត្រូវការ៖ {info.needDate}
+                            កាលបរិច្ឆេទត្រូវការ៖ {moment(info.needDate).format('DD-MM-YYYY')}
                         </Col>
 
                     </Row>
@@ -157,7 +158,7 @@ export default function ToPrint({
                         }}
                     >
                         <Col xs={6} sm={6} md={6} lg={6} xl={6}>
-                            គោលបំណង៖{info.purpose}
+                            គោលបំណង៖ {info.purpose}
                         </Col>
                         <Col xs={6} sm={6} md={6} lg={6} xl={6}>
 
@@ -165,26 +166,25 @@ export default function ToPrint({
 
                     </Row>
 
-                    <Row
+                    {/* <Row
                         style={{
 
                             paddingTop: "8px"
                         }}
                     >
                         <Col xs={10} sm={10} md={10} lg={10} xl={10}>
-                            data remark
                         </Col>
                         <Col xs={6} sm={6} md={6} lg={6} xl={6}>
 
                         </Col>
 
-                    </Row>
+                    </Row> */}
                     <Row>
                         <Col style={{
                             marginTop: "20px",
                         }}
                             xs={24} sm={24} md={24} lg={24} xl={24}>
-                            <Table size="small" pagination={false} columns={columns} dataSource={data} />
+                            <Table bordered size="small" pagination={false} columns={columns} dataSource={data} />
                         </Col>
                     </Row>
                     <Row>

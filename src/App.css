@@ -116,3 +116,8 @@ body, html {
   .drawer-phone .ant-drawer-wrapper-body{
       background-color: rgb(180 217 255)!important;
   }
+
+  .loading-data{
+      width: 100%;
+      text-align: center;
+  }

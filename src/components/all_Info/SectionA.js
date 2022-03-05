@@ -3,12 +3,18 @@ import { Card, Col, Row, Typography, Skeleton, Empty } from 'antd';
 import axios from 'axios'
 import Progress from './Progresss';
 import moment from 'moment';
+import CardDailyConstruct from './CardDailyConstruct';
+import ModalDetail from './ModalDetail';
 
 export default function SectionA({ date }) {
     const [todos, setTodos] = useState()
     // const [page, setPage] = useState(1);
     // const [pageSize, setPageSize] = useState(3);
     const [loading, setLoading] = useState(true);
+
+    const [openDetail,setOpenDetail] = useState(false)
+    const [dailyConstructId,setDailyConstructId] = useState(null)
+
 
     useEffect(() => {
         setLoading(true)
@@ -27,7 +33,6 @@ export default function SectionA({ date }) {
             `${process.env.React_App_URL}/get/getDailyConstructByDate.php`, params
         )
             .then(async function (response) {
-                console.log(response?.data);
                 if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
 
                     setTodos(response?.data.data)
@@ -125,55 +130,14 @@ export default function SectionA({ date }) {
         <Col
             xs={16} sm={16} md={16} lg={16} xl={16}
         >
+            <ModalDetail id={dailyConstructId} open={openDetail} setOpen={setOpenDetail} />
             <Row>
                 {
                     todos?.map(todo =>
                         <Col key={todo.dc_id}
                             xs={24} sm={24} md={24} lg={12} xl={8} xxl={6} style={{ padding: 10 }}
                         >
-                            <Card
-                                bordered={false}
-                                style={{
-                                    background: "#f0f0f0", borderRadius: 5,
-                                }}
-                                className='card-report'
-                                cover={
-                                    <img
-                                        className='image-card'
-                                        alt="example"
-                                        src={
-                                            todo?.resultImage === "" && todo?.startImage === "" ?
-                                                "https://www.chanchao.com.tw/ctg/images/default.jpg"
-                                                : todo?.resultImage !== "" ? `${process.env.React_App_IMAGES}/${todo.resultImage}`
-                                                    : `${process.env.React_App_IMAGES}/${todo.startImage}`
-
-                                        } />}
-                            >
-                             
-                                <Typography
-                                    style={{ fontWeight: "bold", textAlign: "center" }}
-                                >
-                                    {
-                                        `${todo.constructionName}`
-                                    }<br />
-                                    {/* {
-                                        `(${todo.constructionLocation})`
-                                    } */}
-                                </Typography><br />
-                                <Typography style={{ fontWeight: "bold" }}>
-                                    {`${todo.chiefName} (${todo.teamCount} ក្រុម)`}
-                                </Typography>
-                                <Typography style={{ fontWeight: "bold" }}>
-                                    {`ជាង៖ ${todo.builderCount} | ក.ប្រុស៖ ${parseInt(todo.workerCount)-parseInt(todo.femaleWorkerCount)} | ក.ស្រី៖ ${todo.femaleWorkerCount}`}
-                                </Typography>
-                                {
-                                    todo.performances?.map((per) => <Typography >- {per.performance}</Typography>)
-                                }
-
-
-                                <Typography style={{ color: 'red' }}>{todo.challenges}</Typography>
-                                <Progress status={todo?.status} />
-                            </Card>
+                            <CardDailyConstruct key={todo?.dc_id} todo={todo} setDailyConstructId={setDailyConstructId} setOpenDetail={setOpenDetail} />
                         </Col>
                     )
                 }

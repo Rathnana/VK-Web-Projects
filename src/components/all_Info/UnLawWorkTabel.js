@@ -110,17 +110,14 @@ export default function UnLawWorkTabel() {
         params.append('db', process.env.React_App_DB);
         params.append('data', JSON.stringify({ page: page, pageSize: pageSize }))
 
-
         return await axios.post(
             `${process.env.React_App_URL}/get/getCustomerWithPaginationDashboard.php`, params
         )
             .then(async function (response) {
-                console.log(response?.data)
                 if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
 
                     setCustomer(response?.data)
                     setLoading(false);
-                    console.log(response?.data.data)
                     return response?.data;
                 } else {
                     console.log(response.data)

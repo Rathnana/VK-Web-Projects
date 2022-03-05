@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Space, Typography, Popover } from 'antd';
+import { Table, Space, Typography, Popover, Button } from 'antd';
 import axios from 'axios'
 import UpdateCustomer from './UpdateCustomer';
 import DelectCustomer from './DelectCustomer';
 import moment from 'moment';
+import ModalDetail from '../all_Info/ModalDetail';
+import { AiFillEye } from 'react-icons/ai';
 
 const { Paragraph, Text } = Typography
 export default function CustomerTable({
@@ -23,7 +25,7 @@ export default function CustomerTable({
     useEffect(() => {
         setLoading(true);
         getCustomer();
-    }, [success, taskType, priority, search,constructionType])
+    }, [success, taskType, priority, search, constructionType, page, pageSize])
 
     const getCustomer = async () => {
         const params = new URLSearchParams();
@@ -33,10 +35,10 @@ export default function CustomerTable({
         params.append('page', page)
         params.append('pageSize', pageSize)
         // params.append('taskType', taskType)
-        params.append('data', JSON.stringify({ 
-            taskType: taskType ? taskType: '', 
-            priority: priority ? priority : '', 
-            constructionType: constructionType ? constructionType:'', 
+        params.append('data', JSON.stringify({
+            taskType: taskType ? taskType : '',
+            priority: priority ? priority : '',
+            constructionType: constructionType ? constructionType : '',
             search,
             page,
             pageSize
@@ -45,7 +47,6 @@ export default function CustomerTable({
             `${process.env.React_App_URL}/get/getCustomerWithPagination.php`, params
         )
             .then(async function (response) {
-                console.log(response?.data)
                 if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
                     setLoading(false);
                     setSuccess(false);
@@ -57,20 +58,6 @@ export default function CustomerTable({
                 }
             });
     }
-
-    const content = (e) => (
-        <Paragraph style={{ fontSize: 16, width: 300, textAlign: 'justify' }}>
-            ឈ្មោះដែគូរ៖ {e?.partnerName}<br />
-            ភេទ៖ {e?.partnerGender}
-        </Paragraph>
-    )
-
-    // const content = (e) => (
-    //     <Paragraph style={{ fontSize: 16, width: 300, textAlign: 'justify' }}>
-    //         ឈ្មោះដែគូរ៖ {e?.partnerName}<br />
-    //         ភេទ៖ {e?.partnerGender}
-    //     </Paragraph>
-    // )
 
     const contentRemark = (e) => (
         <Paragraph style={{ fontSize: 16, width: 300, textAlign: 'justify' }}>
@@ -127,7 +114,7 @@ export default function CustomerTable({
         //         </>
         //     )
         // },
-        
+
         {
             title: 'ការងារ',
             dataIndex: 'taskType',
@@ -197,7 +184,7 @@ export default function CustomerTable({
             width: 100,
             render: (text, record) => (
                 <span>
-                    {record?.endDate !== "0000-00-00" ? moment(record?.endDate).format('DD-MM-YYYY'):'គ្មាន'}
+                    {record?.endDate !== "0000-00-00" ? moment(record?.endDate).format('DD-MM-YYYY') : 'គ្មាន'}
                 </span>
             )
         },
@@ -217,7 +204,7 @@ export default function CustomerTable({
             title: 'ផ្សេងៗ',
             dataIndex: 'remark',
             key: 'remark',
-            width:150,
+            width: 150,
             render: (text, record) => (
                 <span style={{ cursor: 'pointer' }}  >
                     <Popover placement="bottom" content={() => contentRemark(record?.remark)} title={null} trigger="hover">
@@ -235,6 +222,7 @@ export default function CustomerTable({
             width: 100,
             render: (text, record) => (
                 <Space size="middle">
+
                     <UpdateCustomer
                         setSuccess={setSuccess}
                         c_id={record.c_id}
@@ -257,9 +245,10 @@ export default function CustomerTable({
     })
 
     return (
+        <>
         <Table
             columns={columns}
-            dataSource={tableDataWithNo}
+            dataSource={loading ? [] : tableDataWithNo}
             scroll={{ x: 1200 }}
             loading={loading}
             rowKey={record => record?.c_id}
@@ -274,5 +263,7 @@ export default function CustomerTable({
                 onChange: ((page, pageSize) => { setPage(page); setPageSize(pageSize) })
             }}
         />
+        </>
+
     )
 }

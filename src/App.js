@@ -14,11 +14,8 @@ import Customer from './components/customer/Customer';
 import MobileNav from './components/sidebar/MobileNav';
 import PettyCash from './components/pettycash/PettyCash';
 import Login from './components/Login/Login'
-import moment from 'moment';
 
 function App() {
-  moment.locale('km')
-  console.log(moment().locale('km').format('l'))
   let getuser = sessionStorage.getItem("u_id");
   const [isMobile, setIsMobile] = useState(false)
 

@@ -187,7 +187,7 @@ export default function EditReport({ setSuccess, id, reports }) {
     }
 
     return <div>
-        <Button type="primary" onClick={showDrawer} shape="circle" icon={<AiOutlineEdit />} size='middle' />
+        <Button type="primary" onClick={showDrawer} shape="circle" icon={<AiOutlineEdit />} size='middle' style={{paddingTop:5}} />
         <Drawer
             title="កែប្រែបាយការណ៍"
             placement="right"

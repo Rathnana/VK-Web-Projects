@@ -5,6 +5,7 @@ import ToPrint from './ToPrint';
 import DeleteRequest from './DeleteRequest';
 import axios from 'axios'
 import UpdateRequestion from './UpdateRequestion';
+import moment from 'moment';
 
 export default function RequestionTable({
     setLoading,
@@ -60,13 +61,23 @@ export default function RequestionTable({
             title: 'ថ្ងៃស្នើសុំ',
             dataIndex: 'date',
             key: 'date',
-            width: 120
+            width: 120,
+            render: (text, record) => (
+                <Space size="middle">
+                    {moment(record?.date).format('DD-MM-YYYY')}
+                </Space>
+            ),
         },
         {
             title: 'ថ្ងៃត្រូវការ',
             dataIndex: 'needDate',
             key: 'needDate',
-            width: 120
+            width: 120,
+            render: (text, record) => (
+                <Space size="middle">
+                    {moment(record?.needDate).format('DD-MM-YYYY')}
+                </Space>
+            ),
         },
         {
             title: "ស្នើរទៅកាន់",
