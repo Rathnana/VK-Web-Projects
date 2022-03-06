@@ -3,9 +3,9 @@ import React, { useState } from 'react'
 import ModalDetail from './ModalDetail'
 import Progresss from './Progresss'
 
-export default function CardDailyConstruct({ todo,setOpenDetail,setDailyConstructId }) {
+export default function CardDailyConstruct({ todo, setOpenDetail, setDailyConstructId }) {
 
-    const handleOpen=(e)=>{
+    const handleOpen = (e) => {
         setDailyConstructId(e)
         setOpenDetail(true)
     }
@@ -31,29 +31,31 @@ export default function CardDailyConstruct({ todo,setOpenDetail,setDailyConstruc
                         } />}
             >
 
-                <span onClick={()=> handleOpen(todo?.dc_id)}>
-                <Typography
-                    style={{ fontWeight: "bold", textAlign: "center",cursor:'pointer',textDecoration:'underline' }}
-                    
-                >
-                    {
-                        `${todo.constructionName}`
-                    }
-                    
-                </Typography></span><br />
+                <span onClick={() => handleOpen(todo?.dc_id)}>
+                    <Typography
+                        style={{ fontWeight: "bold", textAlign: "center", cursor: 'pointer', textDecoration: 'underline' }}
+
+                    >
+                        {
+                            `${todo.constructionName}`
+                        }
+
+                    </Typography></span><br />
                 <Typography style={{ fontWeight: "bold" }}>
                     {`${todo.chiefName} (${todo.teamCount} ក្រុម)`}
                 </Typography>
                 <Typography style={{ fontWeight: "bold" }}>
                     {`ជាង៖ ${todo.builderCount} | ក.ប្រុស៖ ${parseInt(todo.workerCount) - parseInt(todo.femaleWorkerCount)} | ក.ស្រី៖ ${todo.femaleWorkerCount}`}
                 </Typography>
-                {
-                    todo.performances?.map((per) => <Typography >- {per.performance}</Typography>)
-                }
 
+                <div style={{padding:15}}>
+                    {
+                        todo.performances?.map((per) => <Typography >- {per.performance}</Typography>)
+                    }
+                </div>
 
                 <Typography style={{ color: 'red' }}>{todo.challenges}</Typography>
-                
+
                 <Progresss status={todo?.status} />
             </Card>
         </>

@@ -109,6 +109,27 @@ const combineWorkerCount = (array) => {
     return res
 }
 
+const combineFemaleWorkerCount = (array) => {
+    let res = array.reduce((ac, a) => {
+        let ind = ac.findIndex(x => x.createdAt === a.createdAt);
+        ind === -1 ? ac.push(a) : ac[ind].femaleWorkerCount += a.femaleWorkerCount;
+        return ac;
+    }, [])
+
+    return res
+}
+
+const combinePainterCount = (array) => {
+    let res = array.reduce((ac, a) => {
+        let ind = ac.findIndex(x => x.createdAt === a.createdAt);
+        ind === -1 ? ac.push(a) : ac[ind].painterCount += a.painterCount;
+        return ac;
+    }, [])
+
+    return res
+}
+
+
 const combineBuilderCount = (array) => {
 
     let res = array.reduce((ac, a) => {
@@ -146,8 +167,14 @@ export default function WorkerGraph() {
             let data = await getDailyWorkerGraph()
             if (data) {
                 setGraph(data?.data)
+
                 let combinedWorkerArray = combineWorkerCount(data?.data)
                 let combinedBuilderArray = combineBuilderCount(data?.data)
+
+                let combinedFemaleWorkerArray = combineFemaleWorkerCount(data?.data)
+                let combinedPainterArray = combinePainterCount(data?.data)
+
+                console.log(data?.data)
 
                 let daysInMonth = getDaysInMonthUTC(new Date().getUTCMonth(), new Date().getUTCFullYear());
                 
@@ -167,19 +194,31 @@ export default function WorkerGraph() {
                         }
                     })
 
-                    if(!set?.workerCount && !set?.builderCount){
+                    // combinedFemaleWorkerArray?.map(e =>{
+                    //     if(e?.createdAt===day?.toString()){
+                    //         set = {...set, femaleWorkerCount:e?.femaleWorkerCount}
+                    //     }
+                    // })
+
+                    // combinedPainterArray?.map(e =>{
+                    //     if(e?.createdAt===day?.toString()){
+                    //         set = {...set, painterCount:e?.painterCount}
+                    //     }
+                    // })
+
+                    if(!set?.workerCount && !set?.builderCount && !set?.femaleWorkerCount && !set?.painterCount){
                         let today = new Date().getUTCDate()
                         let setCount = parseInt(set?.createdAt) <= today ? 0 : null
-                        set = {...set, builderCount:setCount,workerCount:setCount}
+                        set = {...set, builderCount:setCount,workerCount:setCount, painterCount:setCount,femaleWorkerCount:setCount}
                     }
                     newArr.push(set)
                 })
 
-                // console.log(newArr)
+                console.log(newArr)
                 setGraph(newArr)
 
-                setWorkerCount(combinedWorkerArray?.map(e => e.workerCount))
-                setbuilderCount(combinedBuilderArray?.map(e => e.builderCount))
+                // setWorkerCount(combinedWorkerArray?.map(e => e.workerCount))
+                // setbuilderCount(combinedBuilderArray?.map(e => e.builderCount))
             }
         }
         getData()
@@ -213,6 +252,7 @@ export default function WorkerGraph() {
                 backgroundColor: 'rgba(53, 162, 235, 0.5)',
                 tension: 0.6,
             },
+            
         ],
     };
 

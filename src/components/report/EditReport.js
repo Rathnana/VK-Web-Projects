@@ -51,6 +51,7 @@ export default function EditReport({ setSuccess, id, reports }) {
                 team: report?.team,
                 challenges: report?.challenges,
                 femaleWorkerCount: parseInt(report?.femaleWorkerCount),
+                painterCount: parseInt(report?.painterCount),
                 femaleWorkerCountTmr: parseInt(report?.femaleWorkerCountTmr),
                 builderCountTmr: parseInt(report?.builderCountTmr),
                 painterCountTmr: parseInt(report?.painterCountTmr),
@@ -100,7 +101,7 @@ export default function EditReport({ setSuccess, id, reports }) {
                 console.log(response?.data)
                 if (response?.data !== "error" && response?.data !== "errorsize" && response?.data !== "errorextension") {
                     onClose();
-                    message.info("កែប្រែបាយការណ៍ជោគជ័យ!!");
+                    message.success("កែប្រែបាយការណ៍ជោគជ័យ!!");
                     form.resetFields();
                     setResultImage(null);
                     setStartImage(null)
@@ -166,11 +167,30 @@ export default function EditReport({ setSuccess, id, reports }) {
 
     }
 
+    const handleSetPainterCount = (e) => {
+
+        let builderCount = 0
+        let team = form.getFieldValue("team")
+
+        team?.map(t => {
+            builderCount += isNaN(parseInt(t?.builderCount)) ? 0 : parseInt(t?.builderCount)
+        })
+
+        if (e > builderCount) {
+            message.warning("មិនអាចមានជាងថ្នាំច្រើនជាងចំនួនជាងទាំងអស់ទេ!!")
+            form.setFieldsValue({
+                painterCount: report?.painterCount
+            })
+            return
+        }
+
+    }
+
     const onSelectStartImage = async (e) => {
         let imageFile = e.target.files[0]
-        if(imageFile?.type?.split('/')[0]==='image'){
+        if (imageFile?.type?.split('/')[0] === 'image') {
             setStartImage(await compressImage(imageFile))
-        }else{
+        } else {
             message.error('មិនមែនជា File រូបភាពទេ!!')
         }
 
@@ -178,16 +198,16 @@ export default function EditReport({ setSuccess, id, reports }) {
 
     const onSelectResultImage = async (e) => {
         let imageFile = e.target.files[0]
-        if(imageFile?.type?.split('/')[0]==='image'){
+        if (imageFile?.type?.split('/')[0] === 'image') {
             setResultImage(await compressImage(imageFile))
-        }else{
+        } else {
             message.error('មិនមែនជា File រូបភាពទេ!!')
         }
 
     }
 
     return <div>
-        <Button type="primary" onClick={showDrawer} shape="circle" icon={<AiOutlineEdit />} size='middle' style={{paddingTop:5}} />
+        <Button type="primary" onClick={showDrawer} shape="circle" icon={<AiOutlineEdit />} size='middle' style={{ paddingTop: 5 }} />
         <Drawer
             title="កែប្រែបាយការណ៍"
             placement="right"
@@ -359,13 +379,38 @@ export default function EditReport({ setSuccess, id, reports }) {
                     )}
                 </Form.List>
 
-                <Row>
-                    <Col xs={24}>
+                <Row gutter={10}>
+                    <Col xs={12}>
                         <Form.Item
                             name="femaleWorkerCount"
                             rules={[{ required: true, message: 'ទាមទារបំពេញ' }]}
                         >
-                            <InputNumber placeholder='ចំ.កម្មករស្រី' onKeyUp={(e) => handleSetFemaleWorkerCount(e.target.value)} style={{ width: "100%" }} size='large' />
+                            <InputNumber
+                                placeholder='ចំ.កម្មករស្រី'
+                                onStep={(e) => handleSetFemaleWorkerCount(e)}
+                                min={0}
+                                onKeyUp={(e) => handleSetFemaleWorkerCount(e.target.value)}
+                                style={{ width: "100%" }}
+                                size='large'
+                            />
+
+                        </Form.Item>
+                    </Col>
+
+                    <Col xs={12}>
+                        <Form.Item
+                            // label="ជ្រើសរើសដំណាក់កាល"
+                            name="painterCount"
+                            rules={[{ required: true, message: 'ទាមទារបំពេញ' }]}
+                        >
+                            <InputNumber
+                                placeholder='ចំ.ជាងថ្នាំ'
+                                min={0}
+                                onStep={(e) => handleSetPainterCount(e)}
+                                onKeyUp={(e) => handleSetPainterCount(e.target.value)}
+                                style={{ width: "100%" }}
+                                size='large'
+                            />
 
                         </Form.Item>
                     </Col>

@@ -57,7 +57,7 @@ export default function UpdateCustomer({
             form.setFieldsValue({
                 ...customer,
                 startDate: moment(customer?.startDate),
-                endDate: moment(customer?.endDate),
+                endDate: customer?.endDate !=='0000-00-00' ? moment(customer?.endDate):null,
             })
 
             setIdCardSet(customer?.idCardSet)
@@ -387,7 +387,6 @@ export default function UpdateCustomer({
                                     <Option value="នៅមន្ទីរ">នៅមន្ទីរ</Option>
                                     <Option value="កំពុងសាងសង់">កំពុងសាងសង់</Option>
                                     <Option value="ផ្អាក">ផ្អាក</Option>
-                                    <Option value="រួចរាល់">រួចរាល់</Option>
                                     <Option value="បញ្ចប់">បញ្ចប់</Option>
                                 </Select>
                             </Form.Item>

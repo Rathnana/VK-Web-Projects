@@ -69,7 +69,7 @@ export default function AddReport({ setSuccess }) {
                 console.log(response?.data)
                 if (response?.data !== "error" && response?.data !== "errorsize" && response?.data !== "errorextension") {
                     onClose();
-                    message.info("បន្ថែមរបាយការណ៍ជោគជ័យ!!");
+                    message.success("បន្ថែមរបាយការណ៍ជោគជ័យ!!");
                     form.resetFields();
                     setLoading(false)
                     setSuccess(true)
@@ -94,9 +94,9 @@ export default function AddReport({ setSuccess }) {
 
     const onSelectStartImage = async (e) => {
         let imageFile = e.target.files[0]
-        if(imageFile?.type?.split('/')[0]==='image'){
+        if (imageFile?.type?.split('/')[0] === 'image') {
             setStartImage(await compressImage(imageFile))
-        }else{
+        } else {
             message.error('មិនមែនជា File រូបភាពទេ!!')
         }
 
@@ -104,15 +104,15 @@ export default function AddReport({ setSuccess }) {
 
     const onSelectResultImage = async (e) => {
         let imageFile = e.target.files[0]
-        if(imageFile?.type?.split('/')[0]==='image'){
+        if (imageFile?.type?.split('/')[0] === 'image') {
             setResultImage(await compressImage(imageFile))
-        }else{
+        } else {
             message.error('មិនមែនជា File រូបភាពទេ!!')
         }
 
     }
 
-    const handleSetFemaleWorkerCount=(e)=>{
+    const handleSetFemaleWorkerCount = (e) => {
 
         let workerCount = 0
         let team = form.getFieldValue("team")
@@ -121,11 +121,30 @@ export default function AddReport({ setSuccess }) {
             workerCount += isNaN(parseInt(t?.workerCount)) ? 0 : parseInt(t?.workerCount)
         })
 
-        if(e>workerCount){
+        if (e > workerCount) {
             message.warning("មិនអាចមានកម្មករស្រីច្រើនជាងចំនួនកម្មករទាំងអស់ទេ!!")
             form.setFieldsValue({
-                femaleWorkerCount:0
+                femaleWorkerCount: 0
             })
+        }
+
+    }
+
+    const handleSetPainterCount = (e) => {
+
+        let builderCount = 0
+        let team = form.getFieldValue("team")
+
+        team?.map(t => {
+            builderCount += isNaN(parseInt(t?.builderCount)) ? 0 : parseInt(t?.builderCount)
+        })
+
+        if (e > builderCount) {
+            message.warning("មិនអាចមានជាងថ្នាំច្រើនជាងចំនួនជាងទាំងអស់ទេ!!")
+            form.setFieldsValue({
+                painterCount: 0
+            })
+            return
         }
 
     }
@@ -295,13 +314,38 @@ export default function AddReport({ setSuccess }) {
                     )}
                 </Form.List>
 
-                <Row>
-                    <Col xs={24}>
+                <Row gutter={10}>
+                    <Col xs={12}>
                         <Form.Item
                             name="femaleWorkerCount"
                             rules={[{ required: true, message: 'ទាមទារបំពេញ' }]}
                         >
-                            <InputNumber placeholder='ចំ.កម្មករស្រី' onKeyUp={(e) => handleSetFemaleWorkerCount(e.target.value)} style={{ width: "100%" }} size='large' />
+                            <InputNumber
+                                placeholder='ចំ.កម្មករស្រី'
+                                onStep={(e)=> handleSetFemaleWorkerCount(e)}
+                                min={0}
+                                onKeyUp={(e) => handleSetFemaleWorkerCount(e.target.value)}
+                                style={{ width: "100%" }}
+                                size='large'
+                            />
+
+                        </Form.Item>
+                    </Col>
+
+                    <Col xs={12}>
+                        <Form.Item
+                            // label="ជ្រើសរើសដំណាក់កាល"
+                            name="painterCount"
+                            rules={[{ required: true, message: 'ទាមទារបំពេញ' }]}
+                        >
+                            <InputNumber 
+                            placeholder='ចំ.ជាងថ្នាំ' 
+                            min={0} 
+                            onStep={(e)=> handleSetPainterCount(e)}
+                            onKeyUp={(e) => handleSetPainterCount(e.target.value)} 
+                            style={{ width: "100%" }} 
+                            size='large' 
+                            />
 
                         </Form.Item>
                     </Col>

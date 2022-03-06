@@ -60,3 +60,21 @@ export const compressImage = async (file)=>{
     return newFile
 
 }
+
+export const getTotalBuilder = (team)=>{
+    let total = 0
+    team?.map(e=>{
+        total+= parseInt(e?.builderCount)
+    })
+
+    return total
+}
+
+export const getTotalWorker = (team)=>{
+    let total = 0
+    team?.map(e=>{
+        total+= parseInt(e?.workerCount)
+    })
+
+    return total
+}

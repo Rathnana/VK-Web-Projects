@@ -7,8 +7,6 @@ export default function Team({ team }) {
         <Row>
             <Col
                 xs={24} sm={24} md={24} lg={24} xl={24}
-                
-
             >
 
                 <Row
@@ -34,7 +32,7 @@ export default function Team({ team }) {
                     <Col xs={24}
                         style={{
                             padding:5,
-                            background: "#ffe394"
+                            background: "rgb(207, 255, 216)"
                         }}
                     >
                         លទ្ទផល៖ {team?.result}

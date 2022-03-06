@@ -111,6 +111,7 @@ body, html {
     /* padding: 10px!important; */
     /* max-height: 350px!important; */
     /* overflow-y: scroll; */
+    height: 100%;
   }
 
   .drawer-phone .ant-drawer-wrapper-body{
@@ -120,4 +121,8 @@ body, html {
   .loading-data{
       width: 100%;
       text-align: center;
+  }
+
+  .finished-row td, .finished-row td:hover{
+      background-color: #ebebeb!important;
   }

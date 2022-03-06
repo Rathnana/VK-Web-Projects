@@ -113,5 +113,5 @@ export default function Progresss({status}) {
         }
         setProgress(day)
     }
-    return <Progress percent={progress} size="small" />;
+    return <Progress percent={progress} strokeColor='#33ab5f' strokeLinecap='square' size="small" />;
 }

@@ -1,4 +1,4 @@
-import { Col, Button, Row, Space, Typography, Modal, Image } from 'antd'
+import { Col, Button, Row, Space, Typography, Modal, Image, Divider } from 'antd'
 import React, { useEffect, useState } from 'react'
 import Team from './Team'
 import { MdOutlineConstruction } from 'react-icons/md'
@@ -10,6 +10,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 
 import { useNavigate } from 'react-router-dom'
 import { FaChartLine } from 'react-icons/fa'
+import { getTotalBuilder, getTotalWorker } from '../../own-comp'
 
 export default function ModalDetail({ open, setOpen, id }) {
     const [report, setReport] = useState({})
@@ -78,8 +79,7 @@ export default function ModalDetail({ open, setOpen, id }) {
                             >
                                 {`${report?.constructionName} - `}<Typography.Text type='danger'>{moment(report?.createdAt).format("DD/MM/YYYY")}</Typography.Text>
                             </Col>
-                            {/* <Col xs={24} sm={24} md={3} lg={3} xl={3}></Col>
-            <Col xs={24} sm={24} md={3} lg={3} xl={3}></Col> */}
+
                             <Col
                                 xs={24} sm={24} md={24} lg={24} xl={24}
                                 style={{
@@ -96,7 +96,7 @@ export default function ModalDetail({ open, setOpen, id }) {
                                         color: '#616161',
                                     }}
                                 >
-                                    <MdOutlineConstruction /> មេកា៖ {`${report?.chiefName}`}
+                                    <MdOutlineConstruction /> មេកា៖ {`${report?.chiefName}`} <span style={{ fontFamily: 'Siemreap', fontWeight: 'bold' }}>({report?.team?.length} ក្រុម - {getTotalBuilder(report?.team) + getTotalWorker(report?.team)} នាក់)</span>
                                 </p>
                                 {
                                     report?.team?.map(team => <Team key={team.dt_id} team={team} />)
@@ -107,20 +107,22 @@ export default function ModalDetail({ open, setOpen, id }) {
                                         fontSize: "16px",
                                         fontFamily: "Bayon",
                                         // color: 'red',
-                                        marginTop: "-15px",
+                                        marginTop: "5px",
                                         marginLeft: "3px"
                                     }}
                                 >
-                                    កម្មករស្រី៖ {report?.femaleWorkerCount}
+                                    ជាង៖ {getTotalBuilder(report?.team) - parseInt(report?.painterCount)} | ជាងថ្នាំ៖ {report?.painterCount} | ក.ប្រុស៖ {getTotalWorker(report?.team) - parseInt(report?.femaleWorkerCount)} | ក.ស្រី៖ {report?.femaleWorkerCount}
                                 </p>
 
+                                <Divider />
 
                                 <p
                                     style={{
                                         fontSize: "16px",
                                         fontFamily: "Bayon",
                                         color: 'red',
-                                        marginTop: "-15px",
+                                        marginTop: "10px",
+                                        marginBottom: "15px",
                                         marginLeft: "3px"
                                     }}
                                 >

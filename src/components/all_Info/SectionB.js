@@ -9,13 +9,13 @@ export default function SectionB() {
     let navigate = useNavigate();
     return (
         <Col
-            xs={8} sm={8} md={8} lg={8} xl={8}
+            xs={12} sm={12} md={12} lg={8} xl={8}
             // className="site-card-wrapper"
             style={{ padding: '0px 20px' }}
         >
            
             <WorkerGraph />
-            <PageHeader
+            {/* <PageHeader
                 ghost={false}
                 title="តារាងស្នើរសុំសម្ភារៈ"
                 style={{ background: "#f0f0f0", marginTop: 20 }}
@@ -23,8 +23,8 @@ export default function SectionB() {
                     <Button key="s" onClick={() => navigate('/requesting')} type="text">View All</Button>
                 ]}
             >
-            </PageHeader>
-            <RequestTabel />
+            </PageHeader> */}
+            {/* <RequestTabel /> */}
         </Col>
     )
 }

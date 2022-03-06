@@ -46,7 +46,7 @@ export default function SectionA({ date }) {
     }
 
     if (loading) return (<Col
-        xs={16} sm={16} md={16} lg={16} xl={16}
+        xs={12} sm={12} md={12} lg={16} xl={16}
     >
         <Row>
 
@@ -120,7 +120,7 @@ export default function SectionA({ date }) {
 
     if (todos?.length <= 0) {
         return (
-            <Col xs={16} sm={16} md={16} lg={16} xl={16} style={{ height: '70vh', border: '2px solid #DDDDDD', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Col xs={12} sm={12} md={12} lg={16} xl={16} style={{ height: '70vh', border: '2px solid #DDDDDD', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <Empty />
             </Col>
         )
@@ -128,7 +128,7 @@ export default function SectionA({ date }) {
 
     return (
         <Col
-            xs={16} sm={16} md={16} lg={16} xl={16}
+            xs={12} sm={12} md={12} lg={16} xl={16}
         >
             <ModalDetail id={dailyConstructId} open={openDetail} setOpen={setOpenDetail} />
             <Row>
