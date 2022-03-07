@@ -16,7 +16,7 @@ export default function CardDailyConstruct({ todo, setOpenDetail, setDailyConstr
             <Card
                 bordered={false}
                 style={{
-                    background: "#f0f0f0", borderRadius: 5,
+                    background: "#f0f0f0", borderRadius: 5,position:'relative',paddingBottom:10
                 }}
                 className='card-report'
                 cover={
@@ -43,15 +43,16 @@ export default function CardDailyConstruct({ todo, setOpenDetail, setDailyConstr
 
                     </Typography></span><br />
                 <Typography style={{ fontWeight: "bold" }}>
-                    {`${todo.chiefName} (${todo.teamCount} ក្រុម)`}
+                    {/* {`${todo.chiefName} (${todo.teamCount} ក្រុម)`} */}
+                    មេកា៖ {`${todo?.chiefName}`} ({todo.teamCount} ក្រុម - {parseInt(todo?.builderCount) + parseInt(todo.workerCount)} នាក់)
                 </Typography>
                 <Typography style={{ fontWeight: "bold" }}>
                     {/* {`ជាង៖ ${todo.builderCount} | ក.ប្រុស៖ ${parseInt(todo.workerCount) - parseInt(todo.femaleWorkerCount)} | ក.ស្រី៖ ${todo.femaleWorkerCount}`} */}
-                    ជាង៖ {parseInt(todo?.builderCount)-parseInt(todo?.painterCount)} | ជាងថ្នាំ៖ {todo?.painterCount} | ប្រុស៖ {parseInt(todo.workerCount) - parseInt(todo?.femaleWorkerCount)} | ស្រី៖ {todo?.femaleWorkerCount}
+                    ជាងៈ {parseInt(todo?.builderCount) - parseInt(todo?.painterCount)} | ជាងថ្នាំៈ {todo?.painterCount} | ប្រុសៈ {parseInt(todo.workerCount) - parseInt(todo?.femaleWorkerCount)} | ស្រីៈ {todo?.femaleWorkerCount}
                 </Typography>
-                        
 
-                <div style={{padding:15}}>
+
+                <div style={{ padding: 15 }}>
                     {
                         todo.performances?.map((per) => <Typography >- {per.performance}</Typography>)
                     }
@@ -59,7 +60,9 @@ export default function CardDailyConstruct({ todo, setOpenDetail, setDailyConstr
 
                 <Typography style={{ color: 'red' }}>{todo.challenges}</Typography>
 
-                <Progresss status={todo?.status} />
+                <div style={{position:'absolute',bottom:10,left:10,right:10}}>
+                    <Progresss status={todo?.status} />
+                </div>
             </Card>
         </>
     )

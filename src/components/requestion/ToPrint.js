@@ -79,7 +79,7 @@ export default function ToPrint({
             <Modal
                 title={null}
                 visible={open}
-                width="40%"
+                // width="40%"
                 onCancel={() => setOpen(false)}
                 footer={null}
             >
@@ -105,8 +105,8 @@ export default function ToPrint({
                                     }}
                                     src={vklogo} />
 
-                            </Col>
-                            <Col>
+                            </Col >
+                            <Col xs={12} sm={12} md={12} lg={12} xl={12}>
                                 <Title
                                     style={{
                                         fontFamily: 'Moul',
@@ -132,7 +132,7 @@ export default function ToPrint({
                                 ស្នើរទៅកាន់៖ {info.requestTo}
                             </Col>
 
-                            <Col xs={10} sm={10} md={10} lg={10} xl={10}>
+                            <Col xs={12} sm={12} md={12} lg={12} xl={12}>
                                 កាលបរិច្ឆេទស្នើរសុំ៖ {moment(info.date).format('DD-MM-YYYY')}
                             </Col>
                         </Row>
@@ -146,7 +146,7 @@ export default function ToPrint({
                             <Col xs={12} sm={12} md={12} lg={12} xl={12}>
                                 សម្រាប់ការដ្ឋាន៖ {info.constructionName}
                             </Col>
-                            <Col xs={10} sm={10} md={10} lg={10} xl={10}>
+                            <Col xs={12} sm={12} md={12} lg={12} xl={12}>
                                 កាលបរិច្ឆេទត្រូវការ៖ {moment(info.needDate).format('DD-MM-YYYY')}
                             </Col>
 
@@ -174,7 +174,7 @@ export default function ToPrint({
                             </Col>
 
                         </Row>
-                        <Row>
+                        {/* <Row>
                             <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{ position: "relative", bottom: '0px' }} >
                                 <p style={{
                                     position: "fixed",
@@ -186,7 +186,7 @@ export default function ToPrint({
                                     VK Angkor 2022
                                 </p>
                             </Col>
-                        </Row>
+                        </Row> */}
 
                     </div>
 
@@ -197,12 +197,12 @@ export default function ToPrint({
                         <img
 
                             style={{
-                                width: "200px",
+                                width: "150px",
                             }}
                             src={vklogo} />
 
-                    </Col>
-                    <Col>
+                    </Col >
+                    <Col xs={12} sm={12} md={12} lg={12} xl={12}>
                         <Title
                             style={{
                                 fontFamily: 'Moul',
@@ -224,27 +224,41 @@ export default function ToPrint({
                         paddingTop: "8px"
                     }}
                 >
-                    <Col xs={12} sm={12} md={12} lg={12} xl={12}>
+                    <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                        <Row>
+                            <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{padding:3}}>
+                                ស្នើរទៅកាន់៖ {info.requestTo}
+                            </Col>
+                            <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{padding:3}}>
+                                សម្រាប់ការដ្ឋាន៖ {info.constructionName}
+                            </Col>
+                        </Row>
+                    </Col>
+
+                    <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                        <Row>
+                            <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{padding:3}}>
+                                កាលបរិច្ឆេទស្នើរសុំ៖ {moment(info.date).format('DD-MM-YYYY')}
+                            </Col>
+                            <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{padding:3}}>
+                                កាលបរិច្ឆេទត្រូវការ៖ {moment(info.needDate).format('DD-MM-YYYY')}
+                            </Col>
+                        </Row>
+                    </Col>
+                    {/* <Col xs={12} sm={12} md={12} lg={12} xl={12}>
                         ស្នើរទៅកាន់៖ {info.requestTo}
                     </Col>
 
-                    <Col xs={10} sm={10} md={10} lg={10} xl={10}>
+                    <Col xs={12} sm={12} md={12} lg={12} xl={12}>
                         កាលបរិច្ឆេទស្នើរសុំ៖ {moment(info.date).format('DD-MM-YYYY')}
                     </Col>
-                </Row>
 
-                <Row
-                    style={{
-
-                        paddingTop: "8px"
-                    }}
-                >
                     <Col xs={12} sm={12} md={12} lg={12} xl={12}>
                         សម្រាប់ការដ្ឋាន៖ {info.constructionName}
                     </Col>
-                    <Col xs={10} sm={10} md={10} lg={10} xl={10}>
+                    <Col xs={12} sm={12} md={12} lg={12} xl={12}>
                         កាលបរិច្ឆេទត្រូវការ៖ {moment(info.needDate).format('DD-MM-YYYY')}
-                    </Col>
+                    </Col> */}
 
                 </Row>
                 <Row
@@ -253,7 +267,7 @@ export default function ToPrint({
                         paddingTop: "8px"
                     }}
                 >
-                    <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                    <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{padding:3}}>
                         គោលបំណង៖ {info.purpose}
                     </Col>
 

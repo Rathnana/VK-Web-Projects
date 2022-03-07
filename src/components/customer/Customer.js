@@ -89,7 +89,6 @@ export default function Customer({ search }) {
                                         <Option value="នៅមន្ទីរ">នៅមន្ទីរ</Option>
                                         <Option value="កំពុងសាងសង់">កំពុងសាងសង់</Option>
                                         <Option value="ផ្អាក">ផ្អាក</Option>
-                                        <Option value="រួចរាល់">រួចរាល់</Option>
                                         <Option value="បញ្ចប់">បញ្ចប់</Option>
                                     </Select>
                                 </Form.Item>

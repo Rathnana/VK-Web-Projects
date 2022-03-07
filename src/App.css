@@ -14,6 +14,11 @@ body, html {
 .ant-card-body{
     padding: 10px !important;
 }
+
+.ant-table-thead > tr > th{
+    font-weight: bold !important;
+}
+
 .ant-page-header-heading-title{
     font-family: Moul;
     font-weight: normal !important;
@@ -93,7 +98,7 @@ body, html {
   }
   .image-card{
       object-fit: cover !important;
-      height: 180px !important;
+      height: 160px !important;
       padding: 7px!important;
   }
   .ant-form-item-explain-error{

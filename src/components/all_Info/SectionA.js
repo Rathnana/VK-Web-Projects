@@ -46,12 +46,12 @@ export default function SectionA({ date }) {
     }
 
     if (loading) return (<Col
-        xs={12} sm={12} md={12} lg={16} xl={16}
+        xs={{span:24,order:1}} sm={{span:24,order:1}} md={{span:24,order:1}} lg={{span:24,order:1}} xl={{span:16,order:0}} xxl={{span:16,order:0}}
     >
         <Row>
 
             <Col
-                xs={24} sm={24} md={24} lg={12} xl={8} xxl={6}
+                xs={24} sm={12} md={12} lg={8} xl={8} xxl={6} style={{ padding: 5 }}
             >
                 <center style={{ width: "100%", padding: 10 }} >
                     <Skeleton.Image width="100%" />
@@ -59,7 +59,7 @@ export default function SectionA({ date }) {
                 </center>
             </Col>
             <Col
-                xs={24} sm={24} md={24} lg={12} xl={8} xxl={6}
+                xs={24} sm={12} md={12} lg={8} xl={8} xxl={6} style={{ padding: 5 }}
             >
                 <center style={{ width: "100%", padding: 10 }} >
                     <Skeleton.Image width="100%" />
@@ -67,7 +67,7 @@ export default function SectionA({ date }) {
                 </center>
             </Col>
             <Col
-                xs={24} sm={24} md={24} lg={12} xl={8} xxl={6}
+                xs={24} sm={12} md={12} lg={8} xl={8} xxl={6} style={{ padding: 5 }}
             >
                 <center style={{ width: "100%", padding: 10 }} >
                     <Skeleton.Image width="100%" />
@@ -75,7 +75,7 @@ export default function SectionA({ date }) {
                 </center>
             </Col>
             <Col
-                xs={24} sm={24} md={24} lg={12} xl={8} xxl={6}
+                xs={24} sm={12} md={12} lg={8} xl={8} xxl={6} style={{ padding: 5 }}
             >
                 <center style={{ width: "100%", padding: 10 }} >
                     <Skeleton.Image width="100%" />
@@ -83,7 +83,7 @@ export default function SectionA({ date }) {
                 </center>
             </Col>
             <Col
-                xs={24} sm={24} md={24} lg={12} xl={8} xxl={6}
+                xs={24} sm={12} md={12} lg={8} xl={8} xxl={6} style={{ padding: 5 }}
             >
                 <center style={{ width: "100%", padding: 10 }} >
                     <Skeleton.Image width="100%" />
@@ -91,7 +91,7 @@ export default function SectionA({ date }) {
                 </center>
             </Col>
             <Col
-                xs={24} sm={24} md={24} lg={12} xl={8} xxl={6}
+                xs={24} sm={12} md={12} lg={8} xl={8} xxl={6} style={{ padding: 5 }}
             >
                 <center style={{ width: "100%", padding: 10 }} >
                     <Skeleton.Image width="100%" />
@@ -99,7 +99,7 @@ export default function SectionA({ date }) {
                 </center>
             </Col>
             <Col
-                xs={24} sm={24} md={24} lg={12} xl={8} xxl={6}
+                xs={24} sm={12} md={12} lg={8} xl={8} xxl={6} style={{ padding: 5 }}
             >
                 <center style={{ width: "100%", padding: 10 }} >
                     <Skeleton.Image width="100%" />
@@ -107,7 +107,7 @@ export default function SectionA({ date }) {
                 </center>
             </Col>
             <Col
-                xs={24} sm={24} md={24} lg={12} xl={8} xxl={6}
+                xs={24} sm={12} md={12} lg={8} xl={8} xxl={6} style={{ padding: 5 }}
             >
                 <center style={{ width: "100%", padding: 10 }} >
                     <Skeleton.Image width="100%" />
@@ -128,14 +128,14 @@ export default function SectionA({ date }) {
 
     return (
         <Col
-            xs={12} sm={12} md={12} lg={16} xl={16}
+            xs={{span:24,order:1}} sm={{span:24,order:1}} md={{span:24,order:1}} lg={{span:24,order:1}} xl={{span:16,order:0}} xxl={{span:16,order:0}}
         >
             <ModalDetail id={dailyConstructId} open={openDetail} setOpen={setOpenDetail} />
             <Row>
                 {
                     todos?.map(todo =>
                         <Col key={todo.dc_id}
-                            xs={24} sm={24} md={24} lg={12} xl={8} xxl={6} style={{ padding: 10 }}
+                            xs={24} sm={12} md={12} lg={8} xl={8} xxl={6} style={{ padding: 5 }}
                         >
                             <CardDailyConstruct key={todo?.dc_id} todo={todo} setDailyConstructId={setDailyConstructId} setOpenDetail={setOpenDetail} />
                         </Col>

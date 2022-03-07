@@ -420,7 +420,7 @@ export default function UpdateCustomer({
                                 rules={[{ required: true, message: "សូមជ្រើសរើសថ្ងៃចាប់ផ្ដើម!!" }]}
                             >
                                 <DatePicker
-                                    placeholder="ថ្ងៃបញ្ចប់"
+                                    placeholder="ថ្ងៃចាប់ផ្ដើម"
                                     size="large"
                                     style={{ width: '100%' }}
 

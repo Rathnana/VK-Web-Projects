@@ -170,7 +170,7 @@ export default function ModalDetail({ open, setOpen, id }) {
                                         marginBottom: "10px"
                                     }}
                                 >
-                                    <Col xs={12} style={{ padding: 5 }}>
+                                    <Col xs={24} md={12} style={{ padding: 5 }}>
                                         {
                                             report?.startImage !== '' ?
                                                 <>
@@ -199,7 +199,7 @@ export default function ModalDetail({ open, setOpen, id }) {
 
 
                                     </Col>
-                                    <Col xs={12} style={{ padding: 5 }}>
+                                    <Col xs={24} md={12} style={{ padding: 5 }}>
                                         {
                                             report?.resultImage !== '' ?
                                                 <>

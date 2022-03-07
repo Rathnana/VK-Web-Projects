@@ -17,6 +17,7 @@ const columns = [
         title: 'លរ',
         dataIndex: 'no',
         key: 'no',
+        fontWeight:'bold',
         width: 60
     },
     {

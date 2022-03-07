@@ -8,6 +8,7 @@ const columns = [
         title: 'លរ',
         dataIndex: 'no',
         key: 'no',
+        fontWeight:'bold'
     },
     {
         title: 'ថ្ងៃស្នើសុំ',

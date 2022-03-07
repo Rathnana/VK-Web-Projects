@@ -58,11 +58,14 @@ export default function AllInfo() {
                     <Row>
                         <SectionA date={date} />
                         <SectionB />
+
+                    </Row>
+                    <Row>
                         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                             <PageHeader
                                 ghost={false}
                                 title="ការដ្ឋានរត់ច្បាប់"
-                                style={{ background: "#f0f0f0", marginTop:20 }}
+                                style={{ background: "#f0f0f0", marginTop: 20 }}
                                 extra={[
                                     <Button key="s" onClick={() => navigate('/customer')} type="text">View All</Button>
                                 ]}
@@ -72,7 +75,6 @@ export default function AllInfo() {
 
                         </Col>
                     </Row>
-
                 </Col>
             </Row >
         </div >

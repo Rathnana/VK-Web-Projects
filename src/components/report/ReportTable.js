@@ -78,6 +78,7 @@ export default function ReportTable({
             title: 'លរ',
             dataIndex: 'no',
             key: 'no',
+            fontWeight:'bold',
             width: 60
         }
         ,
