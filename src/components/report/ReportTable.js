@@ -196,7 +196,7 @@ export default function ReportTable({
                 position: ["bottomLeft"],
                 size: 'small',
                 total: reports?.totalDoc,
-                pageSizeOptions: false,
+                // pageSizeOptions: false,
                 pageSize: pageSize,
                 onChange: ((page, pageSize) => { setPage(page); setPageSize(pageSize) })
             }}

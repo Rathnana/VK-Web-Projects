@@ -82,7 +82,7 @@ export default function UsersTable({
             key: 'action',
             align:'center',
             fixed:'right',
-            width:100,
+            width:130,
             render: (text, record) => (
                 <Space size="large">
                     <ResetPassword setSuccess={setSuccess} userId={record?.u_id} />
@@ -116,7 +116,7 @@ export default function UsersTable({
             position: ["bottomLeft"],
             size: 'small',
             total: users?.totalDoc,
-            pageSizeOptions: false,
+            // pageSizeOptions: false,
             pageSize: pageSize,
             onChange: ((page, pageSize) => { setPage(page); setPageSize(pageSize) })
         }}

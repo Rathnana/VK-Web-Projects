@@ -1,5 +1,6 @@
 import { Card, Typography } from 'antd'
 import React, { useState } from 'react'
+import { getTotalBuilder, getTotalWorker } from '../../own-comp'
 import ModalDetail from './ModalDetail'
 import Progresss from './Progresss'
 
@@ -45,8 +46,10 @@ export default function CardDailyConstruct({ todo, setOpenDetail, setDailyConstr
                     {`${todo.chiefName} (${todo.teamCount} ក្រុម)`}
                 </Typography>
                 <Typography style={{ fontWeight: "bold" }}>
-                    {`ជាង៖ ${todo.builderCount} | ក.ប្រុស៖ ${parseInt(todo.workerCount) - parseInt(todo.femaleWorkerCount)} | ក.ស្រី៖ ${todo.femaleWorkerCount}`}
+                    {/* {`ជាង៖ ${todo.builderCount} | ក.ប្រុស៖ ${parseInt(todo.workerCount) - parseInt(todo.femaleWorkerCount)} | ក.ស្រី៖ ${todo.femaleWorkerCount}`} */}
+                    ជាង៖ {parseInt(todo?.builderCount)-parseInt(todo?.painterCount)} | ជាងថ្នាំ៖ {todo?.painterCount} | ប្រុស៖ {parseInt(todo.workerCount) - parseInt(todo?.femaleWorkerCount)} | ស្រី៖ {todo?.femaleWorkerCount}
                 </Typography>
+                        
 
                 <div style={{padding:15}}>
                     {

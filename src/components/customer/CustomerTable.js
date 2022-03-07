@@ -47,6 +47,7 @@ export default function CustomerTable({
             `${process.env.React_App_URL}/get/getCustomerWithPagination.php`, params
         )
             .then(async function (response) {
+                console.log(response?.data)
                 if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
                     setLoading(false);
                     setSuccess(false);
@@ -259,7 +260,7 @@ export default function CustomerTable({
                 position: ["bottomLeft"],
                 size: 'small',
                 total: customer?.totalDoc,
-                pageSizeOptions: false,
+                // pageSizeOptions: [''],
                 pageSize: pageSize,
                 onChange: ((page, pageSize) => { setPage(page); setPageSize(pageSize) })
             }}

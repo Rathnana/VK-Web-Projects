@@ -162,7 +162,7 @@ export default function RequestionTable({
                 position: ["bottomLeft"],
                 size: 'small',
                 total: request?.totalDoc,
-                pageSizeOptions: false,
+                // pageSizeOptions: false,
                 pageSize: pageSize,
                 onChange: ((page, pageSize) => { setPage(page); setPageSize(pageSize) })
             }}
