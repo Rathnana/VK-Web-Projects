@@ -148,9 +148,6 @@ function getDaysInMonthUTC(month, year) {
         days.push(moment(new Date(date)).format('DD'));
         date.setUTCDate(date.getUTCDate() + 1);
     }
-
-
-
     return days;
 }
 
