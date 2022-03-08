@@ -296,7 +296,7 @@ export default function AddReport({ setSuccess }) {
                                                 name={[name, 'performance']}
                                                 fieldKey={[fieldKey, 'performance']}
                                             >
-                                                <TextArea placeholder='ការអនុវត្តន៍' size="large" placeholder="ការងារអនុវត្តន៍" allowClear />
+                                                <TextArea placeholder='ការងារអនុវត្តន៍' size="large" allowClear />
                                             </Form.Item>
                                             <Divider />
                                         </Col>

@@ -1,11 +1,11 @@
 .side-bar {
-    font-family: 'Siemreap';
+    font-family: 'KhmerOSSiemreap';
     font-weight: bold;
     /* font-size: 12pt !important; */
     color: white !important;
 }
 body, html {
- font-family: 'Siemreap' !important;
+ font-family: 'KhmerOSSiemreap' !important;
 }
 .site-card-wrapper{
     margin-top: 5px !important;

@@ -15,3 +15,8 @@ code {
 .site-layout{
   background-color: #ddd!important;
 }
+
+@font-face {
+  font-family: "KhmerOSSiemreap";
+  src: url('assets/fonts/KHMEROSSIEMREAP.TTF');
+}

@@ -96,7 +96,7 @@ export default function ModalDetail({ open, setOpen, id }) {
                                         color: '#616161',
                                     }}
                                 >
-                                    <MdOutlineConstruction /> មេកា៖ {`${report?.chiefName}`} <span style={{ fontFamily: 'Siemreap', fontWeight: 'bold' }}>({report?.team?.length} ក្រុម - {getTotalBuilder(report?.team) + getTotalWorker(report?.team)} នាក់)</span>
+                                    <MdOutlineConstruction /> មេកា៖ {`${report?.chiefName}`} <span style={{ fontFamily: 'KhmerOSSiemreap', fontWeight: 'bold' }}>({report?.team?.length} ក្រុម - {getTotalBuilder(report?.team) + getTotalWorker(report?.team)} នាក់)</span>
                                 </p>
                                 {
                                     report?.team?.map(team => <Team key={team.dt_id} team={team} />)

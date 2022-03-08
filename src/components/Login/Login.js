@@ -76,7 +76,7 @@ export default function Login({ setAuth }) {
                         <Row>
                             <Col xs={24}>
                                 <Form.Item
-                                    label="ឈ្មោះអ្នកប្រើ"
+                                    label="ឈ្មោះអ្នកប្រើប្រាស់"
                                     name="username"
                                     rules={[{ required: true, message: 'Please input your username!' }]}
                                 >
