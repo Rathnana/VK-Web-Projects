@@ -78,11 +78,11 @@ export default function MobileNav() {
                     <Menu.Item key="/customer" onClick={onClose}>
                         <Link to="/customer">អតិថិជន</Link>
                     </Menu.Item>
-                    <Menu.Item key="/pretty_cash" onClick={onClose}>
-                        <Link to="/pretty_cash">តារាង Petty Cash</Link>
-                    </Menu.Item>
                     <Menu.Item key="/requesting" onClick={onClose}>
                         <Link to="/requesting">ស្នើរសុំសម្ភារៈ</Link>
+                    </Menu.Item>
+                    <Menu.Item key="/pretty_cash" onClick={onClose}>
+                        <Link to="/pretty_cash">តារាង Petty Cash</Link>
                     </Menu.Item>
                     <Menu.Item key="/users" onClick={onClose}>
                         <Link to="/users">អ្នកប្រើប្រាស់</Link>

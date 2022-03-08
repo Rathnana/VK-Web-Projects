@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Form, Input, DatePicker, Row, Col, Select, Drawer } from 'antd';
+import { Form, Input, DatePicker, Row, Col, Select, Drawer,InputNumber } from 'antd';
 import { Button } from 'antd';
 import { AiOutlineEdit } from "react-icons/ai";
 import moment from 'moment';
 import { Update_PettyCash } from '../../getDatabase';
+import { convertKHRtoUSD, convertUSDtoKHR, currencyFormatKHR } from '../../own-comp';
 
 const { Option } = Select;
 export default function UpdatePettyCash({
@@ -13,7 +14,7 @@ export default function UpdatePettyCash({
 }) {
     const [form] = Form.useForm();
     const [visible, setVisible] = useState(false);
-    const [loading,setLoading] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const [isMobile, setIsMobile] = useState(false)
 
@@ -41,11 +42,11 @@ export default function UpdatePettyCash({
     const onFinish = async (values) => {
         setLoading(true)
         let updateState = await Update_PettyCash(values, pc_id);
-        if(updateState){
+        if (updateState) {
             setVisible(false);
             setSuccess(true)
             setLoading(false)
-        }else{
+        } else {
             setLoading(false)
         }
 
@@ -56,9 +57,24 @@ export default function UpdatePettyCash({
             borrowPerson: pettyCash?.borrowPerson,
             remark: pettyCash?.remark,
             totalCash: pettyCash?.totalCash,
+            totalCashKh: convertUSDtoKHR(pettyCash?.totalCash),
             status: pettyCash?.status
         })
     }, [])
+
+    const handleInputUSD = (e) => {
+        let khr = convertUSDtoKHR(e)
+        form.setFieldsValue({
+            totalCashKh: khr
+        })
+    }
+
+    const handleInputKH = (e) => {
+        let usd = convertKHRtoUSD(e)
+        form.setFieldsValue({
+            totalCash: usd
+        })
+    }
 
     return (
         <div>
@@ -76,7 +92,7 @@ export default function UpdatePettyCash({
                 >
                     <Row gutter={10}>
 
-                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                        <Col xs={24} sm={24} md={12} lg={12} xl={12} >
                             <Form.Item
                                 name="date"
                                 label="កាលបរិច្ឆេទ"
@@ -90,7 +106,63 @@ export default function UpdatePettyCash({
                                 />
                             </Form.Item>
                         </Col>
+
+                        <Col xs={24} sm={24} md={12} lg={12} xl={12} >
+                            <Form.Item
+                                name="borrowPerson"
+                                label="ឈ្មោះអ្នកខ្ចី"
+                                rules={[{ required: true, message: "សូមបំពេញឈ្មោះអ្នកខ្ចី!!" }]}
+                            >
+                                <Input
+                                    placeholder="ឈ្មោះអ្នកខ្ចី"
+                                    size="large"
+                                />
+                            </Form.Item>
+                        </Col>
+
+
+                    </Row>
+                    <Row gutter={10}>
+
                         <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                            <Form.Item
+                                name="totalCashKh"
+                                label="ចំនួនទឹកប្រាក់ (KHR)"
+                                rules={[{ required: true, message: "សូមបំពេញចំនួនទឹកប្រាក់!!" }]}
+                            >
+                                <InputNumber
+                                    type="number"
+                                    placeholder="KHR"
+                                    style={{ width: '100%' }}
+                                    onKeyUp={(e) => handleInputKH(e.target.value)}
+                                    onStep={(e) => handleInputKH(e)}
+                                    step={100}
+                                    size="large"
+                                    min={0}
+                                />
+                            </Form.Item>
+                        </Col>
+                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                            <Form.Item
+                                name="totalCash"
+                                label="ចំនួនទឹកប្រាក់ (USD)"
+                                rules={[{ required: true, message: "សូមបំពេញចំនួនទឹកប្រាក់!!" }]}
+                            >
+                                <InputNumber
+                                    type="number"
+                                    placeholder="USD"
+                                    style={{ width: '100%' }}
+                                    onKeyUp={(e) => handleInputUSD(e.target.value)}
+                                    onStep={(e) => handleInputUSD(e)}
+                                    size="large"
+                                    min={0}
+                                />
+                            </Form.Item>
+                        </Col>
+                    </Row>
+
+                    <Row>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24} >
                             <Form.Item
                                 name="status"
                                 label="ស្ថានភាព"
@@ -107,37 +179,8 @@ export default function UpdatePettyCash({
                                 </Select>
                             </Form.Item>
                         </Col>
-
                     </Row>
-                    <Row gutter={10}>
-                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
-                            <Form.Item
-                                name="borrowPerson"
-                                label="ឈ្មោះអ្នកខ្ចី"
-                                rules={[{ required: true, message: "សូមបំពេញឈ្មោះអ្នកខ្ចី!!" }]}
-                            >
-                                <Input
-                                    placeholder="ឈ្មោះអ្នកខ្ចី"
-                                    size="large"
-                                />
-                            </Form.Item>
-                        </Col>
-                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
-                            <Form.Item
-                                name="totalCash"
-                                label="ចំនួនទឹកប្រាក់"
-                                rules={[{ required: true, message: "សូមបំពេញចំនួនទឹកប្រាក់!!" }]}
-                            >
-                                <Input
-                                    type="number"
-                                    placeholder="ចំនួនទឹកប្រាក់"
-                                    size="large"
-                                />
 
-
-                            </Form.Item>
-                        </Col>
-                    </Row>
                     <Row>
                         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                             <Form.Item
@@ -145,7 +188,7 @@ export default function UpdatePettyCash({
                                 label="ផ្សេងៗ"
 
                             >
-                                <Input
+                                <Input.TextArea
                                     placeholder='ផ្សេងៗ'
                                     size='large'
                                     allowClear

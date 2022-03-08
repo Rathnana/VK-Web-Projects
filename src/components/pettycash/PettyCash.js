@@ -45,7 +45,7 @@ export default function PettyCash({ search }) {
                                 <Form.Item
                                     name="status"
                                     // label="ស្ថានភាព"
-                                    rules={[{ required: true, message: "សូមជ្រើសរើសស្ថានភាព!!" }]}
+                                    // rules={[{ required: true, message: "សូមជ្រើសរើសស្ថានភាព!!" }]}
                                 >
                                     <Select
                                         placeholder="ស្ថានភាព"
@@ -78,7 +78,6 @@ export default function PettyCash({ search }) {
                 <Col
                     xs={24} sm={24} md={24} lg={24} xl={24}
                 >
-
                     <PettyCashTable
                         setLoading={setLoading}
                         loading={loading}

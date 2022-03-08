@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Typography, Row, Col, Modal } from 'antd';
 import { Button } from 'antd';
-import { GrPrint } from "react-icons/gr";
+import { AiFillEye } from "react-icons/ai";
 import ReactToPrint from "react-to-print";
 import axios from 'axios'
 import { Table } from 'antd';
@@ -22,7 +22,7 @@ export default function ToPrint({
 
     useEffect(() => {
         getRequestDescription(r_id)
-    }, [data])
+    }, [r_id])
     const getRequestDescription = async (r_id) => {
         const params = new URLSearchParams();
         params.append('db_user', process.env.React_App_DB_USER);
@@ -51,7 +51,7 @@ export default function ToPrint({
             title: 'លរ',
             dataIndex: 'requestNumber',
             key: 'requestNumber',
-            render: text => <a>{text}</a>,
+            render: text => <span>{text}</span>,
         },
         {
             title: 'បរិយាយ',
@@ -75,7 +75,7 @@ export default function ToPrint({
 
     return (
         <div>
-            <Button onClick={() => setOpen(true)} type="primary" shape="circle" icon={<GrPrint className='printIcon' style={{ marginTop: '5px' }} />} size='middle' />
+            <Button onClick={() => setOpen(true)} type="primary" shape="circle" icon={<AiFillEye className='printIcon' style={{ marginTop: '5px' }} />} size='middle' />
             <Modal
                 title={null}
                 visible={open}
@@ -83,9 +83,10 @@ export default function ToPrint({
                 onCancel={() => setOpen(false)}
                 footer={null}
             >
-
+  
                 <div
                     className='display'
+                    style={{fontFamily:'KhmerOSSiemreap'}}
                 >
                     <div
                         ref={componentRef}
@@ -129,11 +130,11 @@ export default function ToPrint({
                             }}
                         >
                             <Col xs={12} sm={12} md={12} lg={12} xl={12}>
-                                ស្នើរទៅកាន់៖ {info.requestTo}
+                                ស្នើរទៅកាន់៖ <b>{info.requestTo}</b>
                             </Col>
 
                             <Col xs={12} sm={12} md={12} lg={12} xl={12}>
-                                កាលបរិច្ឆេទស្នើរសុំ៖ {moment(info.date).format('DD-MM-YYYY')}
+                                កាលបរិច្ឆេទស្នើរសុំ៖ <b>{moment(info.date).format('DD-MM-YYYY')}</b>
                             </Col>
                         </Row>
 
@@ -143,11 +144,11 @@ export default function ToPrint({
                                 paddingTop: "8px"
                             }}
                         >
-                            <Col xs={12} sm={12} md={12} lg={12} xl={12}>
-                                សម្រាប់ការដ្ឋាន៖ {info.constructionName}
+                            <Col xs={12} sm={12} md={12} lg={12} xl={12} style={{color:'#1890ff'}}>
+                                សម្រាប់ការដ្ឋាន៖ <b>{info.constructionName}</b>
                             </Col>
                             <Col xs={12} sm={12} md={12} lg={12} xl={12}>
-                                កាលបរិច្ឆេទត្រូវការ៖ {moment(info.needDate).format('DD-MM-YYYY')}
+                                កាលបរិច្ឆេទត្រូវការ៖ <b>{moment(info.needDate).format('DD-MM-YYYY')}</b>
                             </Col>
 
                         </Row>
@@ -158,7 +159,7 @@ export default function ToPrint({
                             }}
                         >
                             <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                                គោលបំណង៖ {info.purpose}
+                                គោលបំណង៖ <b>{info.purpose}</b>
                             </Col>
 
                         </Row>
@@ -227,10 +228,10 @@ export default function ToPrint({
                     <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                         <Row>
                             <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{padding:3}}>
-                                ស្នើរទៅកាន់៖ {info.requestTo}
+                                ស្នើរទៅកាន់៖ <b>{info.requestTo}</b>
                             </Col>
-                            <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{padding:3}}>
-                                សម្រាប់ការដ្ឋាន៖ {info.constructionName}
+                            <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{padding:3,color:'#1890ff'}}>
+                                សម្រាប់ការដ្ឋាន៖ <b>{info.constructionName}</b>
                             </Col>
                         </Row>
                     </Col>
@@ -238,10 +239,10 @@ export default function ToPrint({
                     <Col xs={24} sm={24} md={12} lg={12} xl={12}>
                         <Row>
                             <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{padding:3}}>
-                                កាលបរិច្ឆេទស្នើរសុំ៖ {moment(info.date).format('DD-MM-YYYY')}
+                                កាលបរិច្ឆេទស្នើរសុំ៖ <b>{moment(info.date).format('DD-MM-YYYY')}</b>
                             </Col>
                             <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{padding:3}}>
-                                កាលបរិច្ឆេទត្រូវការ៖ {moment(info.needDate).format('DD-MM-YYYY')}
+                                កាលបរិច្ឆេទត្រូវការ៖ <b>{moment(info.needDate).format('DD-MM-YYYY')}</b>
                             </Col>
                         </Row>
                     </Col>
@@ -268,7 +269,7 @@ export default function ToPrint({
                     }}
                 >
                     <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{padding:3}}>
-                        គោលបំណង៖ {info.purpose}
+                        គោលបំណង៖ <b>{info.purpose}</b>
                     </Col>
 
                 </Row>

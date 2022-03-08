@@ -23,6 +23,7 @@ export default function CardDailyConstruct({ todo, setOpenDetail, setDailyConstr
                     <img
                         className='image-card'
                         alt="example"
+                        onClick={() => handleOpen(todo?.dc_id)}
                         src={
                             todo?.resultImage === "" && todo?.startImage === "" ?
                                 "https://www.chanchao.com.tw/ctg/images/default.jpg"

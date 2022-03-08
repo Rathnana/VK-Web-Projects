@@ -51,38 +51,38 @@ export default function UsersTable({
             title: 'លរ',
             dataIndex: 'no',
             key: 'no',
-            width:80
+            width:50
         },
         {
             title: 'ឈ្មោះអ្នកប្រើប្រាស់',
             dataIndex: 'username',
             key: 'username',
-            width:250
+            width:120
         },
         {
             title: 'គោត្តនាម',
             dataIndex: 'lastName',
             key: 'lastName',
-            width:150
+            width:80
 
         },
         {
             title: 'នាម',
             dataIndex: 'firstName',
             key: 'firstName',
-            width:150
+            width:80
         },
         {
             title: 'ប្រភេទ',
             dataIndex: 'role',
             key: 'role',
-            width:150
+            width:50
         },
         {
             key: 'action',
             align:'center',
             fixed:'right',
-            width:130,
+            width:100,
             render: (text, record) => (
                 <Space size="large">
                     <ResetPassword setSuccess={setSuccess} userId={record?.u_id} />
@@ -107,7 +107,7 @@ export default function UsersTable({
     return <Table
         style={{ marginTop: "20px" }}
         columns={columns}
-        scroll={{ x: 1200 }}
+        scroll={{ x: 800 }}
         dataSource={tableDataWithNo}
         loading={loading}
         className='table-customize'

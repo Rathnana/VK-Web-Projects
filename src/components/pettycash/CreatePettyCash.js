@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { Drawer, Form, Input, DatePicker, Row, Col } from 'antd';
+import { Drawer, Form, Input, DatePicker, Row, Col, InputNumber } from 'antd';
 import { Button } from 'antd';
 import { Creat_PettyCash } from '../../getDatabase'
+import { convertKHRtoUSD, convertUSDtoKHR } from '../../own-comp';
 
 
 
 export default function CreatePettyCash({ setSuccess }) {
     const [form] = Form.useForm();
     const [visible, setVisible] = useState(false);
-    const [loading,setLoading] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [isMobile, setIsMobile] = useState(false)
 
     const handleResize = () => {
@@ -35,16 +36,31 @@ export default function CreatePettyCash({ setSuccess }) {
 
     const onFinish = async (values) => {
         setLoading(true)
-        if(await Creat_PettyCash(values, sessionStorage.getItem("u_id"))){
+        if (await Creat_PettyCash(values, sessionStorage.getItem("u_id"))) {
             setVisible(false);
             form.resetFields();
             setSuccess(true)
             setLoading(false)
-        }else{
+        } else {
             setLoading(false)
         }
 
     };
+
+    const handleInputUSD = (e) => {
+        let khr = convertUSDtoKHR(e)
+        form.setFieldsValue({
+            totalCashKh: khr
+        })
+    }
+
+    const handleInputKH = (e) => {
+        let usd = convertKHRtoUSD(e)
+        form.setFieldsValue({
+            totalCash: usd
+        })
+    }
+
 
 
     return (
@@ -66,7 +82,7 @@ export default function CreatePettyCash({ setSuccess }) {
                 >
                     <Row gutter={10}>
 
-                        <Col xs={24} sm={24} md={24} lg={24} xl={24} >
+                        <Col xs={24} sm={24} md={12} lg={12} xl={12} >
                             <Form.Item
                                 name="date"
                                 label="កាលបរិច្ឆេទ"
@@ -80,9 +96,8 @@ export default function CreatePettyCash({ setSuccess }) {
                                 />
                             </Form.Item>
                         </Col>
-                    </Row>
-                    <Row gutter={10}>
-                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+
+                        <Col xs={24} sm={24} md={12} lg={12} xl={12} >
                             <Form.Item
                                 name="borrowPerson"
                                 label="ឈ្មោះអ្នកខ្ចី"
@@ -94,19 +109,41 @@ export default function CreatePettyCash({ setSuccess }) {
                                 />
                             </Form.Item>
                         </Col>
+                    </Row>
+                    <Row gutter={10}>
+                        <Col xs={12} sm={12} md={12} lg={12} xl={12} >
+                            <Form.Item
+                                name="totalCashKh"
+                                label="ចំនួនទឹកប្រាក់ (KHR)"
+                                rules={[{ required: true, message: "សូមបំពេញចំនួនទឹកប្រាក់!!" }]}
+                            >
+                                <InputNumber
+                                    type="number"
+                                    placeholder="KHR"
+                                    style={{ width: '100%' }}
+                                    onKeyUp={(e) => handleInputKH(e.target.value)}
+                                    onStep={(e) => handleInputKH(e)}
+                                    step={100}
+                                    min={0}
+                                    size="large"
+                                />
+                            </Form.Item>
+                        </Col>
                         <Col xs={12} sm={12} md={12} lg={12} xl={12} >
                             <Form.Item
                                 name="totalCash"
-                                label="ចំនួនទឹកប្រាក់"
+                                label="ចំនួនទឹកប្រាក់ (USD)"
                                 rules={[{ required: true, message: "សូមបំពេញចំនួនទឹកប្រាក់!!" }]}
                             >
-                                <Input
+                                <InputNumber
                                     type="number"
-                                    placeholder="ចំនួនទឹកប្រាក់"
+                                    placeholder="USD"
+                                    style={{ width: '100%' }}
+                                    onKeyUp={(e) => handleInputUSD(e.target.value)}
+                                    onStep={(e) => handleInputUSD(e)}
                                     size="large"
+                                    min={0}
                                 />
-
-
                             </Form.Item>
                         </Col>
                     </Row>
@@ -117,10 +154,11 @@ export default function CreatePettyCash({ setSuccess }) {
                                 label="ផ្សេងៗ"
 
                             >
-                                <Input
+                                <Input.TextArea
                                     placeholder='ផ្សេងៗ'
                                     size='large'
                                     allowClear
+
                                 />
                             </Form.Item>
                         </Col>

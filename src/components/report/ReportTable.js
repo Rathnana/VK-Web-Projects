@@ -79,7 +79,7 @@ export default function ReportTable({
             dataIndex: 'no',
             key: 'no',
             fontWeight:'bold',
-            width: 60
+            width: 50
         }
         ,
         {
@@ -98,50 +98,84 @@ export default function ReportTable({
             key: 'constructionName',
             width: 250
         },
-        {
-            title: 'ទីតាំង',
-            dataIndex: 'constructionLocation',
-            key: 'constructionLocation',
-            width: 200,
-            render: (text, record) => (
-                <span style={{ cursor: 'pointer' }}  >
-                    <Popover placement="bottom" content={() => contentRemark(record?.constructionLocation)} title={null} trigger="hover">
-                        <Text ellipsis >
-                            {record?.constructionLocation}
-                        </Text>
-                    </Popover>
-                </span>
-            )
-        },
+        // {
+        //     title: 'ទីតាំង',
+        //     dataIndex: 'constructionLocation',
+        //     key: 'constructionLocation',
+        //     width: 200,
+        //     render: (text, record) => (
+        //         <span style={{ cursor: 'pointer' }}  >
+        //             <Popover placement="bottom" content={() => contentRemark(record?.constructionLocation)} title={null} trigger="hover">
+        //                 <Text ellipsis >
+        //                     {record?.constructionLocation}
+        //                 </Text>
+        //             </Popover>
+        //         </span>
+        //     )
+        // },
         {
             title: 'មេការ',
             dataIndex: 'chiefName',
             key: 'chiefName',
-            width: 150
+            width: 120
         },
         {
             title: 'ចំនួនក្រុម',
             dataIndex: 'teamCount',
             key: 'teamCount',
-            width: 100
+            width: 80,
+            align:'center'
+            
         },
         {
             title: 'ជាង',
             dataIndex: 'builderCount',
             key: 'builderCount',
-            width: 100
+            width: 80,
+            align:'center',
+            render: (text, record) => (
+                <Space size="middle">
+                    {parseInt(record?.builderCount) - parseInt(record?.painterCount)}
+                </Space>
+            ),
         },
         {
-            title: 'កម្មករ',
+            title: 'ជាងថ្នាំ',
+            dataIndex: 'painterCount',
+            key: 'painterCount',
+            align:'center',
+            width: 80,
+            
+        },
+        {
+            title: 'កប្រុស',
             dataIndex: 'workerCount',
             key: 'workerCount',
-            width: 100
+            align:'center',
+            width: 80,
+            render: (text, record) => (
+                <Space size="middle">
+                    {parseInt(record?.workerCount) - parseInt(record?.femaleWorkerCount)}
+                </Space>
+            ),
+        },
+        {
+            title: 'កស្រី',
+            dataIndex: 'femaleWorkerCount',
+            key: 'femaleWorkerCount',
+            align:'center',
+            width: 80,
+            // render: (text, record) => (
+            //     <Space size="middle">
+            //         {parseInt(record?.workerCount) - parseInt(record?.femaleWorkerCount)}
+            //     </Space>
+            // ),
         },
         {
             title: 'បញ្ហា',
             dataIndex: 'challenges',
             key: 'challenges',
-            width: 160,
+            width: 180,
             render: (text, record) => (
                 <span style={{ cursor: 'pointer' }}  >
                     <Popover placement="bottom" content={() => contentRemark(record?.challenges)} title={null} trigger="hover">
@@ -188,7 +222,7 @@ export default function ReportTable({
         <Table
             columns={columns}
             dataSource={loading ? []:tableDataWithNo}
-            scroll={{ x: 1200 }}
+            scroll={{ x: 1200}}
             className='table-customize'
             loading={loading}
             rowClassName={record => record?.challenges ? 'row-danger' : null}

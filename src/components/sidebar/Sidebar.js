@@ -52,11 +52,12 @@ export default function Sidebar() {
                 <Menu.Item key="/customer">
                     <Link to="/customer">អតិថិជន</Link>
                 </Menu.Item>
-                <Menu.Item key="/pretty_cash">
-                    <Link to="/pretty_cash">តារាង Petty Cash</Link>
-                </Menu.Item>
+                
                 <Menu.Item key="/requesting">
                     <Link to="/requesting">ស្នើរសុំសម្ភារៈ</Link>
+                </Menu.Item>
+                <Menu.Item key="/pretty_cash">
+                    <Link to="/pretty_cash">តារាង Petty Cash</Link>
                 </Menu.Item>
                 <Menu.Item key="/users">
                     <Link to="/users">អ្នកប្រើប្រាស់</Link>

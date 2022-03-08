@@ -1,21 +1,36 @@
-import React from 'react'
-import { Col, PageHeader, Button } from 'antd';
-import RequestTabel from './RequestTabel';
-import { useNavigate } from "react-router-dom";
+import React,{useState,useEffect} from 'react'
+import { Col } from 'antd';
 import WorkerGraph from './WorkerGraph';
 
 
 export default function SectionB() {
-    let navigate = useNavigate();
+
+    const [isMobile, setIsMobile] = useState(false)
+
+    const handleResize = () => {
+        // 960
+        if (window.innerWidth <= 575) {
+            setIsMobile(true)
+        } else {
+            setIsMobile(false)
+        }
+    }
+
+    useEffect(() => {
+        handleResize()
+    }, [])
+
+    window.addEventListener('resize', handleResize)
     return (
         <Col
-            // xs={12} sm={12} md={12} lg={8} xl={8}
             xs={{span:24,order:0}} sm={{span:24,order:0}} md={{span:24,order:0}} lg={{span:24,order:0}} xl={{span:8,order:1}} xxl={{span:8,order:1}}
             // className="site-card-wrapper"
             style={{ padding: '0px 20px' }}
         >
-           
-            <WorkerGraph />
+           {
+               !isMobile && <WorkerGraph />
+           }
+            
             {/* <PageHeader
                 ghost={false}
                 title="តារាងស្នើរសុំសម្ភារៈ"

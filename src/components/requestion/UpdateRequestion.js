@@ -61,11 +61,6 @@ export default function UpdateRequestion({
 
     };
 
-    useEffect(() => {
-        getConstruction()
-        getRequestDescription(r_id)
-
-    }, [])
     const getConstruction = async () => {
         const params = new URLSearchParams();
         params.append('db_user', process.env.React_App_DB_USER);
@@ -116,6 +111,13 @@ export default function UpdateRequestion({
                 }
             });
     }
+
+    useEffect(() => {
+        getConstruction()
+        getRequestDescription(r_id)
+    }, [r_id])
+
+
     return (
         <div>
             <Button onClick={showDrawer} type="primary" shape="circle" icon={<AiOutlineEdit />} size='middle' />

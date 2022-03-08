@@ -29,7 +29,7 @@ export default function Login({ setAuth }) {
                 } else {
                     message.success('Login ជោគជ័យ!!');
                     sessionStorage.setItem("u_id", response?.data?.u_id);
-                    sessionStorage.setItem("username", response?.data?.username);
+                    sessionStorage.setItem("username", response?.data?.firstName);
                     // window.location.reload();
                     setAuth(true)
                 }

@@ -78,3 +78,18 @@ export const getTotalWorker = (team)=>{
 
     return total
 }
+
+export const convertUSDtoKHR=(e)=>{
+    let cash = parseFloat(e) * 4000
+    return cash
+}
+
+export const convertKHRtoUSD=(e)=>{
+    let cash = parseFloat(e) / 4000
+    return cash
+}
+
+export function currencyFormatKHR(num) {
+    num = num > 0 ? parseFloat(num) : 0
+    return <span>{num?.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}&#6107;</span>
+}

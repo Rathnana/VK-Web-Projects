@@ -4,6 +4,8 @@ import axios from 'axios'
 import DelectPettyCash from './DelectPettyCash'
 import UpdatePettyCash from './UpdatePettyCash'
 import { currencyFormat } from '../../getDatabase';
+import moment from 'moment';
+import { convertUSDtoKHR, currencyFormatKHR } from '../../own-comp';
 
 export default function PettyCashTable({
     setLoading,
@@ -56,25 +58,30 @@ export default function PettyCashTable({
             title: 'លរ',
             dataIndex: 'no',
             key: 'no',
-            width:80
+            width:60
         },
         {
             title: 'កាលបរិច្ឆេទ',
             dataIndex: 'date',
             key: 'date',
-            width:120
+            width:100,
+            render: (text, record) => (
+                <Space size="middle">
+                    {moment(record?.date).format('DD-MM-YYYY')}
+                </Space>
+            ),
         },
         {
             title: 'ឈ្មោះអ្នកខ្ចី',
             dataIndex: 'borrowPerson',
             key: 'borrowPerson',
-            width:250
+            width:150
         },
         {
             title: 'ឈ្មោះអ្នកផ្ដល់',
             dataIndex: 'lendedBy',
             key: 'lendedBy',
-            width:250,
+            width:150,
             render: (text, record) => (
                 <Space>
                     {record?.lastName + " " + record?.firstName}
@@ -82,10 +89,21 @@ export default function PettyCashTable({
             )
         },
         {
-            title: 'ចំនួនទឹកប្រាក់',
+            title: 'ចំនួនទឹកប្រាក់ (KHR)',
+            dataIndex: 'totalCashKh',
+            key: 'totalCashKh',
+            width:220,
+            render: (text, record) => (
+                <Space>
+                    {currencyFormatKHR(convertUSDtoKHR(record?.totalCash))}
+                </Space>
+            )
+        },
+        {
+            title: 'ចំនួនទឹកប្រាក់ (USD)',
             dataIndex: 'totalCash',
             key: 'totalCash',
-            width:120,
+            width:220,
             render: (text, record) => (
                 <Space>
                     {currencyFormat(record?.totalCash)}
@@ -141,8 +159,9 @@ export default function PettyCashTable({
             style={{ marginTop: "20px" }}
             columns={columns}
             dataSource={tableDataWithNo}
+            rowClassName={record => record?.status==='បានទូរទាត់' ? 'finished-row':''}
             loading={loading}
-            rowKey={record => record?.r_id}
+            rowKey={record => record?.pc_id}
             className='table-customize'
             pagination={{
                 position: ["bottomLeft"],

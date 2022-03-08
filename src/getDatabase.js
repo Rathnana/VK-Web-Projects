@@ -5,7 +5,7 @@ import moment from 'moment';
 
 export function currencyFormat(num) {
     num = num > 0 ? parseFloat(num) : 0
-    return '$' + num?.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    return '$' + num?.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
 }
 
 export const getUser = async () => {

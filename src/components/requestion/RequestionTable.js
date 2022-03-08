@@ -115,7 +115,7 @@ export default function RequestionTable({
             key: 'action',
             align: 'center',
             fixed: 'right',
-            width: 150,
+            width: 140,
             render: (text, record) => (
                 <Space size="middle">
                     <ToPrint
