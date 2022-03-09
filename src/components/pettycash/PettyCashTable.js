@@ -95,7 +95,7 @@ export default function PettyCashTable({
             width:220,
             render: (text, record) => (
                 <Space>
-                    {currencyFormatKHR(convertUSDtoKHR(record?.totalCash))}
+                    {currencyFormatKHR(record?.totalCashKh)}
                 </Space>
             )
         },

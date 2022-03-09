@@ -9,7 +9,7 @@ export default function SectionB() {
 
     const handleResize = () => {
         // 960
-        if (window.innerWidth <= 575) {
+        if (window.innerWidth <= 992) {
             setIsMobile(true)
         } else {
             setIsMobile(false)

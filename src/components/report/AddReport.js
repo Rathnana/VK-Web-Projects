@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Drawer, Button, Form, Row, Col, Select, Input, Divider, InputNumber, message, Image } from 'antd';
-import { AiFillCloseCircle, AiOutlineTeam } from 'react-icons/ai';
+import { Drawer, Button, Form, Row, Col, Select, Input, Divider, InputNumber, message, Image, Switch } from 'antd';
+import { AiFillCloseCircle, AiOutlineTeam, AiOutlineCheck, AiOutlineClose } from 'react-icons/ai';
 import { SelectCustomer } from './SelectCustomer';
 import { SelectChief } from './SelectChief';
 import axios from 'axios'
@@ -15,6 +15,12 @@ export default function AddReport({ setSuccess }) {
     const [resultImage, setResultImage] = useState(null);
     const [form] = Form.useForm()
     const [isMobile, setIsMobile] = useState(false)
+
+    const [hasElectricianPlumber, setHasElectricianPlumber] = useState('0');
+    const [hasCeilBuilder, setHasCeilBuilder] = useState('0');
+    const [hasBlackSmith, setHasBlackSmith] = useState('0');
+    const [hasAirConditionerMan, setHasAirConditionerMan] = useState('0');
+    const [hasMirrorBuilder, setHasMirrorBuilder] = useState('0');
 
     const handleResize = () => {
         // 960
@@ -44,7 +50,17 @@ export default function AddReport({ setSuccess }) {
             return
         }
         setLoading(true)
-        createDailyConstruct({ ...val, userId: sessionStorage.getItem("u_id"), startImage, resultImage });
+        createDailyConstruct({
+            ...val,
+            userId: val?.userId,
+            startImage,
+            resultImage,
+            hasElectricianPlumber: hasElectricianPlumber,
+            hasCeilBuilder: hasCeilBuilder,
+            hasBlackSmith: hasBlackSmith,
+            hasAirConditionerMan: hasAirConditionerMan,
+            hasMirrorBuilder: hasMirrorBuilder
+        });
     }
 
     const createDailyConstruct = async (data) => {
@@ -73,7 +89,11 @@ export default function AddReport({ setSuccess }) {
                     form.resetFields();
                     setLoading(false)
                     setSuccess(true)
-                    // navigate(`/report/${response?.data}`)
+                    setHasElectricianPlumber('0')
+                    setHasCeilBuilder('0')
+                    setHasBlackSmith('0')
+                    setHasAirConditionerMan('0')
+                    setHasMirrorBuilder('0')
                 } else {
                     message.error("មានបញ្ហា!!")
                 }
@@ -322,7 +342,7 @@ export default function AddReport({ setSuccess }) {
                         >
                             <InputNumber
                                 placeholder='ចំ.កម្មករស្រី'
-                                onStep={(e)=> handleSetFemaleWorkerCount(e)}
+                                onStep={(e) => handleSetFemaleWorkerCount(e)}
                                 min={0}
                                 onKeyUp={(e) => handleSetFemaleWorkerCount(e.target.value)}
                                 style={{ width: "100%" }}
@@ -338,15 +358,85 @@ export default function AddReport({ setSuccess }) {
                             name="painterCount"
                             rules={[{ required: true, message: 'ទាមទារបំពេញ' }]}
                         >
-                            <InputNumber 
-                            placeholder='ចំ.ជាងថ្នាំ' 
-                            min={0} 
-                            onStep={(e)=> handleSetPainterCount(e)}
-                            onKeyUp={(e) => handleSetPainterCount(e.target.value)} 
-                            style={{ width: "100%" }} 
-                            size='large' 
+                            <InputNumber
+                                placeholder='ចំ.ជាងថ្នាំ'
+                                min={0}
+                                onStep={(e) => handleSetPainterCount(e)}
+                                onKeyUp={(e) => handleSetPainterCount(e.target.value)}
+                                style={{ width: "100%" }}
+                                size='large'
                             />
 
+                        </Form.Item>
+                    </Col>
+                </Row>
+
+                <Row gutter={10}>
+                    <Col xs={12} sm={12} md={8} lg={8} xl={8} >
+                        <Form.Item
+                            name="hasElectricianPlumber"
+                        // label="ជាងទឹកភ្លើង"
+                        >
+                            <Switch
+                                checkedChildren={<AiOutlineCheck />}
+                                unCheckedChildren={<AiOutlineClose />}
+                                onChange={(e) => setHasElectricianPlumber(hasElectricianPlumber === '1' ? '0' : '1')}
+                                checked={hasElectricianPlumber === '1'}
+                            />&emsp;ជាងទឹកភ្លើង
+                        </Form.Item>
+                    </Col>
+                    <Col xs={12} sm={12} md={8} lg={8} xl={8} >
+                        <Form.Item
+                            name="hasCeilBuilder"
+                        // label="ជាងពិដាន"
+                        >
+                            <Switch
+                                checkedChildren={<AiOutlineCheck />}
+                                unCheckedChildren={<AiOutlineClose />}
+                                onChange={(e) => setHasCeilBuilder(hasCeilBuilder === '1' ? '0' : '1')}
+                                checked={hasCeilBuilder === '1'}
+                            />&emsp;ជាងពិដាន
+                        </Form.Item>
+                    </Col>
+
+                    <Col xs={12} sm={12} md={8} lg={8} xl={8} >
+                        <Form.Item
+                            name="hasBlackSmith"
+                        // label="ជាងដែក"
+                        >
+                            <Switch
+                                checkedChildren={<AiOutlineCheck />}
+                                unCheckedChildren={<AiOutlineClose />}
+                                onChange={(e) => setHasBlackSmith(hasBlackSmith === '1' ? '0' : '1')}
+                                checked={hasBlackSmith === '1'}
+                            />&emsp;ជាងដែក
+                        </Form.Item>
+                    </Col>
+                    <Col xs={12} sm={12} md={8} lg={8} xl={8} >
+                        <Form.Item
+                            name="hasAirConditionerMan"
+                        // label="ជាងម៉ាស៊ីនត្រជាក់"
+                        >
+                            <Switch
+                                checkedChildren={<AiOutlineCheck />}
+                                unCheckedChildren={<AiOutlineClose />}
+                                onChange={(e) => setHasAirConditionerMan(hasAirConditionerMan === '1' ? '0' : '1')}
+                                checked={hasAirConditionerMan === '1'}
+                            />&emsp;ជាងម៉ាស៊ីនត្រជាក់
+                        </Form.Item>
+                    </Col>
+
+                    <Col xs={12} sm={12} md={8} lg={8} xl={8} >
+                        <Form.Item
+                            name="hasMirrorBuilder"
+                        // label="ជាងម៉ាស៊ីនត្រជាក់"
+                        >
+                            <Switch
+                                checkedChildren={<AiOutlineCheck />}
+                                unCheckedChildren={<AiOutlineClose />}
+                                onChange={(e) => setHasMirrorBuilder(hasMirrorBuilder === '1' ? '0' : '1')}
+                                checked={hasMirrorBuilder === '1'}
+                            />&emsp;ជាងម៉ាស៊ីនត្រជាក់
                         </Form.Item>
                     </Col>
                 </Row>

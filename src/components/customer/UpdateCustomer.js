@@ -53,7 +53,7 @@ export default function UpdateCustomer({
         customer?.maritalStatus === "មានគ្រួសារ" ? true : false
     )
     useEffect(() => {
-        if (customer) {
+        if (customer && visible) {
             form.setFieldsValue({
                 ...customer,
                 startDate: moment(customer?.startDate),
@@ -68,7 +68,7 @@ export default function UpdateCustomer({
             setIdCardNextBorderSet(customer?.idCardNextBorderSet)
             setCertificateCompanySet(customer?.certificateCompanySet)
         }
-    }, [customer])
+    }, [customer,visible])
 
     const onFinish = async values => {
         // console.log(values);

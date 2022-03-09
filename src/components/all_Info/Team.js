@@ -1,6 +1,6 @@
 import { Row, Col, Divider } from 'antd'
 import React from 'react'
-
+import {IoIosPeople} from 'react-icons/io'
 
 export default function Team({ team }) {
     return (
@@ -11,34 +11,40 @@ export default function Team({ team }) {
 
                 <Row
                     style={{
-                        fontWeight: "bold",
                         fontSize: "15px",
-                        marginTop: "-10px"
+                        // marginTop: "-10px"
+                        background: '#EEEEEE'
                     }}
                 >
-                    <Col xs={12} style={{padding:5}}>
-                        ក្រុមទី {team?.teamNumber} ៖ {team?.teamLeaderName}
+                    <Col xs={6} style={{ padding: 5, fontWeight: "bold", }}>
+                    <IoIosPeople />&nbsp;&nbsp;ក្រុមទី{team?.teamNumber}
                     </Col>
-                    <Col xs={6} style={{padding:5}}>
-                        ជាង៖ {team?.builderCount}
+                    <Col xs={8} style={{ padding: 5 }}>
+                        <b>: {team?.teamLeaderName}</b>
                     </Col>
-                    <Col xs={6} style={{padding:5}}>
-                        កម្មករ៖ {team?.workerCount}
+                    <Col xs={5} style={{ padding: 5 }}>
+                        ជាង: <b>{team?.builderCount}</b>
                     </Col>
-                    
-                    <Col xs={24} style={{padding:5}}>
-                        ការងារ៖ {team?.performance}
-                    </Col>
-                    <Col xs={24}
-                        style={{
-                            padding:5,
-                            background: "rgb(207, 255, 216)"
-                        }}
-                    >
-                        លទ្ទផល៖ {team?.result}
+                    <Col xs={5} style={{ padding: 5 }}>
+                        កម្មករ: <b>{team?.workerCount}</b>
                     </Col>
                 </Row>
-                <Divider style={{ marginTop: "10px" }} />
+                <Row style={{ fontSize: "15px", marginTop: 5 }}>
+                    <Col xs={6} style={{ padding: 5 }}>
+                        &emsp;&nbsp;&nbsp;ការងារ
+                    </Col>
+                    <Col xs={18} style={{ padding: 5 }}>
+                        : <b>{team?.performance}</b>
+                    </Col>
+
+                    <Col xs={6} style={{ padding: 5 }}>
+                        &emsp;&nbsp;&nbsp;លទ្ទផល
+                    </Col>
+                    <Col xs={18} style={{ padding: 5, }}>
+                        : <b>{team?.result}</b>
+                    </Col>
+                </Row>
+                {/* <Divider style={{ marginTop: "10px" }} /> */}
             </Col>
         </Row>
     )

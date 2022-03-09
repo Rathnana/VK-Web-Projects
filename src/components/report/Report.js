@@ -54,12 +54,12 @@ export default function Report() {
         params.append('db', process.env.React_App_DB);
 
         return await axios.post(
-            `${process.env.React_App_URL}/get/getCustomerWithPagination.php`, params
+            `${process.env.React_App_URL}/get/getCustomerConstruction.php`, params
         )
             .then(async function (response) {
-
+                console.log(response?.data)
                 if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
-                    setCustomers(response?.data?.data);
+                    setCustomers(response?.data);
                     return response?.data;
                 } else {
                     return [];

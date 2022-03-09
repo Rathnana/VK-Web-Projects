@@ -1,14 +1,14 @@
 
 
 import React, { useState, useEffect } from 'react'
-import { Select, Modal, Input, DatePicker, Row, Col, Space, Drawer, InputNumber } from 'antd';
+import { Select, Input, DatePicker, Row, Col, Space, Drawer, InputNumber } from 'antd';
 import axios from 'axios'
 import { update_Request } from '../../getDatabase';
 import { Form, Button } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { AiOutlineEdit } from "react-icons/ai";
 import moment from 'moment';
-
+import {SelectCustomer} from '../report/SelectCustomer'
 
 const { Option } = Select;
 
@@ -19,7 +19,7 @@ export default function UpdateRequestion({
 }) {
     const [form] = Form.useForm();
     const [visible, setVisible] = useState(false);
-    const [loading,setLoading] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const [isMobile, setIsMobile] = useState(false)
 
@@ -51,35 +51,16 @@ export default function UpdateRequestion({
 
         setLoading(true)
         let updateState = await update_Request(values, r_id);
-        if(updateState===true){
+        if (updateState === true) {
             setVisible(false);
             setSuccess(true)
             setLoading(false)
-        }else{
+        } else {
             setLoading(false)
         }
 
     };
 
-    const getConstruction = async () => {
-        const params = new URLSearchParams();
-        params.append('db_user', process.env.React_App_DB_USER);
-        params.append('db_password', process.env.React_App_DB_PASSWORD);
-        params.append('db', process.env.React_App_DB);
-
-        return await axios.post(
-            `${process.env.React_App_URL}/get/getConstruction.php`, params
-        )
-            .then(async function (response) {
-
-                if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
-                    setConstruction(response?.data.data)
-                    return response?.data;
-                } else {
-                    return [];
-                }
-            });
-    }
     const getRequestDescription = async (r_id) => {
         const params = new URLSearchParams();
         params.append('db_user', process.env.React_App_DB_USER);
@@ -96,11 +77,11 @@ export default function UpdateRequestion({
                 if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
                     if (response?.data.data) {
                         form.setFieldsValue({
-                            constructionId: requests?.constructionId,
-                            date: moment(requests?.date),
-                            needDate: moment(requests?.needDate),
-                            requestTo: requests?.requestTo,
-                            purpose: requests?.purpose,
+                            // constructionId: requests?.constructionId,
+                            // date: moment(requests?.date),
+                            // needDate: moment(requests?.needDate),
+                            // requestTo: requests?.requestTo,
+                            // purpose: requests?.purpose,
                             requests: response?.data.data
                         })
                     }
@@ -113,9 +94,25 @@ export default function UpdateRequestion({
     }
 
     useEffect(() => {
-        getConstruction()
-        getRequestDescription(r_id)
-    }, [r_id])
+
+        if (visible) {
+            form.setFieldsValue({
+                constructionId: requests?.constructionId,
+                date: moment(requests?.date),
+                needDate: moment(requests?.needDate),
+                requestTo: requests?.requestTo,
+                purpose: requests?.purpose,
+            })
+            getRequestDescription(r_id)
+        }
+
+    }, [r_id, visible])
+
+    const setConstructionCustomer = e => {
+        form.setFieldsValue({
+            constructionId: e
+        })
+    }
 
 
     return (
@@ -187,7 +184,11 @@ export default function UpdateRequestion({
                                 label="សម្រាប់ការដ្ឋាន"
                                 rules={[{ required: true, message: "សូមជ្រើសរើសការដ្ឋាន!!" }]}
                             >
-                                <Select
+
+                                
+                                        <SelectCustomer title={"ជ្រើសរើសការដ្ឋាន"} setValue={setConstructionCustomer} />
+                                    
+                                {/* <Select
                                     placeholder="ជ្រើសរើសការដ្ឋាន"
                                     size="large"
                                     allowClear
@@ -197,7 +198,7 @@ export default function UpdateRequestion({
                                     }
 
 
-                                </Select>
+                                </Select> */}
                             </Form.Item>
                         </Col>
                     </Row>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { AiOutlineEdit } from "react-icons/ai";
+import { AiOutlineEdit , AiOutlineCheck, AiOutlineClose} from "react-icons/ai";
 // import moment from 'moment';
-import { Drawer, Button, Form, Row, Col, Select, Input, Divider, InputNumber, message, Image } from 'antd';
+import { Drawer, Button, Form, Row, Col, Select, Input, Divider, InputNumber, message, Image, Switch } from 'antd';
 import { AiOutlineTeam, AiFillCloseCircle } from 'react-icons/ai';
 import { SelectChief } from './SelectChief';
 import { SelectCustomer } from './SelectCustomer';
@@ -21,6 +21,12 @@ export default function EditReport({ setSuccess, id, reports }) {
     const [report, setReport] = useState({})
     const [form] = Form.useForm()
     const [isMobile, setIsMobile] = useState(false)
+
+    const [hasElectricianPlumber, setHasElectricianPlumber] = useState('0');
+    const [hasCeilBuilder, setHasCeilBuilder] = useState('0');
+    const [hasBlackSmith, setHasBlackSmith] = useState('0');
+    const [hasAirConditionerMan, setHasAirConditionerMan] = useState('0');
+    const [hasMirrorBuilder, setHasMirrorBuilder] = useState('0');
 
     const handleResize = () => {
         // 960
@@ -44,7 +50,7 @@ export default function EditReport({ setSuccess, id, reports }) {
                 userId: reports?.userId
             })
         }
-        if (report) {
+        if (report && visible) {
             form.setFieldsValue({
                 customerId: report?.customerId,
                 status: report?.status,
@@ -57,6 +63,12 @@ export default function EditReport({ setSuccess, id, reports }) {
                 painterCountTmr: parseInt(report?.painterCountTmr),
                 workerCountTmr: parseInt(report?.workerCountTmr),
             })
+
+            setHasElectricianPlumber(report?.hasElectricianPlumber)
+            setHasCeilBuilder(report?.hasCeilBuilder)
+            setHasBlackSmith(report?.hasBlackSmith)
+            setHasAirConditionerMan(report?.hasAirConditionerMan)
+            setHasMirrorBuilder(report?.hasMirrorBuilder)
         }
         getConstructById(id)
     }, [visible])
@@ -76,7 +88,18 @@ export default function EditReport({ setSuccess, id, reports }) {
         setLoading(true)
         // console.log(startImage);
 
-        updateDailyConstruct({ ...val, userId: 1, resultImage, startImage, dc_id: id });
+        updateDailyConstruct({
+            ...val,
+            userId: val?.userId,
+            resultImage,
+            startImage,
+            dc_id: id,
+            hasElectricianPlumber: hasElectricianPlumber,
+            hasCeilBuilder: hasCeilBuilder,
+            hasBlackSmith: hasBlackSmith,
+            hasAirConditionerMan: hasAirConditionerMan,
+            hasMirrorBuilder: hasMirrorBuilder
+        });
     }
 
     const updateDailyConstruct = async (data) => {
@@ -412,6 +435,76 @@ export default function EditReport({ setSuccess, id, reports }) {
                                 size='large'
                             />
 
+                        </Form.Item>
+                    </Col>
+                </Row>
+
+                <Row gutter={10}>
+                    <Col xs={12} sm={12} md={8} lg={8} xl={8} >
+                        <Form.Item
+                            name="hasElectricianPlumber"
+                        // label="ជាងទឹកភ្លើង"
+                        >
+                            <Switch
+                                checkedChildren={<AiOutlineCheck />}
+                                unCheckedChildren={<AiOutlineClose />}
+                                onChange={(e) => setHasElectricianPlumber(hasElectricianPlumber === '1' ? '0' : '1')}
+                                checked={hasElectricianPlumber === '1'}
+                            />&emsp;ជាងទឹកភ្លើង
+                        </Form.Item>
+                    </Col>
+                    <Col xs={12} sm={12} md={8} lg={8} xl={8} >
+                        <Form.Item
+                            name="hasCeilBuilder"
+                        // label="ជាងពិដាន"
+                        >
+                            <Switch
+                                checkedChildren={<AiOutlineCheck />}
+                                unCheckedChildren={<AiOutlineClose />}
+                                onChange={(e) => setHasCeilBuilder(hasCeilBuilder === '1' ? '0' : '1')}
+                                checked={hasCeilBuilder === '1'}
+                            />&emsp;ជាងពិដាន
+                        </Form.Item>
+                    </Col>
+
+                    <Col xs={12} sm={12} md={8} lg={8} xl={8} >
+                        <Form.Item
+                            name="hasBlackSmith"
+                        // label="ជាងដែក"
+                        >
+                            <Switch
+                                checkedChildren={<AiOutlineCheck />}
+                                unCheckedChildren={<AiOutlineClose />}
+                                onChange={(e) => setHasBlackSmith(hasBlackSmith === '1' ? '0' : '1')}
+                                checked={hasBlackSmith === '1'}
+                            />&emsp;ជាងដែក
+                        </Form.Item>
+                    </Col>
+                    <Col xs={12} sm={12} md={8} lg={8} xl={8} >
+                        <Form.Item
+                            name="hasAirConditionerMan"
+                        // label="ជាងម៉ាស៊ីនត្រជាក់"
+                        >
+                            <Switch
+                                checkedChildren={<AiOutlineCheck />}
+                                unCheckedChildren={<AiOutlineClose />}
+                                onChange={(e) => setHasAirConditionerMan(hasAirConditionerMan === '1' ? '0' : '1')}
+                                checked={hasAirConditionerMan === '1'}
+                            />&emsp;ជាងម៉ាស៊ីនត្រជាក់
+                        </Form.Item>
+                    </Col>
+
+                    <Col xs={12} sm={12} md={8} lg={8} xl={8} >
+                        <Form.Item
+                            name="hasMirrorBuilder"
+                        // label="ជាងម៉ាស៊ីនត្រជាក់"
+                        >
+                            <Switch
+                                checkedChildren={<AiOutlineCheck />}
+                                unCheckedChildren={<AiOutlineClose />}
+                                onChange={(e) => setHasMirrorBuilder(hasMirrorBuilder === '1' ? '0' : '1')}
+                                checked={hasMirrorBuilder === '1'}
+                            />&emsp;ជាងម៉ាស៊ីនត្រជាក់
                         </Form.Item>
                     </Col>
                 </Row>

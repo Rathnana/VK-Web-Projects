@@ -11,6 +11,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom'
 import { FaChartLine } from 'react-icons/fa'
 import { getTotalBuilder, getTotalWorker } from '../../own-comp'
+import TagBuilder from './TagBuilder'
 
 export default function ModalDetail({ open, setOpen, id }) {
     const [report, setReport] = useState({})
@@ -72,7 +73,8 @@ export default function ModalDetail({ open, setOpen, id }) {
                                     background: "#ffd359",
                                     height: "45px",
                                     textAlign: "center",
-                                    padding: "15px",
+                                    padding: "10px",
+                                    fontFamily:'Moul',
                                     fontWeight: "bold",
                                     fontSize: "11pt"
                                 }}
@@ -87,79 +89,94 @@ export default function ModalDetail({ open, setOpen, id }) {
                                 }}
 
                             >
-                                <p
+                                <Row
                                     style={{
-                                        marginTop: "13px",
-                                        fontWeight: "bold",
-                                        fontSize: "18px",
-                                        fontFamily: "Bayon",
-                                        color: '#616161',
+                                        marginTop: "10px",
+                                        // fontWeight: "bold",
+                                        fontSize: "15px",
+                                        fontFamily: "KhmerOSSiemreap",
+                                        // color: '#616161',
                                     }}
                                 >
-                                    <MdOutlineConstruction /> មេកា៖ {`${report?.chiefName}`} <span style={{ fontFamily: 'KhmerOSSiemreap', fontWeight: 'bold' }}>({report?.team?.length} ក្រុម - {getTotalBuilder(report?.team) + getTotalWorker(report?.team)} នាក់)</span>
-                                </p>
+                                    <Col xs={6} style={{ padding: 5 }}><MdOutlineConstruction />&nbsp;&nbsp;មេកា</Col>
+                                    <Col xs={18} style={{ fontWeight: 'bold', padding: 5 }}>
+                                        : {`${report?.chiefName}`} ({report?.team?.length} ក្រុម - {getTotalBuilder(report?.team) + getTotalWorker(report?.team)} នាក់)
+                                    </Col>
+                                </Row>
+
+                                <Row
+                                    style={{
+                                        fontSize: "15px",
+                                        marginBottom: "10px",
+                                    }}
+                                >
+                                    <Col xs={24} style={{ padding: 5, paddingLeft: 28 }}>
+
+                                        ជាង: <b>{getTotalBuilder(report?.team) - parseInt(report?.painterCount)}</b> |
+                                        ថ្នាំ: <b>{report?.painterCount}</b> |
+                                        ប្រុស: <b>{getTotalWorker(report?.team) - parseInt(report?.femaleWorkerCount)}</b> |
+                                        ស្រី: <b>{report?.femaleWorkerCount}</b>
+                                    </Col>
+                                </Row>
+
                                 {
                                     report?.team?.map(team => <Team key={team.dt_id} team={team} />)
                                 }
 
-                                <p
+                                <Row
                                     style={{
-                                        fontSize: "16px",
-                                        fontFamily: "Bayon",
-                                        // color: 'red',
-                                        marginTop: "5px",
-                                        marginLeft: "3px"
-                                    }}
-                                >
-                                    ជាង៖ {getTotalBuilder(report?.team) - parseInt(report?.painterCount)} | ជាងថ្នាំ៖ {report?.painterCount} | ក.ប្រុស៖ {getTotalWorker(report?.team) - parseInt(report?.femaleWorkerCount)} | ក.ស្រី៖ {report?.femaleWorkerCount}
-                                </p>
-
-                                <Divider />
-
-                                <p
-                                    style={{
-                                        fontSize: "16px",
-                                        fontFamily: "Bayon",
-                                        color: 'red',
-                                        marginTop: "10px",
+                                        fontSize: "15px",
                                         marginBottom: "15px",
-                                        marginLeft: "3px"
                                     }}
                                 >
-                                    បញ្ហា៖ {report?.challenges}
-                                </p>
+                                    <Col xs={6} style={{ padding: 5, paddingLeft: 30 }}>
+                                        បញ្ហា
+                                    </Col>
+                                    <Col xs={18} style={{ padding: 5 }}>
+                                        : <b style={{ color: 'red' }}>{report?.challenges}</b>
+                                    </Col>
+                                </Row>
 
-                                <p
-                                    style={{
-                                        marginTop: "13px",
-                                        fontWeight: "bold",
-                                        fontSize: "18px",
-                                        fontFamily: "Bayon",
-                                        color: '#616161',
-                                    }}
-                                >
-                                    <FaChartLine /> ស្ថិតិកម្លាំងសម្រាប់ថ្ងៃស្អែក៖
-
-                                </p>
+                                <Row style={{ marginBottom: 20 }}>
+                                    {report?.hasElectricianPlumber === '1' ?
+                                        <Col xs={8} md={6} style={{ padding: 5 }}>
+                                            <TagBuilder title={`ជាងទឹកភ្លើង`} />
+                                        </Col>
+                                        : null}
+                                    {report?.hasCeilBuilder === '1' ?
+                                        <Col xs={8} md={6} style={{ padding: 5 }}>
+                                            <TagBuilder title={`ជាងពិដាន`} />
+                                        </Col>
+                                        : null}
+                                    {report?.hasBlackSmith === '1' ?
+                                        <Col xs={8} md={6} style={{ padding: 5 }}>
+                                            <TagBuilder title={`ជាងដែក`} />
+                                        </Col>
+                                        : null}
+                                    {report?.hasAirConditionerMan === '1' ?
+                                        <Col xs={8} md={6} style={{ padding: 5 }}>
+                                            <TagBuilder title={`ជាងម៉ាស៊ីនត្រជាក់`} />
+                                        </Col>
+                                        : null}
+                                    {report?.hasMirrorBuilder === '1' ?
+                                        <Col xs={8} md={6} style={{ padding: 5 }}>
+                                            <TagBuilder title={`ជាងកញ្ជក់`} />
+                                        </Col>
+                                        : null}
+                                </Row>
 
                                 <Row
                                     style={{
-                                        fontWeight: "bold",
                                         fontSize: "15px",
-                                        marginBottom: "20px"
+                                        marginBottom: "10px",
                                     }}
                                 >
-                                    <Col xs={12} style={{ padding: 5 }}>
-                                        ជាងសំណង់៖ {report?.builderCountTmr}
-                                    </Col>
-                                    <Col xs={12} style={{ padding: 5 }}>
-                                        ជាងថ្នាំ៖ {report?.painterCountTmr}
-                                    </Col>
-                                    <Col xs={12} style={{ padding: 5 }}>
-                                        កម្មករប្រុស៖ {report?.workerCountTmr}
-                                    </Col>
-                                    <Col xs={12} style={{ padding: 5 }}>
-                                        កម្មករស្រី៖ {report?.femaleWorkerCountTmr}
+                                    <Col xs={24} style={{ padding: 5, fontWeight: 'bold', background: '#e6f7ff' }}><FaChartLine style={{ fontSize: 13 }} />&nbsp;&nbsp;ស្ថិតិកម្លាំងសម្រាប់ថ្ងៃស្អែក:</Col>
+                                    <Col xs={24} style={{ padding: 5, paddingLeft: 28 }}>
+                                        ជាង: <b>{report?.builderCountTmr}</b> |
+                                        ថ្នាំ: <b>{report?.painterCountTmr}</b> |
+                                        ប្រុស: <b>{report?.workerCountTmr}</b> |
+                                        ស្រី: <b>{report?.femaleWorkerCountTmr}</b>
                                     </Col>
                                 </Row>
 

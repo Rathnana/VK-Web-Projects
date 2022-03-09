@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Form, Input, DatePicker, Row, Col, Select, Drawer,InputNumber } from 'antd';
+import { Form, Input, DatePicker, Row, Col, Select, Drawer, InputNumber, message } from 'antd';
 import { Button } from 'antd';
 import { AiOutlineEdit } from "react-icons/ai";
 import moment from 'moment';
@@ -17,6 +17,11 @@ export default function UpdatePettyCash({
     const [loading, setLoading] = useState(false)
 
     const [isMobile, setIsMobile] = useState(false)
+
+    const [status, setStatus] = useState(null)
+
+    const [totalCash, setTotalCash] = useState(0)
+    const [totalCashKh, setTotalCashKh] = useState(0)
 
     const handleResize = () => {
         // 960
@@ -40,8 +45,22 @@ export default function UpdatePettyCash({
         setVisible(false);
     };
     const onFinish = async (values) => {
+
+        if (totalCash === 0 && totalCashKh === 0) {
+            message.info("សូមបញ្ចូលទឹកប្រាក់!!")
+            return;
+        }
+
         setLoading(true)
-        let updateState = await Update_PettyCash(values, pc_id);
+
+        let newValue = {
+            ...values,
+            totalCash: totalCash,
+            totalCashKh: totalCashKh,
+            paidDate: moment(values?.paidDate).format('YYYY-MM-DD HH:mm:ss')
+        }
+
+        let updateState = await Update_PettyCash(newValue, pc_id);
         if (updateState) {
             setVisible(false);
             setSuccess(true)
@@ -52,28 +71,41 @@ export default function UpdatePettyCash({
 
     };
     useEffect(() => {
-        form.setFieldsValue({
-            date: moment(pettyCash?.date),
-            borrowPerson: pettyCash?.borrowPerson,
-            remark: pettyCash?.remark,
-            totalCash: pettyCash?.totalCash,
-            totalCashKh: convertUSDtoKHR(pettyCash?.totalCash),
-            status: pettyCash?.status
-        })
-    }, [])
+        if (visible) {
+            form.setFieldsValue({
+                date: moment(pettyCash?.date),
+                borrowPerson: pettyCash?.borrowPerson,
+                remark: pettyCash?.remark,
+                totalCash: pettyCash?.totalCash,
+                totalCashKh: pettyCash?.totalCashKh,
+                status: pettyCash?.status,
+                paidDate: pettyCash?.paidDate !== '0000-00-00 00:00:00' ? moment(pettyCash?.paidDate) : null,
+            })
+
+            setStatus(pettyCash?.status)
+            setTotalCash(parseFloat(pettyCash?.totalCash))
+            setTotalCashKh(parseFloat(pettyCash?.totalCashKh))
+        }
+
+    }, [visible])
 
     const handleInputUSD = (e) => {
-        let khr = convertUSDtoKHR(e)
-        form.setFieldsValue({
-            totalCashKh: khr
-        })
+        // let khr = convertUSDtoKHR(e)
+        setTotalCash(parseFloat(e))
+        setTotalCashKh(0)
+        // form.setFieldsValue({
+        //     totalCashKh: khr
+        // })
     }
 
     const handleInputKH = (e) => {
-        let usd = convertKHRtoUSD(e)
-        form.setFieldsValue({
-            totalCash: usd
-        })
+        setTotalCashKh(parseFloat(e))
+        setTotalCash(0)
+        // let usd = convertKHRtoUSD(e)
+        // form.setFieldsValue({
+        //     totalCash: usd
+        // })
+
     }
 
     return (
@@ -128,17 +160,18 @@ export default function UpdatePettyCash({
                             <Form.Item
                                 name="totalCashKh"
                                 label="ចំនួនទឹកប្រាក់ (KHR)"
-                                rules={[{ required: true, message: "សូមបំពេញចំនួនទឹកប្រាក់!!" }]}
+                            // rules={[{ required: totalCashKh>0, message: totalCashKh >0 && "សូមបំពេញចំនួនទឹកប្រាក់!!" }]}
                             >
                                 <InputNumber
                                     type="number"
                                     placeholder="KHR"
                                     style={{ width: '100%' }}
+                                    disabled={totalCash > 0}
                                     onKeyUp={(e) => handleInputKH(e.target.value)}
                                     onStep={(e) => handleInputKH(e)}
                                     step={100}
-                                    size="large"
                                     min={0}
+                                    size="large"
                                 />
                             </Form.Item>
                         </Col>
@@ -146,11 +179,12 @@ export default function UpdatePettyCash({
                             <Form.Item
                                 name="totalCash"
                                 label="ចំនួនទឹកប្រាក់ (USD)"
-                                rules={[{ required: true, message: "សូមបំពេញចំនួនទឹកប្រាក់!!" }]}
+                            // rules={[{ required: totalCash>0, message: totalCash > 0 && "សូមបំពេញចំនួនទឹកប្រាក់!!" }]}
                             >
                                 <InputNumber
                                     type="number"
                                     placeholder="USD"
+                                    disabled={totalCashKh > 0}
                                     style={{ width: '100%' }}
                                     onKeyUp={(e) => handleInputUSD(e.target.value)}
                                     onStep={(e) => handleInputUSD(e)}
@@ -161,8 +195,8 @@ export default function UpdatePettyCash({
                         </Col>
                     </Row>
 
-                    <Row>
-                        <Col xs={24} sm={24} md={24} lg={24} xl={24} >
+                    <Row gutter={10}>
+                        <Col xs={24} sm={24} md={12} lg={12} xl={12} >
                             <Form.Item
                                 name="status"
                                 label="ស្ថានភាព"
@@ -171,6 +205,7 @@ export default function UpdatePettyCash({
                                 <Select
                                     // defaultValue={pettyCash.}
                                     // style={{ width: "100%" }}
+                                    onChange={(e) => setStatus(e)}
                                     placeholder="ស្ថានភាព"
                                     size='large'
                                 >
@@ -179,6 +214,24 @@ export default function UpdatePettyCash({
                                 </Select>
                             </Form.Item>
                         </Col>
+
+                        {
+                            status === 'បានទូរទាត់' ?
+                                <Col xs={24} sm={24} md={12} lg={12} xl={12} >
+                                    <Form.Item
+                                        name="paidDate"
+                                        label="កាលបរិច្ឆេទទូរទាត់"
+                                        rules={[{ required: true, message: "សូមជ្រើសរើសកាលបរិច្ឆេទទូរទាត់!!" }]}
+                                    >
+                                        <DatePicker
+                                            placeholder="កាលបរិច្ឆេទទូរទាត់"
+                                            size="large"
+                                            style={{ width: '100%' }}
+                                            allowClear
+                                        />
+                                    </Form.Item>
+                                </Col>
+                                : null}
                     </Row>
 
                     <Row>

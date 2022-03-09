@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Drawer, Form, Input, DatePicker, Row, Col, InputNumber } from 'antd';
+import { Drawer, Form, Input, DatePicker, Row, Col, InputNumber, message } from 'antd';
 import { Button } from 'antd';
 import { Creat_PettyCash } from '../../getDatabase'
 import { convertKHRtoUSD, convertUSDtoKHR } from '../../own-comp';
@@ -11,6 +11,9 @@ export default function CreatePettyCash({ setSuccess }) {
     const [visible, setVisible] = useState(false);
     const [loading, setLoading] = useState(false)
     const [isMobile, setIsMobile] = useState(false)
+
+    const [totalCash,setTotalCash] = useState(0)
+    const [totalCashKh,setTotalCashKh] = useState(0)
 
     const handleResize = () => {
         // 960
@@ -35,12 +38,26 @@ export default function CreatePettyCash({ setSuccess }) {
     };
 
     const onFinish = async (values) => {
+        if(totalCash === 0 && totalCashKh === 0){
+            message.info("សូមបញ្ចូលទឹកប្រាក់!!")
+            return;
+        }
+
         setLoading(true)
-        if (await Creat_PettyCash(values, sessionStorage.getItem("u_id"))) {
+
+        let newValue={
+            ...values,
+            totalCash:totalCash,
+            totalCashKh:totalCashKh
+        }
+        
+        if (await Creat_PettyCash(newValue, sessionStorage.getItem("u_id"))) {
             setVisible(false);
             form.resetFields();
             setSuccess(true)
             setLoading(false)
+            setTotalCash(0)
+            setTotalCashKh(0)
         } else {
             setLoading(false)
         }
@@ -48,20 +65,22 @@ export default function CreatePettyCash({ setSuccess }) {
     };
 
     const handleInputUSD = (e) => {
-        let khr = convertUSDtoKHR(e)
-        form.setFieldsValue({
-            totalCashKh: khr
-        })
+        // let khr = convertUSDtoKHR(e)
+        setTotalCash(parseFloat(e))
+        setTotalCashKh(0)
+        // form.setFieldsValue({
+        //     totalCashKh: khr
+        // })
     }
 
     const handleInputKH = (e) => {
-        let usd = convertKHRtoUSD(e)
-        form.setFieldsValue({
-            totalCash: usd
-        })
+        setTotalCashKh(parseFloat(e))
+        setTotalCash(0)
+        // let usd = convertKHRtoUSD(e)
+        // form.setFieldsValue({
+        //     totalCash: usd
+        // })
     }
-
-
 
     return (
         <div
@@ -115,12 +134,13 @@ export default function CreatePettyCash({ setSuccess }) {
                             <Form.Item
                                 name="totalCashKh"
                                 label="ចំនួនទឹកប្រាក់ (KHR)"
-                                rules={[{ required: true, message: "សូមបំពេញចំនួនទឹកប្រាក់!!" }]}
+                                // rules={[{ required: totalCashKh>0, message: totalCashKh >0 && "សូមបំពេញចំនួនទឹកប្រាក់!!" }]}
                             >
                                 <InputNumber
                                     type="number"
                                     placeholder="KHR"
                                     style={{ width: '100%' }}
+                                    disabled={totalCash>0}
                                     onKeyUp={(e) => handleInputKH(e.target.value)}
                                     onStep={(e) => handleInputKH(e)}
                                     step={100}
@@ -133,11 +153,12 @@ export default function CreatePettyCash({ setSuccess }) {
                             <Form.Item
                                 name="totalCash"
                                 label="ចំនួនទឹកប្រាក់ (USD)"
-                                rules={[{ required: true, message: "សូមបំពេញចំនួនទឹកប្រាក់!!" }]}
+                                // rules={[{ required: totalCash>0, message: totalCash > 0 && "សូមបំពេញចំនួនទឹកប្រាក់!!" }]}
                             >
                                 <InputNumber
                                     type="number"
                                     placeholder="USD"
+                                    disabled={totalCashKh>0}
                                     style={{ width: '100%' }}
                                     onKeyUp={(e) => handleInputUSD(e.target.value)}
                                     onStep={(e) => handleInputUSD(e)}

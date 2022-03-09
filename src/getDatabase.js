@@ -330,10 +330,7 @@ export const Update_Customer = async (
         });
 }
 
-export const Creat_PettyCash = async (
-    pettyCash,
-    lendedBy,
-) => {
+export const Creat_PettyCash = async (pettyCash,lendedBy,) => {
     const params = new URLSearchParams();
     params.append('db_user', process.env.React_App_DB_USER);
     params.append('db_password', process.env.React_App_DB_PASSWORD);
@@ -345,6 +342,7 @@ export const Creat_PettyCash = async (
         remark: pettyCash?.remark,
         lendedBy,
         totalCash: pettyCash?.totalCash,
+        totalCashKh: pettyCash?.totalCashKh,
     }));
 
     return await axios.post(
@@ -376,6 +374,8 @@ export const Update_PettyCash = async (
         borrowPerson: pettyCash?.borrowPerson,
         remark: pettyCash?.remark,
         totalCash: pettyCash?.totalCash,
+        totalCashKh: pettyCash?.totalCashKh,
+        paidDate: pettyCash?.paidDate,
         status: pettyCash?.status,
     }));
 
