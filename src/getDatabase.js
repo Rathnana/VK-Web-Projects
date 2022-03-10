@@ -377,6 +377,7 @@ export const Update_PettyCash = async (
         totalCashKh: pettyCash?.totalCashKh,
         paidDate: pettyCash?.paidDate,
         status: pettyCash?.status,
+        dealedBy:pettyCash?.dealedBy
     }));
 
     return await axios.post(

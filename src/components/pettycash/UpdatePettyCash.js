@@ -23,6 +23,8 @@ export default function UpdatePettyCash({
     const [totalCash, setTotalCash] = useState(0)
     const [totalCashKh, setTotalCashKh] = useState(0)
 
+    const [dealedBy, setDealedBy] = useState('0')
+
     const handleResize = () => {
         // 960
         if (window.innerWidth <= 960) {
@@ -57,6 +59,7 @@ export default function UpdatePettyCash({
             ...values,
             totalCash: totalCash,
             totalCashKh: totalCashKh,
+            dealedBy: status ==='បានទូរទាត់' ? parseInt(dealedBy)>0 ? dealedBy : sessionStorage.getItem("u_id") : 0,
             paidDate: moment(values?.paidDate).format('YYYY-MM-DD HH:mm:ss')
         }
 
@@ -82,6 +85,7 @@ export default function UpdatePettyCash({
                 paidDate: pettyCash?.paidDate !== '0000-00-00 00:00:00' ? moment(pettyCash?.paidDate) : null,
             })
 
+            setDealedBy(pettyCash?.dealedBy)
             setStatus(pettyCash?.status)
             setTotalCash(parseFloat(pettyCash?.totalCash))
             setTotalCashKh(parseFloat(pettyCash?.totalCashKh))

@@ -20,7 +20,7 @@ export default function CustomerTable({
 }) {
     const [customer, setCustomer] = useState();
     const [page, setPage] = useState(1);
-    const [pageSize, setPageSize] = useState(20);
+    const [pageSize, setPageSize] = useState(100);
 
     useEffect(() => {
         setLoading(true);
@@ -260,7 +260,7 @@ export default function CustomerTable({
                 position: ["bottomLeft"],
                 size: 'small',
                 total: customer?.totalDoc,
-                // pageSizeOptions: [''],
+                pageSizeOptions: ['100','200','300'],
                 pageSize: pageSize,
                 onChange: ((page, pageSize) => { setPage(page); setPageSize(pageSize) })
             }}

@@ -104,6 +104,7 @@ export default function UsersTable({
         tableDataWithNo.push(data)
 
     })
+    
     return <Table
         style={{ marginTop: "20px" }}
         columns={columns}
@@ -116,7 +117,7 @@ export default function UsersTable({
             position: ["bottomLeft"],
             size: 'small',
             total: users?.totalDoc,
-            // pageSizeOptions: false,
+            pageSizeOptions: ['100','200','300'],
             pageSize: pageSize,
             onChange: ((page, pageSize) => { setPage(page); setPageSize(pageSize) })
         }}

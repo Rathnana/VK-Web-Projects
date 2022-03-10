@@ -120,7 +120,7 @@ export default function SectionA({ date }) {
 
     if (todos?.length <= 0) {
         return (
-            <Col xs={12} sm={12} md={12} lg={16} xl={16} style={{ height: '70vh', border: '2px solid #DDDDDD', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <Col  xs={{span:24,order:1}} sm={{span:24,order:1}} md={{span:24,order:1}} lg={{span:24,order:1}} xl={{span:16,order:0}} xxl={{span:16,order:0}} style={{ height: '70vh', border: '2px solid #DDDDDD', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <Empty />
             </Col>
         )

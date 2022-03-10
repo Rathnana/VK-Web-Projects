@@ -45,7 +45,7 @@ export default function PettyCashTable({
                     setPettyCash(response?.data);
                     setLoading(false);
                     setSuccess(false);
-                    // console.log(response?.data.data);
+                    console.log(response?.data.data);
                     return response?.data;
                 } else {
 
@@ -167,7 +167,7 @@ export default function PettyCashTable({
                 position: ["bottomLeft"],
                 size: 'small',
                 total: pettyCash?.totalDoc,
-                pageSizeOptions: false,
+                pageSizeOptions: ['100','200','300'],
                 pageSize: pageSize,
                 onChange: ((page, pageSize) => { setPage(page); setPageSize(pageSize) })
             }}

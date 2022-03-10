@@ -89,6 +89,7 @@ export default function AddReport({ setSuccess }) {
                     form.resetFields();
                     setLoading(false)
                     setSuccess(true)
+                    
                     setHasElectricianPlumber('0')
                     setHasCeilBuilder('0')
                     setHasBlackSmith('0')
