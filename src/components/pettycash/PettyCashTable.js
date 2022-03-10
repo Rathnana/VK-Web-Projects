@@ -45,7 +45,6 @@ export default function PettyCashTable({
                     setPettyCash(response?.data);
                     setLoading(false);
                     setSuccess(false);
-                    console.log(response?.data.data);
                     return response?.data;
                 } else {
 
@@ -58,13 +57,13 @@ export default function PettyCashTable({
             title: 'លរ',
             dataIndex: 'no',
             key: 'no',
-            width:60
+            width: 60
         },
         {
             title: 'កាលបរិច្ឆេទ',
             dataIndex: 'date',
             key: 'date',
-            width:100,
+            width: 100,
             render: (text, record) => (
                 <Space size="middle">
                     {moment(record?.date).format('DD-MM-YYYY')}
@@ -75,13 +74,13 @@ export default function PettyCashTable({
             title: 'ឈ្មោះអ្នកខ្ចី',
             dataIndex: 'borrowPerson',
             key: 'borrowPerson',
-            width:150
+            width: 150
         },
         {
             title: 'ឈ្មោះអ្នកផ្ដល់',
             dataIndex: 'lendedBy',
             key: 'lendedBy',
-            width:150,
+            width: 150,
             render: (text, record) => (
                 <Space>
                     {record?.lastName + " " + record?.firstName}
@@ -92,7 +91,7 @@ export default function PettyCashTable({
             title: 'ចំនួនទឹកប្រាក់ (KHR)',
             dataIndex: 'totalCashKh',
             key: 'totalCashKh',
-            width:220,
+            width: 220,
             render: (text, record) => (
                 <Space>
                     {currencyFormatKHR(record?.totalCashKh)}
@@ -103,7 +102,7 @@ export default function PettyCashTable({
             title: 'ចំនួនទឹកប្រាក់ (USD)',
             dataIndex: 'totalCash',
             key: 'totalCash',
-            width:220,
+            width: 220,
             render: (text, record) => (
                 <Space>
                     {currencyFormat(record?.totalCash)}
@@ -114,7 +113,7 @@ export default function PettyCashTable({
             title: 'ស្ថានភាព',
             dataIndex: 'status',
             key: 'status',
-            width:120,
+            width: 120,
         }
         ,
 
@@ -127,7 +126,7 @@ export default function PettyCashTable({
             key: 'action',
             fixed: 'right',
             align: 'center',
-            width:100,
+            width: 100,
             render: (text, record) => (
                 <Space size="middle">
                     <UpdatePettyCash
@@ -153,21 +152,34 @@ export default function PettyCashTable({
 
     })
 
+    const onRowClick=(e)=>{
+        // console.log(e)
+    }
+
     return (
         <Table
             scroll={{ x: 1200 }}
             style={{ marginTop: "20px" }}
             columns={columns}
             dataSource={tableDataWithNo}
-            rowClassName={record => record?.status==='បានទូរទាត់' ? 'finished-row':''}
+            rowClassName={record => record?.status === 'បានទូរទាត់' ? 'finished-row' : ''}
             loading={loading}
+            onRow={(record, rowIndex) => {
+                return {
+                    onClick: event => onRowClick(record), // click row
+                    onDoubleClick: event => { }, // double click row
+                    onContextMenu: event => { }, // right button click row
+                    onMouseEnter: event => { }, // mouse enter row
+                    onMouseLeave: event => { }, // mouse leave row
+                };
+            }}
             rowKey={record => record?.pc_id}
             className='table-customize'
             pagination={{
                 position: ["bottomLeft"],
                 size: 'small',
                 total: pettyCash?.totalDoc,
-                pageSizeOptions: ['100','200','300'],
+                pageSizeOptions: ['100', '200', '300'],
                 pageSize: pageSize,
                 onChange: ((page, pageSize) => { setPage(page); setPageSize(pageSize) })
             }}

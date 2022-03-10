@@ -58,6 +58,12 @@ export default function RequestionTable({
             width: 80
         },
         {
+            title: 'សម្រាប់ការដ្ឋាន',
+            dataIndex: 'constructionName',
+            key: 'constructionName',
+            width: 250
+        },
+        {
             title: 'ថ្ងៃស្នើសុំ',
             dataIndex: 'date',
             key: 'date',
@@ -85,12 +91,7 @@ export default function RequestionTable({
             key: "requestTo",
             width: 120
         },
-        {
-            title: 'សម្រាប់ការដ្ឋាន',
-            dataIndex: 'constructionName',
-            key: 'constructionName',
-            width: 250
-        },
+        
         {
             title: 'គោលបំណង',
             dataIndex: 'purpose',

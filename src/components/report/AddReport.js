@@ -437,7 +437,7 @@ export default function AddReport({ setSuccess }) {
                                 unCheckedChildren={<AiOutlineClose />}
                                 onChange={(e) => setHasMirrorBuilder(hasMirrorBuilder === '1' ? '0' : '1')}
                                 checked={hasMirrorBuilder === '1'}
-                            />&emsp;ជាងម៉ាស៊ីនត្រជាក់
+                            />&emsp;ជាងកញ្ចក់
                         </Form.Item>
                     </Col>
                 </Row>

@@ -80,8 +80,13 @@ export default function ReportTable({
             key: 'no',
             fontWeight:'bold',
             width: 50
-        }
-        ,
+        },
+        {
+            title: 'ឈ្មោះការដ្ឋាន',
+            dataIndex: 'constructionName',
+            key: 'constructionName',
+            width: 250
+        },
         {
             title: 'កាលបរិច្ឆេទ',
             key: 'createdAt',
@@ -92,12 +97,7 @@ export default function ReportTable({
                 </Space>
             ),
         },
-        {
-            title: 'ឈ្មោះការដ្ឋាន',
-            dataIndex: 'constructionName',
-            key: 'constructionName',
-            width: 250
-        },
+        
         // {
         //     title: 'ទីតាំង',
         //     dataIndex: 'constructionLocation',
