@@ -83,10 +83,10 @@ export default function ToPrint({
                 onCancel={() => setOpen(false)}
                 footer={null}
             >
-  
+
                 <div
                     className='display'
-                    style={{fontFamily:'KhmerOSSiemreap'}}
+                    style={{ fontFamily: 'KhmerOSSiemreap' }}
                 >
                     <div
                         ref={componentRef}
@@ -144,7 +144,7 @@ export default function ToPrint({
                                 paddingTop: "8px"
                             }}
                         >
-                            <Col xs={12} sm={12} md={12} lg={12} xl={12} style={{color:'#1890ff'}}>
+                            <Col xs={12} sm={12} md={12} lg={12} xl={12} style={{ color: '#1890ff' }}>
                                 សម្រាប់ការដ្ឋាន៖ <b>{info.constructionName}</b>
                             </Col>
                             <Col xs={12} sm={12} md={12} lg={12} xl={12}>
@@ -193,60 +193,61 @@ export default function ToPrint({
 
                 </div>
 
-                <Row>
-                    <Col xs={12} sm={12} md={12} lg={12} xl={12}>
-                        <img
+                <div style={{ fontSize: 16 }}>
+                    <Row >
+                        <Col xs={12} sm={12} md={12} lg={12} xl={12}>
+                            <img
 
-                            style={{
-                                width: "150px",
-                            }}
-                            src={vklogo} />
+                                style={{
+                                    width: "150px",
+                                }}
+                                src={vklogo} />
 
-                    </Col >
-                    <Col xs={12} sm={12} md={12} lg={12} xl={12}>
-                        <Title
-                            style={{
-                                fontFamily: 'Moul',
-                                color: '#1983e6',
-                                marginTop: "60px",
-                                fontWeight: 'normal',
-                                textAlign: "center"
-                            }}
-                            level={4}
-                        >
-                            {`ការស្នើរសុំសម្ភារៈ`}
-                        </Title>
-                    </Col>
-                </Row>
+                        </Col >
+                        <Col xs={12} sm={12} md={12} lg={12} xl={12}>
+                            <Title
+                                style={{
+                                    fontFamily: 'Moul',
+                                    color: '#1983e6',
+                                    marginTop: "60px",
+                                    fontWeight: 'normal',
+                                    textAlign: "center"
+                                }}
+                                level={4}
+                            >
+                                {`ការស្នើរសុំសម្ភារៈ`}
+                            </Title>
+                        </Col>
+                    </Row>
 
-                <Row
-                    style={{
-                        marginTop: "20px",
-                        paddingTop: "8px"
-                    }}
-                >
-                    <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                        <Row>
-                            <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{padding:3}}>
-                                ស្នើរទៅកាន់៖ <b>{info.requestTo}</b>
-                            </Col>
-                            <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{padding:3,color:'#1890ff'}}>
-                                សម្រាប់ការដ្ឋាន៖ <b>{info.constructionName}</b>
-                            </Col>
-                        </Row>
-                    </Col>
+                    <Row
+                        style={{
+                            marginTop: "20px",
+                            paddingTop: "8px"
+                        }}
+                    >
+                        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                            <Row>
+                                <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{ padding: 3 }}>
+                                    ស្នើរទៅកាន់៖ <b>{info.requestTo}</b>
+                                </Col>
+                                <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{ padding: 3, color: '#1890ff' }}>
+                                    សម្រាប់ការដ្ឋាន៖ <b>{info.constructionName}</b>
+                                </Col>
+                            </Row>
+                        </Col>
 
-                    <Col xs={24} sm={24} md={12} lg={12} xl={12}>
-                        <Row>
-                            <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{padding:3}}>
-                                កាលបរិច្ឆេទស្នើរសុំ៖ <b>{moment(info.date).format('DD-MM-YYYY')}</b>
-                            </Col>
-                            <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{padding:3}}>
-                                កាលបរិច្ឆេទត្រូវការ៖ <b>{moment(info.needDate).format('DD-MM-YYYY')}</b>
-                            </Col>
-                        </Row>
-                    </Col>
-                    {/* <Col xs={12} sm={12} md={12} lg={12} xl={12}>
+                        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                            <Row>
+                                <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{ padding: 3 }}>
+                                    កាលបរិច្ឆេទស្នើរសុំ៖ <b>{moment(info.date).format('DD-MM-YYYY')}</b>
+                                </Col>
+                                <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{ padding: 3 }}>
+                                    កាលបរិច្ឆេទត្រូវការ៖ <b>{moment(info.needDate).format('DD-MM-YYYY')}</b>
+                                </Col>
+                            </Row>
+                        </Col>
+                        {/* <Col xs={12} sm={12} md={12} lg={12} xl={12}>
                         ស្នើរទៅកាន់៖ {info.requestTo}
                     </Col>
 
@@ -261,58 +262,59 @@ export default function ToPrint({
                         កាលបរិច្ឆេទត្រូវការ៖ {moment(info.needDate).format('DD-MM-YYYY')}
                     </Col> */}
 
-                </Row>
-                <Row
-                    style={{
-
-                        paddingTop: "8px"
-                    }}
-                >
-                    <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{padding:3}}>
-                        គោលបំណង៖ <b>{info.purpose}</b>
-                    </Col>
-
-                </Row>
-                <Row
-                >
-                    <Col
+                    </Row>
+                    <Row
                         style={{
-                            marginTop: "20px",
+
+                            paddingTop: "8px"
                         }}
-                        xs={24} sm={24} md={24} lg={24} xl={24}
                     >
-                        <Table bordered size="small" pagination={false} columns={columns} dataSource={data} />
-                    </Col>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{ padding: 3 }}>
+                            គោលបំណង៖ <b>{info.purpose}</b>
+                        </Col>
 
-                </Row>
-                <Row>
-                    <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{ position: "relative", bottom: '0px' }} >
-                        <p style={{
-                            marginTop: "20px",
-                            width: "100%",
-                            textAlign: "center"
-                        }}>
-                            VK Angkor 2022
-                        </p>
-                    </Col>
-                </Row>
+                    </Row>
+                    <Row
+                    >
+                        <Col
+                            style={{
+                                marginTop: "20px",
+                            }}
+                            xs={24} sm={24} md={24} lg={24} xl={24}
+                        >
+                            <Table bordered size="small" className='requestTable' pagination={false} columns={columns} dataSource={data} />
+                        </Col>
 
-                <Row>
-                    <Col xs={24} sm={24} md={24} lg={24} xl={24}>
-                        <ReactToPrint
-                            trigger={() =>
-                                <Button
-                                    type="primary"
-                                    style={{ width: "100%" }}
-                                    size='middle'
-                                >
-                                    PRINT
-                                </Button>}
-                            content={() => componentRef.current}
-                            documentTitle='.pdf'
-                        />
-                    </Col>
-                </Row>
+                    </Row>
+                    <Row>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{ position: "relative", bottom: '0px' }} >
+                            <p style={{
+                                marginTop: "20px",
+                                width: "100%",
+                                textAlign: "center"
+                            }}>
+                                VK Angkor 2022
+                            </p>
+                        </Col>
+                    </Row>
+
+                    <Row>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                            <ReactToPrint
+                                trigger={() =>
+                                    <Button
+                                        type="primary"
+                                        style={{ width: "100%" }}
+                                        size='middle'
+                                    >
+                                        PRINT
+                                    </Button>}
+                                content={() => componentRef.current}
+                                documentTitle='.pdf'
+                            />
+                        </Col>
+                    </Row>
+                </div>
             </Modal>
         </div>
 
