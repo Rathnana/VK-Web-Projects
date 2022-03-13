@@ -26,7 +26,6 @@ export function SelectChief({ title, value, setValue, disabled }) {
             placeholder={title}
             style={{ width: '100%' }}
             defaultActiveFirstOption={false}
-            filterOption={false}
             value={loading ? null : value}
             onChange={(e) => setValue(e)}
             disabled={disabled}

@@ -131,3 +131,20 @@ body, html {
   .requestTable tr td, .requestTable tr th{
       font-size: 16px!important;
   }
+
+  .contentTag{
+      overflow-x: scroll;
+  }
+
+  .contentTag::-webkit-scrollbar{
+      width: 10px;
+      height: 8px;
+      border-radius: 10px;
+      background-color: #DDD;
+  }
+
+  .contentTag::-webkit-scrollbar-thumb {
+    background: #bbb;
+    border-radius: 10px;
+
+}

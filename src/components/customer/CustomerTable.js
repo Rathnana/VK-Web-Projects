@@ -47,7 +47,6 @@ export default function CustomerTable({
             `${process.env.React_App_URL}/get/getCustomerWithPagination.php`, params
         )
             .then(async function (response) {
-                console.log(response?.data)
                 if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
                     setLoading(false);
                     setSuccess(false);

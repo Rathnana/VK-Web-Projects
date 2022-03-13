@@ -105,7 +105,7 @@ export default function RequestionTable({
             width: 150,
             render: (text, record) => (
                 <Space size="middle">
-                    {record?.firstName + " " + record?.lastName}
+                    {record?.firstName}
 
                 </Space>
             ),

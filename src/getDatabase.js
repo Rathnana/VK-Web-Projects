@@ -132,12 +132,12 @@ export const Create_Request = async (requests, createdBy) => {
         `${process.env.React_App_URL}/create/createRequest.php`, params
     )
         .then(async function (response) {
-            if (response?.data === "success") {
+            if (parseInt(response?.data) > 0 ) {
                 message.success('ស្នើសុំជោជ័យ!!')
-                return true;
+                return parseInt(response?.data);
             } else {
                 message.error('ស្នើសុំមានបញ្ហា!!')
-                return false;
+                return 0;
             }
         });
 }
@@ -330,6 +330,28 @@ export const Update_Customer = async (
         });
 }
 
+export const getRequestById = async (r_id) => {
+    const params = new URLSearchParams();
+    params.append('db_user', process.env.React_App_DB_USER);
+    params.append('db_password', process.env.React_App_DB_PASSWORD);
+    params.append('db', process.env.React_App_DB);
+
+    params.append('data', JSON.stringify({ requestId: r_id }));
+
+    return await axios.post(
+      `${process.env.React_App_URL}/get/getRequestById.php`, params
+    )
+      .then(async function (response) {
+        console.log(response.data)
+        if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
+        //   setData(response?.data.data)
+          return response?.data;
+        } else {
+          return null
+        }
+      });
+  }
+
 export const Creat_PettyCash = async (pettyCash,lendedBy,) => {
     const params = new URLSearchParams();
     params.append('db_user', process.env.React_App_DB_USER);
@@ -392,4 +414,31 @@ export const Update_PettyCash = async (
                 return false
             }
         });
+}
+
+export function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) === 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
+export function delete_cookie(name) {
+    document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+};
+
+export function setCookie(c_name, value, exdays) {
+    var exdate = new Date();
+    exdate.setDate(exdate.getDate() + exdays);
+    var c_value = escape(value) + ((exdays == null) ? "" : "; expires=" + exdate.toUTCString());
+    document.cookie = c_name + "=" + c_value;
 }

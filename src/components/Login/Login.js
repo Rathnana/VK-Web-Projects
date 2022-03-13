@@ -4,6 +4,7 @@ import 'antd/dist/antd.css';
 import { Layout } from 'antd';
 import { FaUserCircle } from 'react-icons/fa';
 import axios from 'axios'
+import { setCookie } from '../../getDatabase';
 const { Footer } = Layout;
 
 export default function Login({ setAuth }) {
@@ -28,8 +29,8 @@ export default function Login({ setAuth }) {
                     setLoading(false)
                 } else {
                     message.success('Login ជោគជ័យ!!');
-                    sessionStorage.setItem("u_id", response?.data?.u_id);
-                    sessionStorage.setItem("username", response?.data?.firstName);
+                    setCookie("u_id", response?.data?.u_id, 1);
+                    setCookie("username", response?.data?.firstName,1);
                     // window.location.reload();
                     setAuth(true)
                 }

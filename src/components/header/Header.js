@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Row, Col, Input, Popconfirm, message } from 'antd';
 import { useLocation } from 'react-router-dom';
+import { delete_cookie, getCookie } from '../../getDatabase';
 
 const { Search } = Input;
 
@@ -52,7 +53,8 @@ export default function Header({ setAuth, setSearch,search }) {
                                 placement="topRight"
                                 title={"តើអ្នកចង់ចាកចេញ?"}
                                 onConfirm={() => {
-                                    sessionStorage.removeItem("u_id");
+                                    delete_cookie("u_id");
+                                    delete_cookie("username");
                                     message.success("ជោគជ័យ!!")
                                     setAuth(true)
                                 }}
@@ -62,7 +64,7 @@ export default function Header({ setAuth, setSearch,search }) {
                             >
                                 <span style={{ color: "red" }}>ចាកចេញ</span>
                             </Popconfirm>
-                            <span style={{}}>{` | ${sessionStorage.getItem("username").toUpperCase()}`}</span>
+                            <span style={{}}>{` | ${getCookie("username").toUpperCase()}`}</span>
                         </p>
                     </center>
                 </Col>

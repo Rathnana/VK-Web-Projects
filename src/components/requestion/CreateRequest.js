@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { Select, Input, DatePicker, Row, Col, Space, Drawer, InputNumber } from 'antd';
 import axios from 'axios'
-import { Create_Request } from '../../getDatabase'
+import { Create_Request, getCookie } from '../../getDatabase'
 import { Form, Button } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import PrintContent from './PrintContent';
+import { SelectCustomer } from '../report/SelectCustomer';
 
 const { Option } = Select;
 export default function CreateRequest({ setSuccess }) {
@@ -11,7 +13,11 @@ export default function CreateRequest({ setSuccess }) {
     const [construction, setConstruction] = useState()
     const [visible, setVisible] = useState(false);
     const [isMobile, setIsMobile] = useState(false)
-    const [loading,setLoading]= useState(false)
+    const [loading, setLoading] = useState(false)
+
+    const [data,setData] = useState(null)
+    const [openPrint,setOpenPrint] = useState(false)
+    const [requestId,setRequestId] = useState(null)
 
     const handleResize = () => {
         // 960
@@ -37,44 +43,31 @@ export default function CreateRequest({ setSuccess }) {
 
     const onFinish = async (values) => {
         setLoading(true)
-        if(await Create_Request(values, sessionStorage.getItem("u_id"))){
+        setData(values)
+        let insertedId = await Create_Request(values, getCookie("u_id"))
+        if (insertedId>0) {
+            setRequestId(insertedId)
             setVisible(false);
             form.resetFields();
             setSuccess(true)
-        }else{
+            setOpenPrint(true)
+        } else {
             setLoading(false)
         }
-        
+
 
     };
 
-    useEffect(() => {
-        getConstruction();
-    }, [])
-    const getConstruction = async () => {
-        const params = new URLSearchParams();
-        params.append('db_user', process.env.React_App_DB_USER);
-        params.append('db_password', process.env.React_App_DB_PASSWORD);
-        params.append('db', process.env.React_App_DB);
-
-        return await axios.post(
-            `${process.env.React_App_URL}/get/getConstruction.php`, params
-        )
-            .then(async function (response) {
-
-                if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
-                    setConstruction(response?.data.data)
-                    return response?.data;
-                } else {
-                    return [];
-                }
-            });
+    const setConstructionCustomer = e => {
+        form.setFieldsValue({
+            constructionId: e
+        })
     }
-
 
     return (
         <>
             <Button onClick={showDrawer} type="primary" size='large' style={{ width: '100%' }}>+ បន្ថែមថ្មី</Button>
+            <PrintContent r_id={requestId} open={openPrint} setOpen={setOpenPrint} />
             <Drawer
                 width={isMobile ? '100%' : 736}
                 title="ការស្នើរសុំសម្ភារៈ"
@@ -140,7 +133,9 @@ export default function CreateRequest({ setSuccess }) {
                                 label="សម្រាប់ការដ្ឋាន"
                                 rules={[{ required: true, message: "សូមជ្រើសរើសការដ្ឋាន!!" }]}
                             >
-                                <Select
+                                <SelectCustomer title={"ជ្រើសរើសការដ្ឋាន"} setValue={setConstructionCustomer} />
+
+                                {/* <Select
                                     placeholder="ជ្រើសរើសការដ្ឋាន"
                                     size="large"
                                     allowClear
@@ -150,7 +145,7 @@ export default function CreateRequest({ setSuccess }) {
                                     }
 
 
-                                </Select>
+                                </Select> */}
                             </Form.Item>
                         </Col>
                     </Row>
@@ -180,34 +175,41 @@ export default function CreateRequest({ setSuccess }) {
                                 {(fields, { add, remove }) => (
                                     <>
                                         {fields.map(({ key, name, value, ...restField }) => (
-                                            <Space key={key} style={{ display: 'flex' }} align="baseline">
-                                                <Form.Item
-                                                    label="ការបរិយាយ"
-                                                    {...restField}
-                                                    name={[name, 'requestFor']}
-                                                    rules={[{ required: true, message: 'សូមបញ្ជូលការបរិយាយ' }]}
-                                                >
-                                                    <Input style={{ width: 235 }} placeholder="ការបរិយាយ" size='large' />
-                                                </Form.Item>
-
-                                                <Form.Item
-                                                    label="បរិមាណ"
-                                                    {...restField}
-                                                    name={[name, 'qty']}
-                                                    rules={[{ required: true, message: 'សូមបញ្ជូលបរិមាណ' }]}
-                                                >
-                                                    <InputNumber style={{ width: 100 }} min={0} prefix={0.1} placeholder="បរិមាណ" size='large' />
-                                                </Form.Item>
-                                                <Form.Item
-                                                    label="ឯកតា"
-                                                    {...restField}
-                                                    name={[name, 'unit']}
-                                                    rules={[{ required: true, message: 'សូមបញ្ជូលឯកតា' }]}
-                                                >
-                                                    <Input style={{ width: 130 }} placeholder="ឯកតា" size='large' />
-                                                </Form.Item>
-                                                <MinusCircleOutlined onClick={() => remove(name)} />
-                                            </Space>
+                                            <Row key={key} gutter={10}>
+                                                <Col xs={11} md={8}>
+                                                    <Form.Item
+                                                        label="ការបរិយាយ"
+                                                        {...restField}
+                                                        name={[name, 'requestFor']}
+                                                        rules={[{ required: true, message: 'សូមបញ្ជូលការបរិយាយ' }]}
+                                                    >
+                                                        <Input style={{ width: '100%' }} placeholder="ការបរិយាយ" size='large' />
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col xs={5} md={4}>
+                                                    <Form.Item
+                                                        label="qty"
+                                                        {...restField}
+                                                        name={[name, 'qty']}
+                                                        rules={[{ required: true, message: 'សូមបញ្ជូលបរិមាណ' }]}
+                                                    >
+                                                        <InputNumber style={{ width: '100%' }} min={0} prefix={0.1} placeholder="qty" size='large' />
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col xs={6} md={6}>
+                                                    <Form.Item
+                                                        label="ឯកតា"
+                                                        {...restField}
+                                                        name={[name, 'unit']}
+                                                        rules={[{ required: true, message: 'សូមបញ្ជូលឯកតា' }]}
+                                                    >
+                                                        <Input style={{ width: '100%' }} placeholder="ឯកតា" size='large' />
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col xs={2} md={2}>
+                                                    <MinusCircleOutlined onClick={() => remove(name)} />
+                                                </Col>
+                                            </Row>
                                         ))}
                                         <Form.Item>
                                             <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>

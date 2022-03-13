@@ -6,7 +6,6 @@ import AddReport from './AddReport';
 import axios from 'axios';
 import moment from 'moment';
 
-
 const { Title } = Typography;
 const { Option } = Select;
 export default function Report() {
@@ -15,8 +14,6 @@ export default function Report() {
     const [chiefs, setChiefs] = useState(null);
     const [success, setSuccess] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [startDate, setStartDate] = useState();
-    const [endDate, setEndDate] = useState();
     const [customerId, setCustomerId] = useState(null);
     const [chiefId, setChiefId] = useState(null);
 
@@ -57,7 +54,6 @@ export default function Report() {
             `${process.env.React_App_URL}/get/getCustomerConstruction.php`, params
         )
             .then(async function (response) {
-                console.log(response?.data)
                 if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
                     setCustomers(response?.data);
                     return response?.data;

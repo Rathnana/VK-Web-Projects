@@ -20,3 +20,21 @@ code {
   font-family: "KhmerOSSiemreap";
   src: url('assets/fonts/KHMEROSSIEMREAP.TTF');
 }
+
+::-webkit-scrollbar{
+  width: 10px;
+  height: 8px;
+  border-radius: 10px;
+  background-color: #DDD;
+}
+/* ::-webkit-scrollbar-track{
+  width: 10px;
+  height: 8px;
+  border-radius: 10px;
+  background-color: #DDD;
+} */
+::-webkit-scrollbar-thumb {
+background: #bbb;
+border-radius: 10px;
+
+}

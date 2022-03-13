@@ -6,6 +6,7 @@ import DelectReport from './DelectReport';
 import EditReport from './EditReport';
 import { AiFillEye } from 'react-icons/ai';
 import ModalDetail from '../all_Info/ModalDetail';
+import { getCookie } from '../../getDatabase';
 
 const { Paragraph ,Text} = Typography;
 
@@ -39,7 +40,7 @@ export default function ReportTable({
             page: page,
             pageSize: pageSize,
             customerId: customerId,
-            userId: sessionStorage.getItem("u_id"),
+            // userId: getCookie("u_id"),
             startDate: range?.startDate !== null ? range?.startDate : '',
             endDate: range?.endDate !== null ? range?.endDate : '',
             chiefId: chiefId

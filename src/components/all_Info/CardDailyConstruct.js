@@ -1,25 +1,36 @@
 import { Card, Col, Row, Typography } from 'antd'
-import React, { useState } from 'react'
-import { getTotalBuilder, getTotalWorker } from '../../own-comp'
-import ModalDetail from './ModalDetail'
+import React, { useEffect,useState } from 'react'
 import Progresss from './Progresss'
 import TagBuilder from './TagBuilder'
 
 export default function CardDailyConstruct({ todo, setOpenDetail, setDailyConstructId }) {
+    const [paddingBottom,setPaddingBottom] = useState(130)
 
     const handleOpen = (e) => {
         setDailyConstructId(e)
         setOpenDetail(true)
     }
 
+    useEffect(()=>{
+
+        let totalBuilder = parseInt(todo?.hasElectricianPlumber)+parseInt(todo?.hasAirConditionerMan)+parseInt(todo?.hasBlackSmith)+parseInt(todo?.hasCeilBuilder)+parseInt(todo?.hasMirrorBuilder)
+        if(totalBuilder>=6){
+            setPaddingBottom(130)
+        }else if(totalBuilder>=3){
+            setPaddingBottom(95)
+        }else{
+            setPaddingBottom(60)
+        }
+        
+    },[todo])
+
     return (
         <>
             <Card
                 bordered={false}
                 style={{
-                     borderRadius: 5, position: 'relative', paddingBottom: 30
+                    borderRadius: 5, position: 'relative', paddingBottom: paddingBottom
                 }}
-                // background: "#f0f0f0",
                 className='card-report'
                 cover={
                     <img
@@ -37,7 +48,7 @@ export default function CardDailyConstruct({ todo, setOpenDetail, setDailyConstr
 
                 <span onClick={() => handleOpen(todo?.dc_id)}>
                     <Typography
-                        style={{ fontWeight: "bold", textAlign: "center", cursor: 'pointer', textDecoration: 'underline' }}
+                        style={{ fontWeight: "bold", textAlign: "center",fontFamily:'Moul', cursor: 'pointer', textDecoration: 'underline' }}
 
                     >
                         {
@@ -61,39 +72,66 @@ export default function CardDailyConstruct({ todo, setOpenDetail, setDailyConstr
                     }
                 </div>
 
-
-                <Row >
-                    {todo?.hasElectricianPlumber === '1' ?
-                        <Col xs={12} md={12} style={{ padding: 5 }}>
-                            <TagBuilder title={`ជាងទឹកភ្លើង`} />
-                        </Col>
-                        : null}
-                    {todo?.hasCeilBuilder === '1' ?
-                        <Col xs={12} md={12} style={{ padding: 5 }}>
-                            <TagBuilder title={`ជាងពិដាន`} />
-                        </Col>
-                        : null}
-                    {todo?.hasBlackSmith === '1' ?
-                        <Col xs={12} md={12} style={{ padding: 5 }}>
-                            <TagBuilder title={`ជាងដែក`} />
-                        </Col>
-                        : null}
-                    {todo?.hasAirConditionerMan === '1' ?
-                        <Col xs={12} md={12} style={{ padding: 5 }}>
-                            <TagBuilder title={`ជាងម៉ាស៊ីនត្រជាក់`} />
-                        </Col>
-                        : null}
-                    {todo?.hasMirrorBuilder === '1' ?
-                        <Col xs={12} md={12} style={{ padding: 5 }}>
-                            <TagBuilder title={`ជាងកញ្ជក់`} />
-                        </Col>
-                        : null}
-                </Row>
-
-
                 <Typography style={{ color: 'red' }}>{todo.challenges}</Typography>
 
                 <div style={{ position: 'absolute', bottom: 10, left: 10, right: 10 }}>
+                    {/* <div className='contentTag'>
+                        <div style={{ width: 'max-content', display: 'flex', }} >
+                            {todo?.hasElectricianPlumber === '1' ?
+                                // <Col xs={12} md={12} style={{ padding: 5 }}>
+                                <TagBuilder title={`ជាងទឹកភ្លើង`} />
+                                // </Col>
+                                : null}
+                            {todo?.hasCeilBuilder === '1' ?
+                                // <Col xs={12} md={12} style={{ padding: 5 }}>
+                                <TagBuilder title={`ជាងពិដាន`} />
+                                // </Col>
+                                : null}
+                            {todo?.hasBlackSmith === '1' ?
+                                // <Col xs={12} md={12} style={{ padding: 5 }}>
+                                <TagBuilder title={`ជាងដែក`} />
+                                // </Col>
+                                : null}
+                            {todo?.hasAirConditionerMan === '1' ?
+                                // <Col xs={12} md={12} style={{ padding: 5 }}>
+                                <TagBuilder title={`ជាងម៉ាស៊ីនត្រជាក់`} />
+                                // </Col>
+                                : null}
+                            {todo?.hasMirrorBuilder === '1' ?
+                                // <Col xs={12} md={12} style={{ padding: 5 }}>
+                                <TagBuilder title={`ជាងកញ្ជក់`} />
+                                // </Col>
+                                : null}
+                        </div>
+                    </div> */}
+
+                    <Row>
+                        {todo?.hasElectricianPlumber === '1' ?
+                            <Col xs={12} md={12} style={{ padding: 5 }}>
+                                <TagBuilder title={`ជាងទឹកភ្លើង`} />
+                            </Col>
+                            : null}
+                        {todo?.hasCeilBuilder === '1' ?
+                            <Col xs={12} md={12} style={{ padding: 5 }}>
+                                <TagBuilder title={`ជាងពិដាន`} />
+                            </Col>
+                            : null}
+                        {todo?.hasBlackSmith === '1' ?
+                            <Col xs={12} md={12} style={{ padding: 5 }}>
+                                <TagBuilder title={`ជាងដែក`} />
+                            </Col>
+                            : null}
+                        {todo?.hasAirConditionerMan === '1' ?
+                            <Col xs={12} md={12} style={{ padding: 5 }}>
+                                <TagBuilder title={`ជាងម៉ាស៊ីនត្រជាក់`} />
+                            </Col>
+                            : null}
+                        {todo?.hasMirrorBuilder === '1' ?
+                            <Col xs={12} md={12} style={{ padding: 5 }}>
+                                <TagBuilder title={`ជាងកញ្ជក់`} />
+                            </Col>
+                            : null}
+                    </Row>
                     <Progresss status={todo?.status} />
                 </div>
             </Card>

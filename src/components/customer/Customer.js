@@ -82,6 +82,7 @@ export default function Customer({ search }) {
                                 >
                                     <Select placeholder="ស្ថានភាព" size='large' style={{ width: '100%' }} onChange={e => setPriority(e)} >
                                         <Option value={''} key='all'>--ទាំងអស់--</Option>
+                                        <Option value="មិនទាន់បញ្ចប់">មិនទាន់បញ្ចប់</Option>
                                         <Option value="គូសប្លង់">គូសប្លង់</Option>
                                         <Option value="ចៅសង្កាត់">ចៅសង្កាត់</Option>
                                         <Option value="ធ្វើសៀវភៅ">ធ្វើសៀវភៅ</Option>

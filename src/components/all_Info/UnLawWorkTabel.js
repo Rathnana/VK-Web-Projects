@@ -142,6 +142,7 @@ export default function UnLawWorkTabel() {
             style={{marginBottom: 50 }}
             columns={columns}
             pagination={false}
+            rowKey={record=> record?.c_id}
             className='Info-table'
             scroll={{ x: 1200 }}
             loading={loading}

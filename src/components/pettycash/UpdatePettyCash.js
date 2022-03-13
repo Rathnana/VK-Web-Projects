@@ -3,7 +3,7 @@ import { Form, Input, DatePicker, Row, Col, Select, Drawer, InputNumber, message
 import { Button } from 'antd';
 import { AiOutlineEdit } from "react-icons/ai";
 import moment from 'moment';
-import { Update_PettyCash } from '../../getDatabase';
+import { getCookie, Update_PettyCash } from '../../getDatabase';
 import { convertKHRtoUSD, convertUSDtoKHR, currencyFormatKHR } from '../../own-comp';
 
 const { Option } = Select;
@@ -59,7 +59,7 @@ export default function UpdatePettyCash({
             ...values,
             totalCash: totalCash,
             totalCashKh: totalCashKh,
-            dealedBy: status ==='បានទូរទាត់' ? parseInt(dealedBy)>0 ? dealedBy : sessionStorage.getItem("u_id") : 0,
+            dealedBy: status ==='បានទូរទាត់' ? parseInt(dealedBy)>0 ? dealedBy : getCookie("u_id") : 0,
             paidDate: moment(values?.paidDate).format('YYYY-MM-DD HH:mm:ss')
         }
 

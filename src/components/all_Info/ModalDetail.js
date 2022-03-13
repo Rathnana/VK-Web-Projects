@@ -79,7 +79,7 @@ export default function ModalDetail({ open, setOpen, id }) {
                                     fontSize: "11pt"
                                 }}
                             >
-                                {`${report?.constructionName} - `}<Typography.Text type='danger'>{moment(report?.createdAt).format("DD/MM/YYYY")}</Typography.Text>
+                                {`${report?.constructionName} - `}<Typography.Text type='danger' style={{fontFamily:'KhmerOSSiemreap'}}>{moment(report?.createdAt).format("DD/MM/YYYY")}</Typography.Text>
                             </Col>
 
                             <Col

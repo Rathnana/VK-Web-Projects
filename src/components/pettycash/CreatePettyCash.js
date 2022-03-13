@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Drawer, Form, Input, DatePicker, Row, Col, InputNumber, message } from 'antd';
 import { Button } from 'antd';
-import { Creat_PettyCash } from '../../getDatabase'
+import { Creat_PettyCash, getCookie } from '../../getDatabase'
 import { convertKHRtoUSD, convertUSDtoKHR } from '../../own-comp';
 
 
@@ -51,7 +51,7 @@ export default function CreatePettyCash({ setSuccess }) {
             totalCashKh:totalCashKh
         }
         
-        if (await Creat_PettyCash(newValue, sessionStorage.getItem("u_id"))) {
+        if (await Creat_PettyCash(newValue, getCookie("u_id"))) {
             setVisible(false);
             form.resetFields();
             setSuccess(true)

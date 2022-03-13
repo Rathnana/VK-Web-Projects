@@ -171,8 +171,6 @@ export default function WorkerGraph() {
                 let combinedFemaleWorkerArray = combineFemaleWorkerCount(data?.data)
                 let combinedPainterArray = combinePainterCount(data?.data)
 
-                console.log(data?.data)
-
                 let daysInMonth = getDaysInMonthUTC(new Date().getUTCMonth(), new Date().getUTCFullYear());
                 
                 let newArr=[]
@@ -211,7 +209,6 @@ export default function WorkerGraph() {
                     newArr.push(set)
                 })
 
-                console.log(newArr)
                 setGraph(newArr)
 
                 // setWorkerCount(combinedWorkerArray?.map(e => e.workerCount))
@@ -223,9 +220,16 @@ export default function WorkerGraph() {
     }, [])
 
     let data = {
-        labels: graph?.map(e=> e?.createdAt),
+        labels: graph?.map(e=> "ថ្ងៃទី"+e?.createdAt),
         // labels: getDaysInMonthUTC(new Date().getUTCMonth(), new Date().getUTCFullYear()),
         datasets: [
+            {
+                label: 'ចំនួនជាង',
+                data: graph?.map(e=> e?.builderCount),
+                borderColor: 'rgb(53, 162, 235)',
+                backgroundColor: 'rgba(53, 162, 235, 0.5)',
+                tension: 0.6,
+            },
             {
                 label: 'ចំនួនកម្មករ',
                 data: graph?.map(e=> e?.workerCount),
@@ -242,13 +246,7 @@ export default function WorkerGraph() {
                 // pointBorderWidth: 2,
 
             },
-            {
-                label: 'ចំនួនជាង',
-                data: graph?.map(e=> e?.builderCount),
-                borderColor: 'rgb(53, 162, 235)',
-                backgroundColor: 'rgba(53, 162, 235, 0.5)',
-                tension: 0.6,
-            },
+            
             
         ],
     };

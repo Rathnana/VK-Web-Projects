@@ -8,7 +8,7 @@ import { Form, Button } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { AiOutlineEdit } from "react-icons/ai";
 import moment from 'moment';
-import {SelectCustomer} from '../report/SelectCustomer'
+import { SelectCustomer } from '../report/SelectCustomer'
 
 const { Option } = Select;
 
@@ -185,9 +185,9 @@ export default function UpdateRequestion({
                                 rules={[{ required: true, message: "សូមជ្រើសរើសការដ្ឋាន!!" }]}
                             >
 
-                                
-                                        <SelectCustomer title={"ជ្រើសរើសការដ្ឋាន"} setValue={setConstructionCustomer} />
-                                    
+
+                                <SelectCustomer title={"ជ្រើសរើសការដ្ឋាន"} setValue={setConstructionCustomer} />
+
                                 {/* <Select
                                     placeholder="ជ្រើសរើសការដ្ឋាន"
                                     size="large"
@@ -228,34 +228,41 @@ export default function UpdateRequestion({
                                 {(fields, { add, remove }) => (
                                     <>
                                         {fields.map(({ key, name, value, ...restField }) => (
-                                            <Space key={key} style={{ display: 'flex' }} align="baseline">
-                                                <Form.Item
-                                                    label="ការបរិយាយ"
-                                                    {...restField}
-                                                    name={[name, 'requestFor']}
-                                                    rules={[{ required: true, message: 'សូមបញ្ជូលការបរិយាយ' }]}
-                                                >
-                                                    <Input style={{ width: 235 }} placeholder="ការបរិយាយ" size='large' />
-                                                </Form.Item>
-
-                                                <Form.Item
-                                                    label="បរិមាណ"
-                                                    {...restField}
-                                                    name={[name, 'qty']}
-                                                    rules={[{ required: true, message: 'សូមបញ្ជូលបរិមាណ' }]}
-                                                >
-                                                    <InputNumber style={{ width: 100 }} placeholder="បរិមាណ" size='large' />
-                                                </Form.Item>
-                                                <Form.Item
-                                                    label="ឯកតា"
-                                                    {...restField}
-                                                    name={[name, 'unit']}
-                                                    rules={[{ required: true, message: 'សូមបញ្ជូលឯកតា' }]}
-                                                >
-                                                    <Input style={{ width: 100 }} placeholder="ឯកតា" size='large' />
-                                                </Form.Item>
-                                                <MinusCircleOutlined onClick={() => remove(name)} />
-                                            </Space>
+                                            <Row key={key} gutter={10}>
+                                                <Col xs={11} md={8}>
+                                                    <Form.Item
+                                                        label="ការបរិយាយ"
+                                                        {...restField}
+                                                        name={[name, 'requestFor']}
+                                                        rules={[{ required: true, message: 'សូមបញ្ជូលការបរិយាយ' }]}
+                                                    >
+                                                        <Input style={{ width: '100%' }} placeholder="ការបរិយាយ" size='large' />
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col xs={5} md={4}>
+                                                    <Form.Item
+                                                        label="qty"
+                                                        {...restField}
+                                                        name={[name, 'qty']}
+                                                        rules={[{ required: true, message: 'សូមបញ្ជូលបរិមាណ' }]}
+                                                    >
+                                                        <InputNumber style={{ width: '100%' }} min={0} prefix={0.1} placeholder="qty" size='large' />
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col xs={6} md={6}>
+                                                    <Form.Item
+                                                        label="ឯកតា"
+                                                        {...restField}
+                                                        name={[name, 'unit']}
+                                                        rules={[{ required: true, message: 'សូមបញ្ជូលឯកតា' }]}
+                                                    >
+                                                        <Input style={{ width: '100%' }} placeholder="ឯកតា" size='large' />
+                                                    </Form.Item>
+                                                </Col>
+                                                <Col xs={2} md={2}>
+                                                    <MinusCircleOutlined onClick={() => remove(name)} />
+                                                </Col>
+                                            </Row>
                                         ))}
                                         <Form.Item>
                                             <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>

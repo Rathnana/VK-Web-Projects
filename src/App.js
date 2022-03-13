@@ -8,7 +8,7 @@ import { Divider, Layout } from 'antd';
 import AllInfo from './components/all_Info/AllInfo';
 import Report from './components/report/Report';
 import Users from './components/userControll/Users';
-import { getUser } from './getDatabase'
+import { getCookie, getUser } from './getDatabase'
 import Requestion from './components/requestion/Requestion';
 import Customer from './components/customer/Customer';
 import MobileNav from './components/sidebar/MobileNav';
@@ -16,7 +16,7 @@ import PettyCash from './components/pettycash/PettyCash';
 import Login from './components/Login/Login'
 
 function App() {
-  let getuser = sessionStorage.getItem("u_id");
+  let getuser = getCookie("u_id");
   const [isMobile, setIsMobile] = useState(false)
 
 
