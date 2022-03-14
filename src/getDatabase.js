@@ -418,7 +418,13 @@ export const Update_PettyCash = async (
 
 export function getCookie(cname) {
     let name = cname + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
+    let decodedCookie = decodeURIComponent(document.cookie?.toString());
+    // decodeURI(encodeURIComponent('abcd+%; -efgh'))
+    // const encodedURIComponent = encodeURIComponent(original); // "A-Za-z0-9%3B%2C%2F%3F%3A%40%26%3D%2B%24-_.!~*()%23%25"
+    // console.log(decodeURIComponent(encodedURIComponent)); //  "A-Za-z0-9;,/?:@&=+$-_.!~*()#%"
+    // const partiallyUnescaped = decodeURI(encodedURIComponent); // "A-Za-z0-9%3B%2C%2F%3F%3A%40%26%3D%2B%24-_.!~*()%23%" - notice the '%25' at the end was decoded back to '%'
+    // console.log(unescape(partiallyUnescaped));
+
     let ca = decodedCookie.split(';');
     for(let i = 0; i <ca.length; i++) {
       let c = ca[i];
@@ -439,6 +445,6 @@ export function delete_cookie(name) {
 export function setCookie(c_name, value, exdays) {
     var exdate = new Date();
     exdate.setDate(exdate.getDate() + exdays);
-    var c_value = escape(value) + ((exdays == null) ? "" : "; expires=" + exdate.toUTCString());
+    var c_value = encodeURIComponent(value) + ((exdays == null) ? "" : "; expires=" + exdate.toUTCString());
     document.cookie = c_name + "=" + c_value;
 }
