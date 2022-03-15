@@ -76,6 +76,7 @@ export default function UpdatePettyCash({
     useEffect(() => {
         if (visible) {
             form.setFieldsValue({
+                type: pettyCash?.type,
                 date: moment(pettyCash?.date),
                 borrowPerson: pettyCash?.borrowPerson,
                 remark: pettyCash?.remark,
@@ -163,7 +164,7 @@ export default function UpdatePettyCash({
                         <Col xs={12} sm={12} md={12} lg={12} xl={12} >
                             <Form.Item
                                 name="totalCashKh"
-                                label="ចំនួនទឹកប្រាក់ (KHR)"
+                                label={<span>ចំនួនប្រាក់ (&#6107;)</span>}
                             // rules={[{ required: totalCashKh>0, message: totalCashKh >0 && "សូមបំពេញចំនួនទឹកប្រាក់!!" }]}
                             >
                                 <InputNumber
@@ -182,7 +183,7 @@ export default function UpdatePettyCash({
                         <Col xs={12} sm={12} md={12} lg={12} xl={12} >
                             <Form.Item
                                 name="totalCash"
-                                label="ចំនួនទឹកប្រាក់ (USD)"
+                                label={<span>ចំនួនប្រាក់ ($)</span>}
                             // rules={[{ required: totalCash>0, message: totalCash > 0 && "សូមបំពេញចំនួនទឹកប្រាក់!!" }]}
                             >
                                 <InputNumber
@@ -200,6 +201,19 @@ export default function UpdatePettyCash({
                     </Row>
 
                     <Row gutter={10}>
+                        <Col xs={24} sm={24} md={12} lg={12} xl={12}>
+                            <Form.Item
+                                name="type"
+                                label="ប្រភេទ"
+                                rules={[{ required: true, message: "សូមជ្រើសរើសប្រភេទ!!" }]}
+                            >
+                                <Select placeholder='ប្រភេទ' size='large' allowClear>
+                                    <Option value={'ខ្ចី'}>ខ្ចី</Option>
+                                    <Option value={'Petty Cash'}>Petty Cash</Option>
+                                </Select>
+                            </Form.Item>
+                        </Col>
+
                         <Col xs={24} sm={24} md={12} lg={12} xl={12} >
                             <Form.Item
                                 name="status"

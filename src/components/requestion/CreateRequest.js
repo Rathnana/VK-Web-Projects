@@ -6,6 +6,7 @@ import { Form, Button } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import PrintContent from './PrintContent';
 import { SelectCustomer } from '../report/SelectCustomer';
+import moment from 'moment'
 
 const { Option } = Select;
 export default function CreateRequest({ setSuccess }) {
@@ -30,6 +31,9 @@ export default function CreateRequest({ setSuccess }) {
 
     useEffect(() => {
         handleResize()
+        form.setFieldsValue({
+            date:moment()
+        })
     }, [])
 
     window.addEventListener('resize', handleResize)

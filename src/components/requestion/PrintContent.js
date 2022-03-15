@@ -60,16 +60,17 @@ export default function PrintContent({ r_id, open, setOpen }) {
       dataIndex: 'requestFor',
       key: 'requestFor',
     },
+    
+    {
+      title: 'បរិមាណ',
+      dataIndex: 'qty',
+      key: 'qty',
+    },
     {
       title: 'ឯកតា',
       dataIndex: 'unit',
       key: 'unit',
     },
-    {
-      title: 'បរិមាណ',
-      dataIndex: 'qty',
-      key: 'qty',
-    }
 
   ];
 
@@ -198,7 +199,7 @@ export default function PrintContent({ r_id, open, setOpen }) {
             <img
 
               style={{
-                width: "150px",
+                width: "130px",
               }}
               src={vklogo} />
 
@@ -208,11 +209,12 @@ export default function PrintContent({ r_id, open, setOpen }) {
               style={{
                 fontFamily: 'Moul',
                 color: '#1983e6',
-                marginTop: "60px",
+                marginTop: "40px",
                 fontWeight: 'normal',
-                textAlign: "center"
+                textAlign: "center",
+                fontSize:16
               }}
-              level={4}
+              level={5}
             >
               {`ការស្នើរសុំសម្ភារៈ`}
             </Title>

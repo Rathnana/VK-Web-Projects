@@ -252,7 +252,7 @@ export default function CustomerTable({
             scroll={{ x: 1200 }}
             loading={loading}
             rowKey={record => record?.c_id}
-            rowClassName={record => record?.priority==='បញ្ចប់' ? 'finished-row':''}
+            rowClassName={record => record?.priority==='បញ្ចប់' ? 'finished-row': record?.priority==='ផ្អាក' ? 'row-danger' : null }
             className='table-customize'
             style={{ marginTop: "20px" }}
             pagination={{

@@ -33,7 +33,7 @@ export default function PettyCash({ search }) {
                         }}
                         level={4}
                     >
-                        {`តារាង Pretty Cash`}
+                        {`ខ្ចី/Petty Cash`}
                     </Title>
                     <Form
                         form={form}

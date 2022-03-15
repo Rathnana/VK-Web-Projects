@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Drawer, Form, Input, DatePicker, Row, Col, InputNumber, message } from 'antd';
+import { Drawer, Form, Input, DatePicker, Row, Col, InputNumber, message, Select } from 'antd';
 import { Button } from 'antd';
 import { Creat_PettyCash, getCookie } from '../../getDatabase'
 import { convertKHRtoUSD, convertUSDtoKHR } from '../../own-comp';
 
-
+const {Option} = Select
 
 export default function CreatePettyCash({ setSuccess }) {
     const [form] = Form.useForm();
@@ -133,7 +133,7 @@ export default function CreatePettyCash({ setSuccess }) {
                         <Col xs={12} sm={12} md={12} lg={12} xl={12} >
                             <Form.Item
                                 name="totalCashKh"
-                                label="ចំនួនទឹកប្រាក់ (KHR)"
+                                label={<span>ចំនួនប្រាក់ (&#6107;)</span>}
                                 // rules={[{ required: totalCashKh>0, message: totalCashKh >0 && "សូមបំពេញចំនួនទឹកប្រាក់!!" }]}
                             >
                                 <InputNumber
@@ -152,7 +152,7 @@ export default function CreatePettyCash({ setSuccess }) {
                         <Col xs={12} sm={12} md={12} lg={12} xl={12} >
                             <Form.Item
                                 name="totalCash"
-                                label="ចំនួនទឹកប្រាក់ (USD)"
+                                label={<span>ចំនួនប្រាក់ ($)</span>}
                                 // rules={[{ required: totalCash>0, message: totalCash > 0 && "សូមបំពេញចំនួនទឹកប្រាក់!!" }]}
                             >
                                 <InputNumber
@@ -168,6 +168,22 @@ export default function CreatePettyCash({ setSuccess }) {
                             </Form.Item>
                         </Col>
                     </Row>
+
+                    <Row>
+                        <Col xs={12} sm={12} md={12} lg={12} xl={12}>
+                            <Form.Item
+                                name="type"
+                                label="ប្រភេទ"
+                                rules={[{ required: true, message: "សូមជ្រើសរើសប្រភេទ!!" }]}
+                            >
+                                <Select placeholder='ប្រភេទ' size='large' allowClear>
+                                    <Option value={'ខ្ចី'}>ខ្ចី</Option>
+                                    <Option value={'Petty Cash'}>Petty Cash</Option>
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                    </Row>
+
                     <Row>
                         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                             <Form.Item
@@ -184,6 +200,7 @@ export default function CreatePettyCash({ setSuccess }) {
                             </Form.Item>
                         </Col>
                     </Row>
+
                     <Row>
                         <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                             <Form.Item>

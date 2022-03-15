@@ -102,13 +102,14 @@ export default function UnLawWorkTabel() {
     useEffect(() => {
         setLoading(true);
         getcustomer();
-    }, [])
+    }, [page,pageSize])
     const getcustomer = async () => {
 
         const params = new URLSearchParams();
         params.append('db_user', process.env.React_App_DB_USER);
         params.append('db_password', process.env.React_App_DB_PASSWORD);
         params.append('db', process.env.React_App_DB);
+
         params.append('data', JSON.stringify({ page: page, pageSize: pageSize }))
 
         return await axios.post(
@@ -141,12 +142,19 @@ export default function UnLawWorkTabel() {
             // size="small"
             style={{marginBottom: 50 }}
             columns={columns}
-            pagination={false}
+            pagination={{
+                position: ["bottomLeft"],
+                size: 'small',
+                total: customer?.totalDoc,
+                pageSizeOptions: ['20','50','100'],
+                pageSize: pageSize,
+                onChange: ((page, pageSize) => { setPage(page); setPageSize(pageSize) })
+            }}
             rowKey={record=> record?.c_id}
             className='Info-table'
             scroll={{ x: 1200 }}
             loading={loading}
-            dataSource={tableDataWithNo}
+            dataSource={loading ? []:tableDataWithNo}
         />
     )
 }

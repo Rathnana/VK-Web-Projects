@@ -76,19 +76,9 @@ export default function PettyCashTable({
             key: 'borrowPerson',
             width: 150
         },
+        
         {
-            title: 'ឈ្មោះអ្នកផ្ដល់',
-            dataIndex: 'lendedBy',
-            key: 'lendedBy',
-            width: 150,
-            render: (text, record) => (
-                <Space>
-                    {record?.lastName + " " + record?.firstName}
-                </Space>
-            )
-        },
-        {
-            title: 'ចំនួនទឹកប្រាក់ (KHR)',
+            title: <span>ចំនួនប្រាក់ (&#6107;)</span>,
             dataIndex: 'totalCashKh',
             key: 'totalCashKh',
             width: 220,
@@ -99,13 +89,31 @@ export default function PettyCashTable({
             )
         },
         {
-            title: 'ចំនួនទឹកប្រាក់ (USD)',
+            title: 'ចំនួនប្រាក់ ($)',
             dataIndex: 'totalCash',
             key: 'totalCash',
             width: 220,
             render: (text, record) => (
                 <Space>
                     {currencyFormat(record?.totalCash)}
+                </Space>
+            )
+        },
+        {
+            title: 'ប្រភេទ',
+            dataIndex: 'type',
+            key: 'type',
+            width: 150,
+            
+        },
+        {
+            title: 'ឈ្មោះអ្នកធ្វើ',
+            dataIndex: 'lendedBy',
+            key: 'lendedBy',
+            width: 150,
+            render: (text, record) => (
+                <Space>
+                    {record?.lastName + " " + record?.firstName}
                 </Space>
             )
         },
@@ -121,6 +129,7 @@ export default function PettyCashTable({
             title: 'ផ្សេងៗ',
             dataIndex: 'remark',
             key: 'remark',
+            width: 250,
         },
         {
             key: 'action',

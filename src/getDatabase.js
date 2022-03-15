@@ -365,6 +365,7 @@ export const Creat_PettyCash = async (pettyCash,lendedBy,) => {
         lendedBy,
         totalCash: pettyCash?.totalCash,
         totalCashKh: pettyCash?.totalCashKh,
+        type:pettyCash?.type
     }));
 
     return await axios.post(
@@ -399,7 +400,8 @@ export const Update_PettyCash = async (
         totalCashKh: pettyCash?.totalCashKh,
         paidDate: pettyCash?.paidDate,
         status: pettyCash?.status,
-        dealedBy:pettyCash?.dealedBy
+        dealedBy:pettyCash?.dealedBy,
+        type:pettyCash?.type
     }));
 
     return await axios.post(
