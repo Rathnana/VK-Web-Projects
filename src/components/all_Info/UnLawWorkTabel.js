@@ -5,95 +5,6 @@ import axios from 'axios'
 import moment from 'moment';
 
 const { Paragraph, Text } = Typography;
-
-const contentRemark = (e) => (
-    <Paragraph style={{ fontSize: 16, width: 300, textAlign: 'justify' }}>
-        {e}
-    </Paragraph>
-)
-
-const columns = [
-    {
-        title: 'លរ',
-        dataIndex: 'no',
-        key: 'no',
-        fontWeight:'bold',
-        width: 60
-    },
-    {
-        title: 'អតិថិជន',
-        dataIndex: 'customerName',
-        key: 'customerName',
-        width: 130
-    },
-    {
-        title: 'ភេទ',
-        dataIndex: 'gender',
-        key: 'gender',
-        width: 60
-    },
-    {
-        title: 'ថ្ងៃចាប់ផ្ដើម',
-        dataIndex: 'startDate',
-        key: 'startDate',
-        width: 110,
-        render: (text, record) => (
-            <Space size="middle">
-                {moment(record?.startDate).format('DD-MM-YYYY')}
-            </Space>
-        ),
-    },
-    {
-        title: 'ថ្ងៃបញ្ចប់',
-        dataIndex: 'endDate',
-        key: 'endDate',
-        width: 110,
-        render: (text, record) => (
-            <Space size="middle">
-                {record?.endDate === "0000-00-00" ? 'គ្មាន' : moment(record?.endDate).format('DD-MM-YYYY')}
-            </Space>
-        ),
-    },
-    {
-        title: 'ស្ថានភាព',
-        dataIndex: 'priority',
-        key: 'priority',
-        width: 90
-    },
-    {
-        title: 'ទីតាំងគម្រោង',
-        dataIndex: 'constructionLocation',
-        key: 'constructionLocation',
-        width: 150,
-        render: (text, record) => (
-            <span style={{ cursor: 'pointer' }}  >
-                <Popover placement="bottom" content={() => contentRemark(record?.constructionLocation)} title={null} trigger="hover">
-                    <Text ellipsis >
-                        {record?.constructionLocation}
-                    </Text>
-                </Popover>
-            </span>
-        )
-    },
-    // {
-    //     title: 'ផ្សេងៗ',
-    //     dataIndex: 'remark',
-    //     key: 'remark',
-    //     width: 10,
-    //     render: (text, record) => (
-    //         <span style={{ cursor: 'pointer' }}  >
-    //             <Popover placement="bottom" content={() => contentRemark(record?.remark)} title={null} trigger="hover">
-    //                 <Text ellipsis >
-    //                     {record?.remark}
-    //                 </Text>
-    //             </Popover>
-    //         </span>
-    //     )
-    // }
-
-];
-
-
 export default function UnLawWorkTabel() {
     const [loading, setLoading] = React.useState(true);
     const [customer, setCustomer] = useState()
@@ -102,7 +13,7 @@ export default function UnLawWorkTabel() {
     useEffect(() => {
         setLoading(true);
         getcustomer();
-    }, [page,pageSize])
+    }, [page, pageSize])
     const getcustomer = async () => {
 
         const params = new URLSearchParams();
@@ -127,6 +38,95 @@ export default function UnLawWorkTabel() {
                 }
             });
     }
+
+    const contentRemark = (e) => (
+        <Paragraph style={{ fontSize: 16, width: 300, textAlign: 'justify' }}>
+            {e}
+        </Paragraph>
+    )
+
+    const columns = [
+        {
+            title: 'លរ',
+            dataIndex: 'no',
+            key: 'no',
+            fontWeight: 'bold',
+            fixed:'left',
+            width: 60
+        },
+        {
+            title: 'អតិថិជន',
+            dataIndex: 'customerName',
+            key: 'customerName',
+            fixed:'left',
+            width: 100
+        },
+
+        {
+            title: 'ថ្ងៃចាប់ផ្ដើម',
+            dataIndex: 'startDate',
+            key: 'startDate',
+            width: 100,
+            render: (text, record) => (
+                <span size="middle">
+                    {moment(record?.startDate).format('DD-MM-YYYY')}
+                </span>
+            ),
+        },
+
+        {
+            title: 'ការងារ',
+            dataIndex: 'taskType',
+            key: 'taskType',
+            width: 90
+        },
+
+        {
+            title: 'ប្រភេទ',
+            dataIndex: 'constructionType',
+            key: 'constructionType',
+            width: 90
+        },
+
+        {
+            title: 'ស្ថានភាព',
+            dataIndex: 'priority',
+            key: 'priority',
+            width: 90
+        },
+        {
+            title: 'ទីតាំងគម្រោង',
+            dataIndex: 'constructionLocation',
+            key: 'constructionLocation',
+            width: 100,
+            render: (text, record) => (
+                <span style={{ cursor: 'pointer' }}  >
+                    <Popover placement="bottom" content={() => contentRemark(record?.constructionLocation)} title={null} trigger="hover">
+                        <Text ellipsis >
+                            {record?.constructionLocation}
+                        </Text>
+                    </Popover>
+                </span>
+            )
+        },
+        {
+            title: 'ផ្សេងៗ',
+            dataIndex: 'remark',
+            key: 'remark',
+            width:100,
+            render: (text, record) => (
+                <span style={{ cursor: 'pointer' }}  >
+                    <Popover placement="bottom" content={() => contentRemark(record?.remark)} title={null} trigger="hover">
+                        <Text ellipsis='rows' >
+                            {record?.remark}
+                        </Text>
+                    </Popover>
+                </span>
+            )
+        },
+
+    ];
+
     let tableDataWithNo = []
 
     customer?.data?.map((record, index) => {
@@ -140,21 +140,22 @@ export default function UnLawWorkTabel() {
     return (
         <Table
             // size="small"
-            style={{marginBottom: 50 }}
+            style={{ marginBottom: 50 }}
+            scroll={{ x: 1200 }}
             columns={columns}
+            rowKey={record => record?.c_id}
+            // className='Info-table'
+            // className='table-customize'
+            loading={loading}
+            dataSource={loading ? [] : tableDataWithNo}
             pagination={{
                 position: ["bottomLeft"],
                 size: 'small',
                 total: customer?.totalDoc,
-                pageSizeOptions: ['20','50','100'],
+                pageSizeOptions: ['20', '50', '100'],
                 pageSize: pageSize,
                 onChange: ((page, pageSize) => { setPage(page); setPageSize(pageSize) })
             }}
-            rowKey={record=> record?.c_id}
-            className='Info-table'
-            scroll={{ x: 1200 }}
-            loading={loading}
-            dataSource={loading ? []:tableDataWithNo}
         />
     )
 }

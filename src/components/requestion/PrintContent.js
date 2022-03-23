@@ -24,7 +24,6 @@ export default function PrintContent({ r_id, open, setOpen }) {
     if(infoData){
       setInfo(infoData)
     }
-    console.log(infoData,r_id)
   }, [r_id])
   const getRequestDescription = async (r_id) => {
     const params = new URLSearchParams();
@@ -294,7 +293,8 @@ export default function PrintContent({ r_id, open, setOpen }) {
               width: "100%",
               textAlign: "center"
             }}>
-              VK Angkor 2022
+              {/* VK Angkor 2022 */}
+              ស្នើសុំដោយ {info?.lastName} {info?.firstName}
             </p>
           </Col>
         </Row>

@@ -129,6 +129,18 @@ export default function ReportTable({
             
         },
         {
+            title: 'សរុប',
+            dataIndex: 'total',
+            key: 'total',
+            width: 80,
+            align:'center',
+            render: (text, record) => (
+                <Space size="middle">
+                    {parseInt(record?.builderCount) + parseInt(record?.workerCount)}
+                </Space>
+            ),
+        },
+        {
             title: 'ជាង',
             dataIndex: 'builderCount',
             key: 'builderCount',
