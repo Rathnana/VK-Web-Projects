@@ -5,6 +5,7 @@ import Progress from './Progresss';
 import moment from 'moment';
 import CardDailyConstruct from './CardDailyConstruct';
 import ModalDetail from './ModalDetail';
+import CardDailyConstructMobile from './CardDailyConstructMobile';
 
 export default function SectionA({ date }) {
     const [todos, setTodos] = useState()
@@ -14,6 +15,23 @@ export default function SectionA({ date }) {
 
     const [openDetail,setOpenDetail] = useState(false)
     const [dailyConstructId,setDailyConstructId] = useState(null)
+
+    const [isMobile, setIsMobile] = useState(false)
+
+    const handleResize = () => {
+        // 960
+        if (window.innerWidth <= 992) {
+            setIsMobile(true)
+        } else {
+            setIsMobile(false)
+        }
+    }
+
+    useEffect(() => {
+        handleResize()
+    }, [])
+
+    window.addEventListener('resize', handleResize)
 
 
     useEffect(() => {
@@ -137,7 +155,13 @@ export default function SectionA({ date }) {
                         <Col key={todo.dc_id}
                             xs={24} sm={12} md={12} lg={8} xl={8} xxl={6} style={{ padding: 5 }}
                         >
-                            <CardDailyConstruct key={todo?.dc_id} todo={todo} setDailyConstructId={setDailyConstructId} setOpenDetail={setOpenDetail} />
+                            {
+                                isMobile ? 
+                                <CardDailyConstructMobile key={todo?.dc_id} todo={todo} setDailyConstructId={setDailyConstructId} setOpenDetail={setOpenDetail} />
+                                :
+                                <CardDailyConstruct key={todo?.dc_id} todo={todo} setDailyConstructId={setDailyConstructId} setOpenDetail={setOpenDetail} />
+
+                            }
                         </Col>
                     )
                 }

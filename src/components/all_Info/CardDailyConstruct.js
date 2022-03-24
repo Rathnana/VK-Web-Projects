@@ -18,8 +18,10 @@ export default function CardDailyConstruct({ todo, setOpenDetail, setDailyConstr
             setPaddingBottom(130)
         }else if(totalBuilder>=3){
             setPaddingBottom(95)
-        }else{
+        }else if(totalBuilder>=1){
             setPaddingBottom(60)
+        }else{
+            setPaddingBottom(30)
         }
         
     },[todo])

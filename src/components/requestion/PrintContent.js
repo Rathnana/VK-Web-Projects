@@ -52,6 +52,7 @@ export default function PrintContent({ r_id, open, setOpen }) {
       title: 'លរ',
       dataIndex: 'requestNumber',
       key: 'requestNumber',
+      align:'center',
       render: text => <span>{text}</span>,
     },
     {
@@ -64,11 +65,13 @@ export default function PrintContent({ r_id, open, setOpen }) {
       title: 'បរិមាណ',
       dataIndex: 'qty',
       key: 'qty',
+      align:'center'
     },
     {
       title: 'ឯកតា',
       dataIndex: 'unit',
       key: 'unit',
+      align:'center'
     },
 
   ];
