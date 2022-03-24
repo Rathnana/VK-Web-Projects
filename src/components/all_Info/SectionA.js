@@ -6,6 +6,7 @@ import moment from 'moment';
 import CardDailyConstruct from './CardDailyConstruct';
 import ModalDetail from './ModalDetail';
 import CardDailyConstructMobile from './CardDailyConstructMobile';
+import SkeletonCard from './SkeletonCard';
 
 export default function SectionA({ date }) {
     const [todos, setTodos] = useState()
@@ -20,7 +21,7 @@ export default function SectionA({ date }) {
 
     const handleResize = () => {
         // 960
-        if (window.innerWidth <= 992) {
+        if (window.innerWidth <= 575) {
             setIsMobile(true)
         } else {
             setIsMobile(false)
@@ -66,73 +67,7 @@ export default function SectionA({ date }) {
     if (loading) return (<Col
         xs={{span:24,order:1}} sm={{span:24,order:1}} md={{span:24,order:1}} lg={{span:24,order:1}} xl={{span:16,order:0}} xxl={{span:16,order:0}}
     >
-        <Row>
-
-            <Col
-                xs={24} sm={12} md={12} lg={8} xl={8} xxl={6} style={{ padding: 5 }}
-            >
-                <center style={{ width: "100%", padding: 10 }} >
-                    <Skeleton.Image width="100%" />
-                    <Skeleton active={loading} />
-                </center>
-            </Col>
-            <Col
-                xs={24} sm={12} md={12} lg={8} xl={8} xxl={6} style={{ padding: 5 }}
-            >
-                <center style={{ width: "100%", padding: 10 }} >
-                    <Skeleton.Image width="100%" />
-                    <Skeleton active={loading} />
-                </center>
-            </Col>
-            <Col
-                xs={24} sm={12} md={12} lg={8} xl={8} xxl={6} style={{ padding: 5 }}
-            >
-                <center style={{ width: "100%", padding: 10 }} >
-                    <Skeleton.Image width="100%" />
-                    <Skeleton active={loading} />
-                </center>
-            </Col>
-            <Col
-                xs={24} sm={12} md={12} lg={8} xl={8} xxl={6} style={{ padding: 5 }}
-            >
-                <center style={{ width: "100%", padding: 10 }} >
-                    <Skeleton.Image width="100%" />
-                    <Skeleton active={loading} />
-                </center>
-            </Col>
-            <Col
-                xs={24} sm={12} md={12} lg={8} xl={8} xxl={6} style={{ padding: 5 }}
-            >
-                <center style={{ width: "100%", padding: 10 }} >
-                    <Skeleton.Image width="100%" />
-                    <Skeleton active={loading} />
-                </center>
-            </Col>
-            <Col
-                xs={24} sm={12} md={12} lg={8} xl={8} xxl={6} style={{ padding: 5 }}
-            >
-                <center style={{ width: "100%", padding: 10 }} >
-                    <Skeleton.Image width="100%" />
-                    <Skeleton active={loading} />
-                </center>
-            </Col>
-            <Col
-                xs={24} sm={12} md={12} lg={8} xl={8} xxl={6} style={{ padding: 5 }}
-            >
-                <center style={{ width: "100%", padding: 10 }} >
-                    <Skeleton.Image width="100%" />
-                    <Skeleton active={loading} />
-                </center>
-            </Col>
-            <Col
-                xs={24} sm={12} md={12} lg={8} xl={8} xxl={6} style={{ padding: 5 }}
-            >
-                <center style={{ width: "100%", padding: 10 }} >
-                    <Skeleton.Image width="100%" />
-                    <Skeleton active={loading} />
-                </center>
-            </Col>
-        </Row >
+        <SkeletonCard loading={loading} />
     </Col >
     )
 

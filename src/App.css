@@ -107,9 +107,10 @@ body, html {
   .image-card-mobile{
     object-fit: cover !important;
     height: 70px !important;
-    width: 100%;
-    padding-right: 5px!important;
+    width: 70px;
+    /* padding-right: 5px!important; */
     cursor: pointer;
+    border-radius: 50%;
 }
   .ant-form-item-explain-error{
       margin-top: 5px !important;
@@ -123,6 +124,19 @@ body, html {
     /* overflow-y: scroll; */
     height: 100%;
     /* padding: 0px!important; */
+  }
+
+  .card-report-mobile{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    /* padding: 10px!important; */
+    /* max-height: 350px!important; */
+    /* overflow-y: scroll; */
+    height: 100%;
+    /* padding: 0px!important; */
+  }
+
+  .card-report-mobile:active{
+      background-color: #ddd;
   }
 
   .drawer-phone .ant-drawer-wrapper-body{
@@ -157,4 +171,10 @@ body, html {
     background: #bbb;
     border-radius: 10px;
 
+}
+
+.customize-circle-progress .ant-progress-inner{ 
+    width: 70px!important;
+    height: 70px!important;
+    font-size: 6px!important;
 }

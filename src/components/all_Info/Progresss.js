@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Progress } from 'antd';
 
 
-export default function Progresss({status}) {
+export default function Progresss({status,type,width}) {
     const [progress, setProgress] = useState();
     
     useEffect(() => {
@@ -113,5 +113,8 @@ export default function Progresss({status}) {
         }
         setProgress(day)
     }
-    return <Progress percent={progress} strokeColor='#33ab5f' strokeLinecap='square' size="small" />;
+
+    if(type==='circle') return <Progress percent={progress} strokeColor='#33ab5f' type={type} width={60} strokeWidth={8}  strokeLinecap='square' size="large" />;
+
+    return <Progress percent={progress} strokeColor='#33ab5f'  strokeLinecap='square' size="large" />;
 }
