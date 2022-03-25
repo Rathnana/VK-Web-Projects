@@ -20,7 +20,7 @@ export default function CardDailyConstructMobile({ todo, setOpenDetail, setDaily
         } else if (totalBuilder >= 3) {
             setPaddingBottom(95)
         } else if (totalBuilder >= 1) {
-            setPaddingBottom(60)
+            setPaddingBottom(30)
         } else {
             setPaddingBottom(30)
         }
@@ -39,7 +39,7 @@ export default function CardDailyConstructMobile({ todo, setOpenDetail, setDaily
                 onClick={() => handleOpen(todo?.dc_id)}
 
             >
-                <Row gutter={10}>
+                <Row gutter={5}>
             
                     <Col xs={6} style={{ display: 'flex', justifyContent: 'start', alignItems: 'center' }}>
                         <img
@@ -58,16 +58,15 @@ export default function CardDailyConstructMobile({ todo, setOpenDetail, setDaily
                             មេកា៖ {`${todo?.chiefName}`} ({todo.teamCount} ក្រុម - {parseInt(todo?.builderCount) + parseInt(todo.workerCount)} នាក់)
                         </Typography> */}
                         <span onClick={() => handleOpen(todo?.dc_id)}
-                            style={{ fontWeight: "bold", fontFamily: 'Moul', cursor: 'pointer', textDecoration: 'underline', fontSize: 12 }}
+                            style={{ fontWeight: "bold", fontFamily: 'Moul', cursor: 'pointer', textDecoration: 'underline', fontSize: 14 }}
                         >
-
-                            {todo.constructionName}
+                            {todo.constructionName?.substring(0,10)}
                         </span>
-                        <span style={{fontSize:11}}>({parseInt(todo?.builderCount) + parseInt(todo.workerCount)}នាក់)</span>
+                        <span style={{fontSize:14}}>({parseInt(todo?.builderCount) + parseInt(todo.workerCount)}នាក់)</span>
 
-                        <Typography style={{ fontWeight: "bold", fontSize: 11 }}>
+                        <div style={{ fontWeight: "bold", fontSize: 11 }}>
                             ជាងៈ {parseInt(todo?.builderCount) - parseInt(todo?.painterCount)} | ថ្នាំៈ {todo?.painterCount} | ប្រុសៈ {parseInt(todo.workerCount) - parseInt(todo?.femaleWorkerCount)} | ស្រីៈ {todo?.femaleWorkerCount}
-                        </Typography>
+                        </div>
 
                         {todo.challenges !== '' ?
                             <Typography style={{ color: 'red', marginTop: 5, marginLeft: 0, fontSize: 11 }}>

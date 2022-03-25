@@ -52,7 +52,7 @@ export default function UnLawWorkTabel() {
             key: 'no',
             fontWeight: 'bold',
             fixed:'left',
-            width: 60
+            width: 50
         },
         {
             title: 'អតិថិជន',

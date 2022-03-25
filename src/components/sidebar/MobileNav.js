@@ -27,16 +27,17 @@ export default function MobileNav() {
     return (
         <div style={{
             position: "absolute",
-            zIndex: "2"
+            zIndex: 100
         }}>
-            <Affix offsetTop={20}>
+            <Affix offsetTop={20} >
                 <Button
                     type="primary"
                     onClick={showDrawer}
                     style={{
                         width: "70px",
                         height:'50px',
-                        paddingTop: "10px"
+                        paddingTop: "10px",
+                        // zIndex:10000
                     }}
                 >
                     <AiOutlineMenuFold style={{ fontSize: 25}} />
@@ -58,7 +59,7 @@ export default function MobileNav() {
                     selectedKeys={[keyMenu(urlPath)]}
                 >
 
-                    <Link to="/">
+                    <Link onClick={onClose} to="/">
                         <img
 
                             style={{
