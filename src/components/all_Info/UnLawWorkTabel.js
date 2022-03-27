@@ -52,14 +52,14 @@ export default function UnLawWorkTabel() {
             key: 'no',
             fontWeight: 'bold',
             fixed:'left',
-            width: 50
+            width: 40
         },
         {
             title: 'អតិថិជន',
             dataIndex: 'customerName',
             key: 'customerName',
             fixed:'left',
-            width: 100
+            width: 80
         },
 
         {

@@ -24,7 +24,7 @@ export default function PettyCashTable({
     useEffect(() => {
         setLoading(true);
         getPettyCash();
-    }, [success, status, search])
+    }, [success, status, search,page,pageSize])
 
     const getPettyCash = async () => {
         const params = new URLSearchParams();
@@ -170,7 +170,7 @@ export default function PettyCashTable({
             scroll={{ x: 1200 }}
             style={{ marginTop: "20px" }}
             columns={columns}
-            dataSource={tableDataWithNo}
+            dataSource={loading ? []:tableDataWithNo}
             rowClassName={record => record?.status === 'បានទូរទាត់' ? 'finished-row' : ''}
             loading={loading}
             onRow={(record, rowIndex) => {

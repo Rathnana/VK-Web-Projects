@@ -22,7 +22,7 @@ export default function RequestionTable({
     useEffect(() => {
         setLoading(true);
         getRequests();
-    }, [success, constructionId, date])
+    }, [success, constructionId, date,page, pageSize])
 
     const getRequests = async () => {
         const params = new URLSearchParams();
@@ -155,7 +155,7 @@ export default function RequestionTable({
             scroll={{ x: 1200 }}
             style={{ marginTop: "20px" }}
             columns={columns}
-            dataSource={tableDataWithNo}
+            dataSource={loading ? []:tableDataWithNo}
             loading={loading}
             rowKey={record => record?.r_id}
             className='table-customize'

@@ -19,7 +19,7 @@ export default function UsersTable({
     useEffect(() => {
         getUsers();
         setLoading(true);
-    }, [success, search])
+    }, [success, search,page,pageSize])
 
     const getUsers = async () => {
         const params = new URLSearchParams();
@@ -109,7 +109,7 @@ export default function UsersTable({
         style={{ marginTop: "20px" }}
         columns={columns}
         scroll={{ x: 800 }}
-        dataSource={tableDataWithNo}
+        dataSource={loading ? []:tableDataWithNo}
         loading={loading}
         className='table-customize'
         rowKey={record => record?.u_id}
