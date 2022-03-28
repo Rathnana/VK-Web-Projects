@@ -7,12 +7,15 @@ import CardDailyConstruct from './CardDailyConstruct';
 import ModalDetail from './ModalDetail';
 import CardDailyConstructMobile from './CardDailyConstructMobile';
 import SkeletonCard from './SkeletonCard';
+import { useRequest } from 'ahooks';
+import { getConstructByDate } from '../../getDatabase';
+
 
 export default function SectionA({ date }) {
-    const [todos, setTodos] = useState()
+    // const [todos, setTodos] = useState()
     // const [page, setPage] = useState(1);
     // const [pageSize, setPageSize] = useState(3);
-    const [loading, setLoading] = useState(true);
+    // const [loading, setLoading] = useState(true);
 
     const [openDetail,setOpenDetail] = useState(false)
     const [dailyConstructId,setDailyConstructId] = useState(null)
@@ -34,37 +37,26 @@ export default function SectionA({ date }) {
 
     window.addEventListener('resize', handleResize)
 
+    
 
-    useEffect(() => {
-        setLoading(true)
-        getConstructByDate();
-    }, [date])
+    const { data:todos, loading } = useRequest(getConstructByDate, {
+        pollingInterval:60000,
+        pollingWhenHidden: false,
+        defaultParams: [date],
+    });
 
-    const getConstructByDate = async () => {
-        const params = new URLSearchParams();
-        params.append('db_user', process.env.React_App_DB_USER);
-        params.append('db_password', process.env.React_App_DB_PASSWORD);
-        params.append('db', 'wwvka_vkms', process.env.React_App_DB);
+    // console.log(todos)
+    // useEffect(() => {
+    //     setLoading(true)
+    //     getConstructByDate();
+    //     setInterval(function(){
+    //         console.log('test')
+    //         getConstructByDate();
 
-        params.append('data', JSON.stringify({ date: moment(date).format('YYYY-MM-DD') }))
+    //     },60000)
+    // }, [date])
 
-        return await axios.post(
-            `${process.env.React_App_URL}/get/getDailyConstructByDate.php`, params
-        )
-            .then(async function (response) {
-                if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
-
-                    setTodos(response?.data.data)
-                    setLoading(false)
-                    return response?.data;
-                } else {
-                    setLoading(false)
-                    return [];
-                }
-            });
-    }
-
-    if (loading) return (<Col
+    if (loading && !todos) return (<Col
         xs={{span:24,order:1}} sm={{span:24,order:1}} md={{span:24,order:1}} lg={{span:24,order:1}} xl={{span:16,order:0}} xxl={{span:16,order:0}}
     >
         <SkeletonCard loading={loading} />
@@ -86,7 +78,7 @@ export default function SectionA({ date }) {
             <ModalDetail id={dailyConstructId} open={openDetail} setOpen={setOpenDetail} />
             <Row>
                 {
-                    todos?.map(todo =>
+                    todos?.data?.map(todo =>
                         <Col key={todo.dc_id}
                             xs={24} sm={12} md={12} lg={8} xl={8} xxl={6} style={{ padding: 5 }}
                         >

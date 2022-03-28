@@ -8,6 +8,7 @@
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "ahooks": "^3.2.0",
     "antd": "^4.16.13",
     "axios": "^0.24.0",
     "browser-image-compression": "^1.0.17",

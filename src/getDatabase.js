@@ -450,3 +450,26 @@ export function setCookie(c_name, value, exdays) {
     var c_value = encodeURIComponent(value) + ((exdays == null) ? "" : "; expires=" + exdate.toUTCString());
     document.cookie = c_name + "=" + c_value;
 }
+
+export const getConstructByDate = async (date) => {
+    const params = new URLSearchParams();
+    params.append('db_user', process.env.React_App_DB_USER);
+    params.append('db_password', process.env.React_App_DB_PASSWORD);
+    params.append('db', process.env.React_App_DB);
+
+    params.append('data', JSON.stringify({ date: moment(date).format('YYYY-MM-DD') }))
+
+    return await axios.post(
+        `${process.env.React_App_URL}/get/getDailyConstructByDate.php`, params
+    )
+        .then(async function (response) {
+            if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
+                // setTodos(response?.data.data)
+                // setLoading(false)
+                return response?.data;
+            } else {
+                // setLoading(false)
+                return [];
+            }
+        });
+}
