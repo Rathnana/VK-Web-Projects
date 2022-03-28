@@ -17,6 +17,8 @@ export default function SectionA({ date }) {
     // const [pageSize, setPageSize] = useState(3);
     // const [loading, setLoading] = useState(true);
 
+    const [stateRun, setStateRun ] = useState(0)
+
     const [openDetail,setOpenDetail] = useState(false)
     const [dailyConstructId,setDailyConstructId] = useState(null)
 
@@ -37,33 +39,29 @@ export default function SectionA({ date }) {
 
     window.addEventListener('resize', handleResize)
 
-    
-
-    const { data:todos, loading } = useRequest(getConstructByDate, {
-        pollingInterval:60000,
+    const { data:todos, loading,run} = useRequest(getConstructByDate, {
+        pollingInterval:10000,
         pollingWhenHidden: false,
         defaultParams: [date],
+        onSuccess:(data)=>{
+            setStateRun(stateRun+1)
+        }
     });
 
-    // console.log(todos)
-    // useEffect(() => {
-    //     setLoading(true)
-    //     getConstructByDate();
-    //     setInterval(function(){
-    //         console.log('test')
-    //         getConstructByDate();
+    useEffect(() => {
+        setStateRun(0)
+        run(date)
+    }, [date])
 
-    //     },60000)
-    // }, [date])
-
-    if (loading && !todos) return (<Col
+    if (loading && stateRun===0) return (
+    <Col
         xs={{span:24,order:1}} sm={{span:24,order:1}} md={{span:24,order:1}} lg={{span:24,order:1}} xl={{span:16,order:0}} xxl={{span:16,order:0}}
     >
         <SkeletonCard loading={loading} />
     </Col >
     )
 
-    if (todos?.length <= 0) {
+    if (todos?.data?.length <= 0) {
         return (
             <Col  xs={{span:24,order:1}} sm={{span:24,order:1}} md={{span:24,order:1}} lg={{span:24,order:1}} xl={{span:16,order:0}} xxl={{span:16,order:0}} style={{ height: '70vh', border: '2px solid #DDDDDD', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <Empty />
