@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import { Col } from 'antd';
 import WorkerGraph from './WorkerGraph';
+import Weather from './Weather';
 
 
 export default function SectionB() {
@@ -27,10 +28,8 @@ export default function SectionB() {
             // className="site-card-wrapper"
             style={{ padding: '0px 20px' }}
         >
-           {
-               !isMobile && <WorkerGraph />
-           }
-            
+           {!isMobile && <WorkerGraph />}
+           {!isMobile && <><br/><Weather /></>}
             {/* <PageHeader
                 ghost={false}
                 title="តារាងស្នើរសុំសម្ភារៈ"
