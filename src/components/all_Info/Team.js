@@ -16,31 +16,32 @@ export default function Team({ team }) {
                         background: '#EEEEEE'
                     }}
                 >
-                    <Col xs={6} style={{ padding: 5, fontWeight: "bold", }}>
-                    <IoIosPeople />&nbsp;&nbsp;ក្រុមទី{team?.teamNumber}
+                    <Col xs={6} style={{ padding:"5px 0px 5px 5px", fontWeight: "bold", }}>
+                    <IoIosPeople />&nbsp;&nbsp;ក្រុម {team?.teamNumber}
                     </Col>
-                    <Col xs={8} style={{ padding: 5 }}>
+                    <Col xs={8} style={{ padding:"5px 0px 5px 5px" }}>
                         <b>: {team?.teamLeaderName}</b>
                     </Col>
-                    <Col xs={5} style={{ padding: 5 }}>
+                    <Col xs={5} style={{ padding:"5px 0px 5px 5px" }}>
                         ជាង: <b>{team?.builderCount}</b>
                     </Col>
-                    <Col xs={5} style={{ padding: 5 }}>
+                    <Col xs={5} style={{ padding:"5px 0px 5px 5px" }}>
                         កម្មករ: <b>{team?.workerCount}</b>
                     </Col>
                 </Row>
                 <Row style={{ fontSize: "15px", marginTop: 5 }}>
-                    <Col xs={6} style={{ padding: 5 }}>
+                    <Col xs={6} style={{ padding:"5px 0px 5px 5px" }}>
                         &emsp;&nbsp;&nbsp;ការងារ
                     </Col>
-                    <Col xs={18} style={{ padding: 5 }}>
+                    <Col xs={18} style={{ padding:"5px 0px 5px 5px" }}>
                         : <b>{team?.performance}</b>
                     </Col>
-
-                    <Col xs={6} style={{ padding: 5 }}>
-                        &emsp;&nbsp;&nbsp;លទ្ទផល
+                </Row>
+                <Row style={{ fontSize: "15px" }}>
+                    <Col xs={6} style={{ padding:"5px 0px 5px 5px" }}>
+                    &nbsp;&nbsp;&nbsp;លទ្ទផល
                     </Col>
-                    <Col xs={18} style={{ padding: 5, }}>
+                    <Col xs={18} style={{ padding:"5px 0px 5px 5px", }}>
                         : <b>{team?.result}</b>
                     </Col>
                 </Row>

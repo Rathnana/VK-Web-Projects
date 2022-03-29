@@ -178,3 +178,8 @@ body, html {
     height: 70px!important;
     font-size: 6px!important;
 }
+
+.modal-detail-card .ant-modal-body{
+    padding: 5px!important;
+    letter-spacing: -0.3px;
+}

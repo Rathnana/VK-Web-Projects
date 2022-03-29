@@ -1,8 +1,8 @@
 import { Card, Col, Row, Typography } from 'antd'
 import React, { useEffect, useState } from 'react'
 import Progresss from './Progresss'
-import TagBuilder from './TagBuilder'
 import TagBuilderMobile from './TagBuilderMobile'
+import DefaultImage from '../../assets/img/default.jpg'
 
 export default function CardDailyConstructMobile({ todo, setOpenDetail, setDailyConstructId }) {
     const [paddingBottom, setPaddingBottom] = useState(130)
@@ -33,6 +33,7 @@ export default function CardDailyConstructMobile({ todo, setOpenDetail, setDaily
                 bordered={false}
                 style={{
                     borderRadius: 50,
+
                 }}
                 className='card-report-mobile'
                 cover={null}
@@ -48,15 +49,13 @@ export default function CardDailyConstructMobile({ todo, setOpenDetail, setDaily
                             onClick={() => handleOpen(todo?.dc_id)}
                             src={
                                 todo?.resultImage === "" && todo?.startImage === "" ?
-                                    "https://www.chanchao.com.tw/ctg/images/default.jpg"
+                                    DefaultImage
                                     : todo?.resultImage !== "" ? `${process.env.React_App_IMAGES}/${todo.resultImage}`
                                         : `${process.env.React_App_IMAGES}/${todo.startImage}`
                             } />
                     </Col>
                     <Col xs={13} style={{ position: 'relative', paddingBottom: paddingBottom }} >
-                        {/* <Typography style={{ fontWeight: "bold" }}>
-                            មេកា៖ {`${todo?.chiefName}`} ({todo.teamCount} ក្រុម - {parseInt(todo?.builderCount) + parseInt(todo.workerCount)} នាក់)
-                        </Typography> */}
+                        
                         <span onClick={() => handleOpen(todo?.dc_id)}
                             style={{ fontWeight: "bold", fontFamily: 'Moul', cursor: 'pointer', textDecoration: 'underline', fontSize: 14 }}
                         >
@@ -64,7 +63,7 @@ export default function CardDailyConstructMobile({ todo, setOpenDetail, setDaily
                         </span>
                         <span style={{fontSize:14,fontWeight:'bold',paddingLeft:5}}>({parseInt(todo?.builderCount) + parseInt(todo.workerCount)}នាក់)</span>
 
-                        <div style={{ fontWeight: "bold", fontSize: 11 }}>
+                        <div style={{ fontWeight: "bold", fontSize: 11,letterSpacing:-0.3 }}>
                             ជាងៈ {parseInt(todo?.builderCount) - parseInt(todo?.painterCount)} | ថ្នាំៈ {todo?.painterCount} | ប្រុសៈ {parseInt(todo.workerCount) - parseInt(todo?.femaleWorkerCount)} | ស្រីៈ {todo?.femaleWorkerCount}
                         </div>
 

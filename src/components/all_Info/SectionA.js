@@ -78,7 +78,7 @@ export default function SectionA({ date }) {
                 {
                     todos?.data?.map(todo =>
                         <Col key={todo.dc_id}
-                            xs={24} sm={12} md={12} lg={8} xl={8} xxl={6} style={{ padding: 5 }}
+                            xs={24} sm={12} md={12} lg={8} xl={8} xxl={6} style={{ padding: isMobile ? "5px 0px 5px 0px" : 5 }}
                         >
                             {
                                 isMobile ? 

@@ -55,10 +55,11 @@ export default function ModalDetail({ open, setOpen, id }) {
             visible={open}
             onCancel={() => setOpen(false)}
             footer={null}
+            className="modal-detail-card"
         >
             <Row
                 style={{
-                    paddingTop: "30px"
+                    marginTop: "45px"
                 }}
             >
                 {
@@ -129,7 +130,7 @@ export default function ModalDetail({ open, setOpen, id }) {
                                         marginBottom: "15px",
                                     }}
                                 >
-                                    <Col xs={6} style={{ padding: 5, paddingLeft: 30 }}>
+                                    <Col xs={6} style={{ padding: 5, paddingLeft: 35 }}>
                                         បញ្ហា
                                     </Col>
                                     <Col xs={18} style={{ padding: 5 }}>
