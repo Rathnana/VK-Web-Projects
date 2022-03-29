@@ -17,8 +17,7 @@ export default function Current({ weatherInfo, location, date }) {
           // alt={weatherInfo.current.weather[0].main}
         />
         <h2 className="other-info__city">
-          {/* {location.city || location.town},{" "} */}
-          {location?.state?.toUpperCase() || location?.country?.toUpperCase()}
+          {location?.city?.toUpperCase() || location?.state?.toUpperCase() || location?.country?.toUpperCase()},{" "}{location?.country_code?.toUpperCase()}
         </h2>
         <h3 className="other-info__clouds">{date}</h3>
         <h3 className="other-info__clouds">

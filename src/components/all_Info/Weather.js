@@ -33,7 +33,6 @@ export default function Weather() {
         if (e.key === "Enter") handleButtonClick();
     }
 
-
     function showWarning() {
         setContentState("warning");
         setTimeout(() => setContentState("blank"), 3000);
@@ -51,7 +50,8 @@ export default function Weather() {
                         city: res.data.results[0].components.city,
                         town: res.data.results[0].components.town,
                         state: res.data.results[0].components.state,
-                        country: res.data.results[0].components.country
+                        country: res.data.results[0].components.country,
+                        country_code: res.data.results[0].components.country_code
                     });
                 })
                 .then(() =>
@@ -94,7 +94,8 @@ export default function Weather() {
                     city: res.data.results[0].components.city,
                     town: res.data.results[0].components.town,
                     state: res.data.results[0].components.state,
-                    country: res.data.results[0].components.country
+                    country: res.data.results[0].components.country,
+                    country_code: res.data.results[0].components.country_code
                 });
             })
             .catch((error) => showWarning());
@@ -134,7 +135,7 @@ export default function Weather() {
 
     return (
         <div className='weather__container'>
-            <div style={{ backgroundColor: 'rgba(0, 0, 0, 0.30)', padding: 20 }} >
+            <div style={{ backgroundColor: 'rgba(0, 0, 0, 0.45)', padding: 20 }} >
                 <Input size='large' placeholder='city, state ...'
                     onChange={(e) => setTempSearch(e.target.value)}
                     onKeyPress={handleKeyPress}

@@ -30,7 +30,7 @@ export default function Requestion() {
         )
             .then(async function (response) {
                 if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
-                    setConstruction(response?.data.data)
+                    setConstruction(response?.data?.data ? response?.data?.data:[])
                     return response?.data;
                 } else {
                     return [];

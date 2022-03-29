@@ -100,7 +100,7 @@ const getDailyWorkerGraph = async () => {
 }
 
 const combineWorkerCount = (array) => {
-    let res = array.reduce((ac, a) => {
+    let res = array?.reduce((ac, a) => {
         let ind = ac.findIndex(x => x.createdAt === a.createdAt);
         ind === -1 ? ac.push(a) : ac[ind].workerCount += a.workerCount;
         return ac;
@@ -110,7 +110,7 @@ const combineWorkerCount = (array) => {
 }
 
 const combineFemaleWorkerCount = (array) => {
-    let res = array.reduce((ac, a) => {
+    let res = array?.reduce((ac, a) => {
         let ind = ac.findIndex(x => x.createdAt === a.createdAt);
         ind === -1 ? ac.push(a) : ac[ind].femaleWorkerCount += a.femaleWorkerCount;
         return ac;
@@ -120,7 +120,7 @@ const combineFemaleWorkerCount = (array) => {
 }
 
 const combinePainterCount = (array) => {
-    let res = array.reduce((ac, a) => {
+    let res = array?.reduce((ac, a) => {
         let ind = ac.findIndex(x => x.createdAt === a.createdAt);
         ind === -1 ? ac.push(a) : ac[ind].painterCount += a.painterCount;
         return ac;
@@ -132,7 +132,7 @@ const combinePainterCount = (array) => {
 
 const combineBuilderCount = (array) => {
 
-    let res = array.reduce((ac, a) => {
+    let res = array?.reduce((ac, a) => {
         let ind = ac.findIndex(x => x.createdAt === a.createdAt);
         ind === -1 ? ac.push(a) : ac[ind].builderCount += a.builderCount;
         return ac;

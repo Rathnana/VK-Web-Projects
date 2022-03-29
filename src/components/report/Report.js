@@ -10,7 +10,7 @@ const { Title } = Typography;
 const { Option } = Select;
 export default function Report() {
     const [form] = Form.useForm();
-    const [customers, setCustomers] = useState(null);
+    const [customers, setCustomers] = useState([]);
     const [chiefs, setChiefs] = useState(null);
     const [success, setSuccess] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -55,7 +55,7 @@ export default function Report() {
         )
             .then(async function (response) {
                 if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
-                    setCustomers(response?.data);
+                    setCustomers(response?.data ? response?.data : []);
                     return response?.data;
                 } else {
                     return [];
@@ -75,7 +75,7 @@ export default function Report() {
             .then(async function (response) {
 
                 if (await response?.data !== 'Cannot select' && await response?.data !== 'notuser') {
-                    setChiefs(response?.data?.data);
+                    setChiefs(response?.data?.data ? response?.data?.data: []);
                     return response?.data;
                 } else {
                     return [];
