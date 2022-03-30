@@ -12,8 +12,6 @@ async function getCoordinatesOfAddress(address) {
     }
   );
 
-  console.log(response)
-
   return response;
 }
 

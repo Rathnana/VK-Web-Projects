@@ -1,4 +1,4 @@
-import { Input, Spin } from 'antd';
+import { Input, message, Spin } from 'antd';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import getCoordinatesOfAddress from '../../api/forwardGeocoding';
@@ -18,6 +18,23 @@ export default function Weather() {
     const [tempSearch, setTempSearch] = useState("")
 
     const antIcon = <LoadingOutlined style={{ fontSize: 24, color: '#FFFFFF' }} spin />;
+
+    const [isMobile, setIsMobile] = useState(false)
+
+    const handleResize = () => {
+        // 960
+        if (window.innerWidth <= 575) {
+            setIsMobile(true)
+        } else {
+            setIsMobile(false)
+        }
+    }
+
+    useEffect(() => {
+        handleResize()
+    }, [])
+
+    window.addEventListener('resize', handleResize)
 
 
     function searchCity(target) {
@@ -39,6 +56,11 @@ export default function Weather() {
     }
 
     useEffect(() => {
+
+        if(window.innerWidth <= 575 || isMobile) {
+            return
+        }
+
         function makeRequest(position) {
             setContentState("loading");
             getAddressOfCoordinates(
@@ -60,17 +82,19 @@ export default function Weather() {
                         lng: position.coords.longitude
                     })
                 )
-                .catch((error) => showWarning());
+                .catch((error) => {
+                    showWarning()
+                });
         }
 
         function catchError(err) {
-            alert("ERROR(" + err.code + "): " + err.message);
+            message.error("ERROR(" + err.code + "): " + err.message);
         }
 
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(makeRequest, catchError);
         } else {
-            alert("Geolocation is not supported by this browser.");
+            message.error("Geolocation is not supported by this browser.");
         }
     }, []);
 
@@ -83,7 +107,9 @@ export default function Weather() {
                 if (
                     res.data.results.length === 0 ||
                     (res.data.results[0].components.city === undefined &&
-                        res.data.results[0].components.town === undefined)
+                        res.data.results[0].components.town === undefined &&
+                        res.data.results[0].components.state === undefined
+                        )
                 ) {
                     showWarning();
                     return;
@@ -98,7 +124,9 @@ export default function Weather() {
                     country_code: res.data.results[0].components.country_code
                 });
             })
-            .catch((error) => showWarning());
+            .catch((error) => {
+                showWarning()
+            });
     }, [address]);
 
     useEffect(() => {

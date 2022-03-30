@@ -9,7 +9,8 @@ async function getWeatherAndForecast(coordinates) {
         lon: coordinates.lng,
         exclude: "minutely,hourly,alerts",
         appid: process.env.REACT_APP_OPEN_WEATHER_API_KEY,
-        units: "metric"
+        units: "metric",
+        lang:'en'
       }
     }
   );
