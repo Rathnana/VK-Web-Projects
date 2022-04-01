@@ -21,7 +21,7 @@ export default function ReportTable({
 }) {
     const [reports, setReports] = useState([]);
     const [page, setPage] = useState(1);
-    const [pageSize, setPageSize] = useState(20);
+    const [pageSize, setPageSize] = useState(100);
 
     const [dailyConstructId, setDailyConstructId] = useState(null);
     const [openDetail, setOpenDetail] = useState(false);
