@@ -146,7 +146,7 @@ export default function Weather() {
                     setContentState("weatherAndForecast");
                 })
                 .catch((error) => showWarning());
-        }, 300000)
+        }, 600000)
     }, [coordinates]);
 
     const Main = {
