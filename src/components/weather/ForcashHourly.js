@@ -7,8 +7,6 @@ export default function ForecastHourly({ weatherInfo }) {
 
     let hour = moment.unix(weatherInfo.dt).format('ha')
 
-    console.log(weatherInfo)
-
     return (
         <Row>
             <Col xs={24} style={{textAlign:'center'}}>
