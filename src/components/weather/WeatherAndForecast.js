@@ -5,6 +5,8 @@ import Forecast from "./Forecast";
 
 import "../styles/WeatherAndForecast.css";
 import { Col, Row } from "antd";
+import ForecastHourly from "./ForcashHourly";
+import ForecastHourlyNow from "./ForcashHourlyNow";
 
 function WeatherAndForecast({ weatherInfo, location }) {
   const date = dateBuilder(new Date());
@@ -45,7 +47,29 @@ function WeatherAndForecast({ weatherInfo, location }) {
         <Weather weatherInfo={weatherInfo} location={location} date={date[0]} />
       </Col>
       <Col xs={24}>
-        <Row className="WeatherAndForecast__container">
+        <Row style={{ backgroundColor: 'rgba(255, 255, 255, 0.20)',borderRadius:10 }} >
+          <Col xs={7} md={7} style={{fontSize:20,background:'rgba(70,130,180,0.50)',padding: '1.5rem 0rem 1.5rem 0rem',borderRadius:10 }}>
+            <ForecastHourlyNow weatherInfo={weatherInfo.hourly[0]} />
+          </Col>
+          <Col xs={17} md={17} style={{padding: '1.5rem 0rem 1.5rem 0rem' }}>
+            <Row>
+              <Col xs={12} md={6}>
+                <ForecastHourly weatherInfo={weatherInfo.hourly[1]} />
+              </Col>
+              <Col xs={12} md={6}>
+                <ForecastHourly weatherInfo={weatherInfo.hourly[2]} />
+              </Col>
+              <Col xs={12} md={6}>
+                <ForecastHourly weatherInfo={weatherInfo.hourly[3]} />
+              </Col>
+              <Col xs={12} md={6}>
+                <ForecastHourly weatherInfo={weatherInfo.hourly[4]} />
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+
+        <Row className="WeatherAndForecast__container" style={{marginTop:10, backgroundColor: 'rgba(255, 255, 255, 0.20)',borderRadius:10 }}>
           <Col xs={4}>
             <Forecast weatherInfo={weatherInfo.daily[0]} date={date[0]} />
           </Col>

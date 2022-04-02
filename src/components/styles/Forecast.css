@@ -10,6 +10,11 @@
   height: 60px;
 }
 
+.Forecast__weather-icon-now {
+  width: 70px;
+  height: 70px;
+}
+
 .Forecast__weather-icon:hover {
   animation-name: icons;
   animation-duration: 1s;

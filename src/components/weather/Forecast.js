@@ -4,7 +4,7 @@ import "../styles/Forecast.css";
 
 export default function Forecast({ weatherInfo, date }) {
   return (
-    <div>
+    <div style={{textAlign:'center'}}>
       <h1 className="Forecast__title">{[date[0], date[1], date[2]]}</h1>
       <img
         className="Forecast__weather-icon"

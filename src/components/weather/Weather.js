@@ -4,6 +4,7 @@ import React from "react";
 import "../styles/Weather.css";
 
 export default function Current({ weatherInfo, location, date }) {
+
   return (
     <Row className="Weather">
       <Col md={24} lg={24} xl={12} >

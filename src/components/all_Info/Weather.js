@@ -139,14 +139,13 @@ export default function Weather() {
             })
             .catch((error) => showWarning());
         setInterval(() => {
-            console.log('ddd')
             getWeatherAndForecast(coordinates)
                 .then((res) => {
                     setWeatherAndForecastInfo(res.data);
                     setContentState("weatherAndForecast");
                 })
                 .catch((error) => showWarning());
-        }, 600000)
+        }, 300000)
     }, [coordinates]);
 
     const Main = {
