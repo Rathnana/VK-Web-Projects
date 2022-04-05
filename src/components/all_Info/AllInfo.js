@@ -37,7 +37,7 @@ export default function AllInfo() {
                         }}
                         level={4}
                     >
-                        ព័ត៌មានសរុប <span style={{fontFamily:'KhmerOsSiemreap'}}>{`(ជាង:${totalData?.totalBuilder} | កម្មករ:${totalData?.totalWorker})`}</span>
+                        ព័ត៌មានសរុប <span style={{fontFamily:'KhmerOsSiemreap',color:'gray'}}>{`(ជាង:${totalData?.totalBuilder} | កម្មករ:${totalData?.totalWorker})`}</span>
                     </Title>
                     <Row>
                         <Col>

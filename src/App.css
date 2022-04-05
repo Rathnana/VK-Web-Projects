@@ -129,8 +129,9 @@ body, html {
   }
 
   .card-report:hover{
-    transform: scale(1.07);
+    transform: scale(1.03);
     z-index: 100;
+    background: #ffadab;
   }
 
   /* .card-report .ant-card-body .i */
