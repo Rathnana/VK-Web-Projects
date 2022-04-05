@@ -11,7 +11,7 @@ import { useRequest } from 'ahooks';
 import { getConstructByDate } from '../../getDatabase';
 
 
-export default function SectionA({ date }) {
+export default function SectionA({ date,setTotalData }) {
     // const [todos, setTodos] = useState()
     // const [page, setPage] = useState(1);
     // const [pageSize, setPageSize] = useState(3);
@@ -47,6 +47,14 @@ export default function SectionA({ date }) {
             setStateRun(stateRun+1)
         }
     });
+
+    useEffect(()=>{
+        if(todos){
+            let totalBuilder = todos?.data?.reduce((accum,item) => accum + parseInt(item.builderCount), 0)
+            let totalWorker = todos?.data?.reduce((accum,item) => accum + parseInt(item.workerCount), 0)
+            setTotalData({totalBuilder:totalBuilder,totalWorker:totalWorker})
+        }
+    },[todos])
 
     useEffect(() => {
         setStateRun(0)

@@ -46,7 +46,7 @@ export default function Header({ setAuth, setSearch,search }) {
                                 // position: "absolute",
                                 right: 0,
                                 cursor: "pointer",
-                                fontSize: 18
+                                fontSize: 16
                             }}
                         >
                             <Popconfirm

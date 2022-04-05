@@ -162,10 +162,11 @@ export default function Weather() {
 
     return (
         <div className='weather__container'>
-            <div style={{ backgroundColor: 'rgba(0, 0, 0, 0.45)', padding: 20 }} >
+            <div style={{ backgroundColor: 'rgb(115, 166, 206)', padding: 20,borderRadius:10 }} >
                 <Input size='large' placeholder='city, state ...'
                     onChange={(e) => setTempSearch(e.target.value)}
                     onKeyPress={handleKeyPress}
+                    style={{borderRadius:10}}
                 />
                 {Main[contentState]()}
             </div>

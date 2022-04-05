@@ -28,8 +28,8 @@ export default function SectionB() {
             // className="site-card-wrapper"
             style={{ padding: '0px 20px' }}
         >
-           {!isMobile && <WorkerGraph />}
-           {!isMobile && <><br/><Weather /></>}
+           {!isMobile && <><Weather /></>}
+           {!isMobile && <><br/><WorkerGraph /></>}
             {/* <PageHeader
                 ghost={false}
                 title="តារាងស្នើរសុំសម្ភារៈ"

@@ -31,7 +31,7 @@ export default function CardDailyConstruct({ todo, setOpenDetail, setDailyConstr
             <Card
                 bordered={false}
                 style={{
-                    borderRadius: 5, position: 'relative', paddingBottom: paddingBottom
+                    borderRadius: 10, position: 'relative', paddingBottom: paddingBottom
                 }}
                 className='card-report'
                 cover={
@@ -74,7 +74,9 @@ export default function CardDailyConstruct({ todo, setOpenDetail, setDailyConstr
                     }
                 </div>
 
-                <Typography style={{ color: 'red' }}>{todo.challenges}</Typography>
+                {todo.challenges !== '' ?
+                <Typography style={{ color: 'red' }}>បញ្ហាៈ {todo.challenges}</Typography>
+                :null}
 
                 <div style={{ position: 'absolute', bottom: 10, left: 10, right: 10 }}>
                     {/* <div className='contentTag'>

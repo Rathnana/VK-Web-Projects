@@ -13,6 +13,10 @@ const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
 export default function AllInfo() {
     let navigate = useNavigate();
     const [date, setDate] = useState()
+    const [totalData,setTotalData] = useState({
+        totalWorker:0,
+        totalBuilder:0
+    })
 
     return (
         <div
@@ -33,7 +37,7 @@ export default function AllInfo() {
                         }}
                         level={4}
                     >
-                        {`ព័ត៌មានសរុប`}
+                        ព័ត៌មានសរុប <span style={{fontFamily:'KhmerOsSiemreap'}}>{`(ជាង:${totalData?.totalBuilder} | កម្មករ:${totalData?.totalWorker})`}</span>
                     </Title>
                     <Row>
                         <Col>
@@ -56,7 +60,7 @@ export default function AllInfo() {
 
                 <Col xs={24} sm={24} md={24} lg={24} xl={24} >
                     <Row>
-                        <SectionA date={date} />
+                        <SectionA date={date} setTotalData={setTotalData} />
                         <SectionB />
 
                     </Row>

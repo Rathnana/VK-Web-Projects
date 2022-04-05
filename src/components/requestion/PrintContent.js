@@ -1,9 +1,9 @@
-import React, { useRef,useEffect,useState } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { Button, Table } from 'antd';
 import vklogo from '../../Image/vk-logo.png'
 import moment from 'moment';
 import ReactToPrint from "react-to-print";
-import {AiOutlineLoading3Quarters} from 'react-icons/ai'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 import { Typography, Row, Col, Modal } from 'antd';
 import axios from 'axios';
 import { getRequestById } from '../../getDatabase';
@@ -14,14 +14,14 @@ export default function PrintContent({ r_id, open, setOpen }) {
 
   const componentRef = useRef();
   const [data, setData] = useState();
-  const [info,setInfo] = useState(null)
-  const [loading,setLoading] = useState(true)
+  const [info, setInfo] = useState(null)
+  const [loading, setLoading] = useState(true)
 
-  useEffect(async() => {
+  useEffect(async () => {
     setLoading(true)
     getRequestDescription(r_id)
     let infoData = await getRequestById(r_id)
-    if(infoData){
+    if (infoData) {
       setInfo(infoData)
     }
   }, [r_id])
@@ -52,7 +52,7 @@ export default function PrintContent({ r_id, open, setOpen }) {
       title: 'លរ',
       dataIndex: 'requestNumber',
       key: 'requestNumber',
-      align:'center',
+      align: 'center',
       render: text => <span>{text}</span>,
     },
     {
@@ -60,18 +60,18 @@ export default function PrintContent({ r_id, open, setOpen }) {
       dataIndex: 'requestFor',
       key: 'requestFor',
     },
-    
+
     {
       title: 'បរិមាណ',
       dataIndex: 'qty',
       key: 'qty',
-      align:'center'
+      align: 'center'
     },
     {
       title: 'ឯកតា',
       dataIndex: 'unit',
       key: 'unit',
-      align:'center'
+      align: 'center'
     },
 
   ];
@@ -177,19 +177,18 @@ export default function PrintContent({ r_id, open, setOpen }) {
             </Col>
 
           </Row>
-          {/* <Row>
-                            <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{ position: "relative", bottom: '0px' }} >
-                                <p style={{
-                                    position: "fixed",
-                                    bottom: "0px",
-                                    left: "0px",
-                                    width: "100%",
-                                    textAlign: "center"
-                                }}>
-                                    VK Angkor 2022
-                                </p>
-                            </Col>
-                        </Row> */}
+          <Row>
+            <Col xs={24} sm={24} md={24} lg={24} xl={24} style={{ position: "relative", bottom: '0px' }} >
+              <p style={{
+                marginTop: "20px",
+                width: "100%",
+                textAlign: "center",
+                color: "#AAAAAA"
+              }}>
+                ស្នើរសុំដោយ {info?.lastName} {info?.firstName}
+              </p>
+            </Col>
+          </Row>
 
         </div>
 
@@ -214,7 +213,7 @@ export default function PrintContent({ r_id, open, setOpen }) {
                 marginTop: "40px",
                 fontWeight: 'normal',
                 textAlign: "center",
-                fontSize:16
+                fontSize: 16
               }}
               level={5}
             >
@@ -294,10 +293,10 @@ export default function PrintContent({ r_id, open, setOpen }) {
             <p style={{
               marginTop: "20px",
               width: "100%",
-              textAlign: "center"
+              textAlign: "center",
+              color: "#AAAAAA"
             }}>
-              {/* VK Angkor 2022 */}
-              ស្នើសុំដោយ {info?.lastName} {info?.firstName}
+              ស្នើរសុំដោយ {info?.lastName} {info?.firstName}
             </p>
           </Col>
         </Row>
