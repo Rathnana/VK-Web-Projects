@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import Sidebar from './components/sidebar/Sidebar';
 import Headers from './components/header/Header'
 import 'antd/dist/antd.css';
-import { Divider, Layout } from 'antd';
+import { Divider, Layout, Spin } from 'antd';
 import AllInfo from './components/all_Info/AllInfo';
 import Report from './components/report/Report';
 import Users from './components/userControll/Users';
@@ -14,10 +14,16 @@ import Customer from './components/customer/Customer';
 import MobileNav from './components/sidebar/MobileNav';
 import PettyCash from './components/pettycash/PettyCash';
 import Login from './components/Login/Login'
+import { LoadingOutlined } from '@ant-design/icons';
+import LoadingGif from './assets/img/loading.gif'
 
 function App() {
   let getuser = getCookie("u_id");
   const [isMobile, setIsMobile] = useState(false)
+
+  const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
+
+  Spin.setDefaultIndicator(antIcon)
 
 
   const [user, setUser] = useState(false)

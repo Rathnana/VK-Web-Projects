@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Space, Typography, Popover, Button } from 'antd';
+import { Table, Space, Typography, Popover, Button, Spin } from 'antd';
 import axios from 'axios'
 import UpdateCustomer from './UpdateCustomer';
 import DelectCustomer from './DelectCustomer';
 import moment from 'moment';
-import ModalDetail from '../all_Info/ModalDetail';
-import { AiFillEye } from 'react-icons/ai';
 
 const { Paragraph, Text } = Typography
 export default function CustomerTable({
