@@ -57,11 +57,11 @@ export default function CardDailyConstructMobile({ todo, setOpenDetail, setDaily
                     <Col xs={13} style={{ position: 'relative', paddingBottom: paddingBottom }} >
                         
                         <span onClick={() => handleOpen(todo?.dc_id)}
-                            style={{ fontWeight: "bold", fontFamily: 'Moul', cursor: 'pointer', textDecoration: 'underline', fontSize: 14 }}
+                            style={{ fontWeight: "bold", fontFamily: 'Moul', cursor: 'pointer', textDecoration: 'underline', fontSize: 11 }}
                         >
-                            {todo.constructionName?.substring(0,10)}
+                            {todo.constructionName?.substring(0,16)}
                         </span>
-                        <span style={{fontSize:14,fontWeight:'bold',paddingLeft:5}}>({parseInt(todo?.builderCount) + parseInt(todo.workerCount)}នាក់)</span>
+                        <span style={{fontSize:11,fontWeight:'bold',paddingLeft:5}}>({parseInt(todo?.builderCount) + parseInt(todo.workerCount)}នាក់)</span>
 
                         <div style={{ fontWeight: "bold", fontSize: 11,letterSpacing:-0.3 }}>
                             ជាងៈ {parseInt(todo?.builderCount) - parseInt(todo?.painterCount)} | ថ្នាំៈ {todo?.painterCount} | ប្រុសៈ {parseInt(todo.workerCount) - parseInt(todo?.femaleWorkerCount)} | ស្រីៈ {todo?.femaleWorkerCount}

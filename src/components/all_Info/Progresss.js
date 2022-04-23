@@ -109,7 +109,6 @@ export default function Progresss({status,type,width}) {
                 day = 100;
                 break;
 
-
         }
         setProgress(day)
     }

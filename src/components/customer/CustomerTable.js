@@ -130,6 +130,15 @@ export default function CustomerTable({
             dataIndex: 'constructionName',
             key: 'constructionName',
             width: 150,
+            render: (text, record) => (
+                <span style={{ cursor: 'pointer' }}  >
+                    <Popover placement="bottom" content={() => contentRemark(record?.constructionName)} title={null} trigger="hover">
+                        <Text ellipsis >
+                            {record?.constructionName}
+                        </Text>
+                    </Popover>
+                </span>
+            )
         },
         {
             title: 'លេខទូរស័ព្ទ',
