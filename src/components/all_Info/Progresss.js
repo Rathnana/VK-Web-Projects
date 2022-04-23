@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { Progress } from 'antd';
 
 
-export default function Progresss({status,type,width}) {
+export default function Progresss({ status, type, width }) {
     const [progress, setProgress] = useState();
-    
+
     useEffect(() => {
         CheckStatue(status)
     }, [])
@@ -61,49 +61,49 @@ export default function Progresss({status,type,width}) {
                 day = 40;
                 break;
             case "បង្គប់ហ្គែន":
-                day = 42;
-                break;
-            case "ធ្វើជណ្តើរ":
                 day = 45;
                 break;
-            case "បូកនិងសី":
+            case "ធ្វើជណ្តើរ":
                 day = 50;
                 break;
-            case "ធ្វើដំបូល":
+            case "បូកនិងសី":
                 day = 55;
                 break;
-            case "ដាក់ទ្វា":
+            case "ធ្វើដំបូល":
                 day = 60;
                 break;
-            case "ដាក់បង្អួច":
+            case "ដាក់ទ្វា":
                 day = 65;
                 break;
-            case "ក្រាលការ៉ូ":
+            case "ដាក់បង្អួច":
                 day = 70;
                 break;
-            case "បំពាក់គ្រឿងបន្ទប់ទឹក ":
-                day = 72;
-                break;
-            case "ចាប់ជ្រីនិងចាប់ជ្រុង":
+            case "ក្រាលការ៉ូ":
                 day = 75;
                 break;
-            case "បៀកថ្នាំ":
+            case "បំពាក់គ្រឿងបន្ទប់ទឹក ":
                 day = 80;
                 break;
-            case "រុញថ្នាំ":
+            case "ចាប់ជ្រីនិងចាប់ជ្រុង":
                 day = 85;
                 break;
-            case "បៀករ៉ង់និងសម្អាត":
-                day = 88;
-                break;
-            case "បំពាក់អំពូល":
+            case "បៀកថ្នាំ":
                 day = 90;
                 break;
-            case "សម្អាត":
+            case "រុញថ្នាំ":
                 day = 95;
                 break;
+            case "បៀករ៉ង់និងសម្អាត":
+                day = 100;
+                break;
+            case "បំពាក់អំពូល":
+                day = 100;
+                break;
+            case "សម្អាត":
+                day = 100;
+                break;
             case "កែលំអរចំនុចខ្វះខាត":
-                day = 97;
+                day = 100;
                 break;
             case "រួចរាល់":
                 day = 100;
@@ -113,7 +113,7 @@ export default function Progresss({status,type,width}) {
         setProgress(day)
     }
 
-    if(type==='circle') return <Progress percent={progress} strokeColor='#33ab5f' type={type} width={60} strokeWidth={8}  strokeLinecap='square' size="large" />;
+    if (type === 'circle') return <Progress percent={progress} strokeColor='#33ab5f' type={type} width={60} strokeWidth={8} strokeLinecap='square' size="large" />;
 
-    return <Progress percent={progress} strokeColor='#33ab5f'  strokeLinecap='square' size="large" />;
+    return <Progress percent={progress} strokeColor='#33ab5f' strokeLinecap='square' size="large" />;
 }
