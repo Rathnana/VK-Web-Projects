@@ -75,12 +75,12 @@ export default function ModalDetail({ open, setOpen, id }) {
                                     height: "45px",
                                     textAlign: "center",
                                     padding: "10px",
-                                    fontFamily:'Moul',
+                                    fontFamily: 'Moul',
                                     fontWeight: "bold",
                                     fontSize: "11pt"
                                 }}
                             >
-                                {`${report?.constructionName} - `}<Typography.Text type='danger' style={{fontFamily:'KhmerOSSiemreap'}}>{moment(report?.createdAt).format("DD/MM/YYYY")}</Typography.Text>
+                                {`${report?.constructionName} - `}<Typography.Text type='danger' style={{ fontFamily: 'KhmerOSSiemreap' }}>{moment(report?.createdAt).format("DD/MM/YYYY")}</Typography.Text>
                             </Col>
 
                             <Col
@@ -162,6 +162,11 @@ export default function ModalDetail({ open, setOpen, id }) {
                                     {report?.hasMirrorBuilder === '1' ?
                                         <Col xs={8} md={6} style={{ padding: 5 }}>
                                             <TagBuilder title={`ជាងកញ្ជក់`} />
+                                        </Col>
+                                        : null}
+                                    {report?.hasCarpenter === '1' ?
+                                        <Col xs={8} md={6} style={{ padding: 5 }}>
+                                            <TagBuilder title={`ជាងឈើ`} />
                                         </Col>
                                         : null}
                                 </Row>

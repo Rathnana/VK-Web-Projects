@@ -27,6 +27,7 @@ export default function EditReport({ setSuccess, id, reports }) {
     const [hasBlackSmith, setHasBlackSmith] = useState('0');
     const [hasAirConditionerMan, setHasAirConditionerMan] = useState('0');
     const [hasMirrorBuilder, setHasMirrorBuilder] = useState('0');
+    const [hasCarpenter, setHasCarpenter] = useState('0');
 
     const handleResize = () => {
         // 960
@@ -69,6 +70,7 @@ export default function EditReport({ setSuccess, id, reports }) {
             setHasBlackSmith(report?.hasBlackSmith)
             setHasAirConditionerMan(report?.hasAirConditionerMan)
             setHasMirrorBuilder(report?.hasMirrorBuilder)
+            setHasCarpenter(report?.hasCarpenter)
         }
         getConstructById(id)
     }, [visible])
@@ -98,7 +100,8 @@ export default function EditReport({ setSuccess, id, reports }) {
             hasCeilBuilder: hasCeilBuilder,
             hasBlackSmith: hasBlackSmith,
             hasAirConditionerMan: hasAirConditionerMan,
-            hasMirrorBuilder: hasMirrorBuilder
+            hasMirrorBuilder: hasMirrorBuilder,
+            hasCarpenter:hasCarpenter
         });
     }
 
@@ -505,6 +508,19 @@ export default function EditReport({ setSuccess, id, reports }) {
                                 onChange={(e) => setHasMirrorBuilder(hasMirrorBuilder === '1' ? '0' : '1')}
                                 checked={hasMirrorBuilder === '1'}
                             />&emsp;ជាងកញ្ចក់
+                        </Form.Item>
+                    </Col>
+                    <Col xs={12} sm={12} md={8} lg={8} xl={8} >
+                        <Form.Item
+                            name="hasCarpenter"
+                        // label="ជាងម៉ាស៊ីនត្រជាក់"
+                        >
+                            <Switch
+                                checkedChildren={<AiOutlineCheck />}
+                                unCheckedChildren={<AiOutlineClose />}
+                                onChange={(e) => setHasCarpenter(hasCarpenter === '1' ? '0' : '1')}
+                                checked={hasCarpenter === '1'}
+                            />&emsp;ជាងឈើ
                         </Form.Item>
                     </Col>
                 </Row>

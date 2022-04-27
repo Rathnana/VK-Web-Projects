@@ -135,6 +135,11 @@ export default function CardDailyConstruct({ todo, setOpenDetail, setDailyConstr
                                 <TagBuilder title={`ជាងកញ្ជក់`} />
                             </Col>
                             : null}
+                        {todo?.hasCarpenter === '1' ?
+                            <Col xs={12} md={12} style={{ padding: 5 }}>
+                                <TagBuilder title={`ជាងឈើ`} />
+                            </Col>
+                            : null}
                     </Row>
                     <Progresss status={todo?.status} />
                 </div>

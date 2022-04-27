@@ -99,6 +99,12 @@ export default function CardDailyConstructMobile({ todo, setOpenDetail, setDaily
                                         <TagBuilderMobile title={`ជាងកញ្ជក់`} />
                                     </Col>
                                     : null}
+                                {todo?.hasCarpenter === '1' ?
+                                    <Col xs={12} md={12} style={{ padding: 2 }}>
+                                        <TagBuilderMobile title={`ជាងឈើ`} />
+                                    </Col>
+                                    : null}
+                                
                             </Row>
                         </div>
                     </Col>
