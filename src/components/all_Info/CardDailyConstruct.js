@@ -13,7 +13,7 @@ export default function CardDailyConstruct({ todo, setOpenDetail, setDailyConstr
 
     useEffect(()=>{
 
-        let totalBuilder = parseInt(todo?.hasElectricianPlumber)+parseInt(todo?.hasAirConditionerMan)+parseInt(todo?.hasBlackSmith)+parseInt(todo?.hasCeilBuilder)+parseInt(todo?.hasMirrorBuilder)
+        let totalBuilder = parseInt(todo?.hasElectricianPlumber)+parseInt(todo?.hasAirConditionerMan)+parseInt(todo?.hasBlackSmith)+parseInt(todo?.hasCeilBuilder)+parseInt(todo?.hasMirrorBuilder)+parseInt(todo?.hasCarpenter)
         if(totalBuilder>=6){
             setPaddingBottom(130)
         }else if(totalBuilder>=3){
