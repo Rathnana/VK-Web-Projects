@@ -234,9 +234,11 @@ export const Creat_Customer = async (
         customerName: customer?.customerName,
         tel: customer?.tel,
         gender: customer?.gender,
+        idNumber: customer?.idNumber,
         maritalStatus: customer?.maritalStatus,
         partnerName: customer?.partnerName,
         partnerGender: customer?.partnerGender,
+        partnerIdNumber: customer?.partnerIdNumber,
         taskType: customer?.taskType,
         constructionType: customer?.constructionType,
         constructionLocation: customer?.constructionLocation,
@@ -293,6 +295,7 @@ export const Update_Customer = async (
         maritalStatus: customer?.maritalStatus,
         partnerName: customer?.partnerName,
         partnerGender: customer?.partnerGender,
+        partnerIdNumber: customer?.partnerIdNumber,
         taskType: customer?.taskType,
         constructionType: customer?.constructionType,
         constructionLocation: customer?.constructionLocation,
@@ -312,6 +315,7 @@ export const Update_Customer = async (
         familyBookSet: customer?.familyBookSet,
         idCardNextBorderSet: customer?.idCardNextBorderSet,
         certificateCompanySet: customer?.certificateCompanySet,
+        idNumber: customer?.idNumber,
         c_id
     }));
 
