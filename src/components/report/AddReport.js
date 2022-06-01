@@ -61,7 +61,7 @@ export default function AddReport({ setSuccess }) {
             hasBlackSmith: hasBlackSmith,
             hasAirConditionerMan: hasAirConditionerMan,
             hasMirrorBuilder: hasMirrorBuilder,
-            hasCarpenter:hasCarpenter
+            hasCarpenter: hasCarpenter
         });
     }
 
@@ -91,7 +91,7 @@ export default function AddReport({ setSuccess }) {
                     form.resetFields();
                     setLoading(false)
                     setSuccess(true)
-                    
+
                     setHasElectricianPlumber('0')
                     setHasCeilBuilder('0')
                     setHasBlackSmith('0')
@@ -455,6 +455,15 @@ export default function AddReport({ setSuccess }) {
                                 checked={hasCarpenter === '1'}
                             />&emsp;ជាងឈើ
                         </Form.Item>
+                    </Col>
+
+                    <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                        <Form.Item
+                            name="challenges"
+                        >
+                            <TextArea placeholder='តម្រូវការ/បញ្ហា/ផ្សេងៗ' maxLength={100} />
+                        </Form.Item>
+
                     </Col>
                 </Row>
 

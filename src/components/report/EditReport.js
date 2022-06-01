@@ -529,7 +529,7 @@ export default function EditReport({ setSuccess, id, reports }) {
                     <Form.Item
                         name="challenges"
                     >
-                        <TextArea placeholder='បញ្ហាប្រឈម' maxLength={100} />
+                        <TextArea placeholder='តម្រូវការ/បញ្ហា/ផ្សេងៗ' maxLength={100} />
                     </Form.Item>
 
                 </Col>

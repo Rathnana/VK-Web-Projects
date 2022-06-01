@@ -50,9 +50,11 @@ export default function CardDailyConstructMobile({ todo, setOpenDetail, setDaily
                             src={
                                 todo?.resultImage === "" && todo?.startImage === "" ?
                                     DefaultImage
+                                    // todo?.latestResultImage !=='' ? `${process.env.React_App_IMAGES}/${todo?.latestResultImage}` : `${process.env.React_App_IMAGES}/${todo?.latestStartImage}`
                                     : todo?.resultImage !== "" ? `${process.env.React_App_IMAGES}/${todo.resultImage}`
                                         : `${process.env.React_App_IMAGES}/${todo.startImage}`
                             } />
+                            {console.log(`${process.env.React_App_IMAGES}/${todo?.latestResultImage}`)}
                     </Col>
                     <Col xs={13} style={{ position: 'relative', paddingBottom: paddingBottom }} >
                         
@@ -69,7 +71,7 @@ export default function CardDailyConstructMobile({ todo, setOpenDetail, setDaily
 
                         {todo.challenges !== '' ?
                             <Typography style={{ color: 'red', marginTop: 5, marginLeft: 0, fontSize: 11 }}>
-                                បញ្ហាៈ {todo.challenges}
+                                ផ្សេងៗ: {todo.challenges}
                             </Typography> : null}
 
                         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 10 }}>

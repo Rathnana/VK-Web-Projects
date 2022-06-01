@@ -13,6 +13,8 @@ export default function CardDailyConstruct({ todo, setOpenDetail, setDailyConstr
 
     useEffect(()=>{
 
+        console.log(todo)
+
         let totalBuilder = parseInt(todo?.hasElectricianPlumber)+parseInt(todo?.hasAirConditionerMan)+parseInt(todo?.hasBlackSmith)+parseInt(todo?.hasCeilBuilder)+parseInt(todo?.hasMirrorBuilder)+parseInt(todo?.hasCarpenter)
         if(totalBuilder>=6){
             setPaddingBottom(130)
@@ -42,8 +44,9 @@ export default function CardDailyConstruct({ todo, setOpenDetail, setDailyConstr
                         src={
                             todo?.resultImage === "" && todo?.startImage === "" ?
                                 "https://www.chanchao.com.tw/ctg/images/default.jpg"
-                                : todo?.resultImage !== "" ? `${process.env.React_App_IMAGES}/${todo.resultImage}`
-                                    : `${process.env.React_App_IMAGES}/${todo.startImage}`
+                                // todo?.latestResultImage !=='' ? `${process.env.React_App_IMAGES}/${todo?.latestResultImage}` : `${process.env.React_App_IMAGES}/${todo?.latestStartImage}`
+                                    : todo?.resultImage !== "" ? `${process.env.React_App_IMAGES}/${todo.resultImage}`
+                                        : `${process.env.React_App_IMAGES}/${todo.startImage}`
 
                         } />}
             >
@@ -75,7 +78,7 @@ export default function CardDailyConstruct({ todo, setOpenDetail, setDailyConstr
                 </div>
 
                 {todo.challenges !== '' ?
-                <Typography style={{ color: 'red' }}>បញ្ហាៈ {todo.challenges}</Typography>
+                <Typography style={{ color: 'red' }}>ផ្សេងៗ:{todo.challenges}</Typography>
                 :null}
 
                 <div style={{ position: 'absolute', bottom: 10, left: 10, right: 10 }}>
