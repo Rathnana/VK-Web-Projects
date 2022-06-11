@@ -64,7 +64,7 @@ export default function Header({ setAuth, setSearch,search }) {
                             >
                                 <span style={{ color: "red" }}>ចាកចេញ</span>
                             </Popconfirm>
-                            <span style={{}}>{` | ${getCookie("username").toUpperCase()}`}</span>
+                            <span style={{}}>{` | ${getCookie("username")?.toUpperCase()}`}</span>
                         </p>
                     </center>
                 </Col>
