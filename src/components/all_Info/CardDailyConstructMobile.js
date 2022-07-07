@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Progresss from './Progresss'
 import TagBuilderMobile from './TagBuilderMobile'
 import DefaultImage from '../../assets/img/default.jpg'
+import { checkStatus } from '../../own-comp'
 
 export default function CardDailyConstructMobile({ todo, setOpenDetail, setDailyConstructId }) {
     const [paddingBottom, setPaddingBottom] = useState(130)
@@ -35,7 +36,7 @@ export default function CardDailyConstructMobile({ todo, setOpenDetail, setDaily
                     borderRadius: 50,
 
                 }}
-                className='card-report-mobile'
+                className={`card-report-mobile ${checkStatus(todo?.status) === 100 ? 'success-bg':''}`}
                 cover={null}
                 onClick={() => handleOpen(todo?.dc_id)}
 
@@ -54,7 +55,6 @@ export default function CardDailyConstructMobile({ todo, setOpenDetail, setDaily
                                     : todo?.resultImage !== "" ? `${process.env.React_App_IMAGES}/${todo.resultImage}`
                                         : `${process.env.React_App_IMAGES}/${todo.startImage}`
                             } />
-                            {console.log(`${process.env.React_App_IMAGES}/${todo?.latestResultImage}`)}
                     </Col>
                     <Col xs={13} style={{ position: 'relative', paddingBottom: paddingBottom }} >
                         

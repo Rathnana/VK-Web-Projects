@@ -1,5 +1,6 @@
 import { Card, Col, Row, Typography } from 'antd'
 import React, { useEffect,useState } from 'react'
+import { checkStatus } from '../../own-comp'
 import Progresss from './Progresss'
 import TagBuilder from './TagBuilder'
 
@@ -13,8 +14,6 @@ export default function CardDailyConstruct({ todo, setOpenDetail, setDailyConstr
 
     useEffect(()=>{
 
-        console.log(todo)
-
         let totalBuilder = parseInt(todo?.hasElectricianPlumber)+parseInt(todo?.hasAirConditionerMan)+parseInt(todo?.hasBlackSmith)+parseInt(todo?.hasCeilBuilder)+parseInt(todo?.hasMirrorBuilder)+parseInt(todo?.hasCarpenter)
         if(totalBuilder>=6){
             setPaddingBottom(130)
@@ -25,7 +24,7 @@ export default function CardDailyConstruct({ todo, setOpenDetail, setDailyConstr
         }else{
             setPaddingBottom(30)
         }
-        
+
     },[todo])
 
     return (
@@ -35,7 +34,7 @@ export default function CardDailyConstruct({ todo, setOpenDetail, setDailyConstr
                 style={{
                     borderRadius: 10, position: 'relative', paddingBottom: paddingBottom
                 }}
-                className='card-report'
+                className={`card-report ${checkStatus(todo?.status) === 100 ? 'success-bg':''}`}
                 cover={
                     <img
                         className='image-card'
@@ -73,7 +72,7 @@ export default function CardDailyConstruct({ todo, setOpenDetail, setDailyConstr
 
                 <div style={{ padding: 15 }}>
                     {
-                        todo.performances?.map((per) => <Typography >- {per.performance}</Typography>)
+                        todo.performances?.map((per,index) => <Typography key={index} >- {per.performance}</Typography>)
                     }
                 </div>
 
@@ -82,35 +81,6 @@ export default function CardDailyConstruct({ todo, setOpenDetail, setDailyConstr
                 :null}
 
                 <div style={{ position: 'absolute', bottom: 10, left: 10, right: 10 }}>
-                    {/* <div className='contentTag'>
-                        <div style={{ width: 'max-content', display: 'flex', }} >
-                            {todo?.hasElectricianPlumber === '1' ?
-                                // <Col xs={12} md={12} style={{ padding: 5 }}>
-                                <TagBuilder title={`ជាងទឹកភ្លើង`} />
-                                // </Col>
-                                : null}
-                            {todo?.hasCeilBuilder === '1' ?
-                                // <Col xs={12} md={12} style={{ padding: 5 }}>
-                                <TagBuilder title={`ជាងពិដាន`} />
-                                // </Col>
-                                : null}
-                            {todo?.hasBlackSmith === '1' ?
-                                // <Col xs={12} md={12} style={{ padding: 5 }}>
-                                <TagBuilder title={`ជាងដែក`} />
-                                // </Col>
-                                : null}
-                            {todo?.hasAirConditionerMan === '1' ?
-                                // <Col xs={12} md={12} style={{ padding: 5 }}>
-                                <TagBuilder title={`ជាងម៉ាស៊ីនត្រជាក់`} />
-                                // </Col>
-                                : null}
-                            {todo?.hasMirrorBuilder === '1' ?
-                                // <Col xs={12} md={12} style={{ padding: 5 }}>
-                                <TagBuilder title={`ជាងកញ្ជក់`} />
-                                // </Col>
-                                : null}
-                        </div>
-                    </div> */}
 
                     <Row>
                         {todo?.hasElectricianPlumber === '1' ?

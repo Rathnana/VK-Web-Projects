@@ -89,7 +89,6 @@ export default function RequestTabel() {
                     // console.log(response?.data.data)
                     return response?.data;
                 } else {
-                    console.log(response.data)
                     return [];
                 }
             });
